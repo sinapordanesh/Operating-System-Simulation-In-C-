@@ -1,0 +1,49 @@
+FIRST UPLOAD was v0.6 as of 2012-10-14.
+
+UPLOAD of v0.7 as of 2012-10-17 (2012-10-18):
+
+ * New option -c adds test of "date consistency" with the 
+   `filedate' package and may thus be a way to check 
+   "date consistency" with XeLaTeX (where \pdffilemoddate 
+   is not available ... may be silly ...).
+ * Indeed new option -x uses `xelatex' rather than `latex' 
+   (see manual `adhocfilelist.htm' for discussion of 
+    possible silliness -- somewhat missing in `filedate' 
+    discussion).
+ * Some documentation mistakes have been corrected.
+ * srcfiles.tex checks date consistency for scripts and 
+   documentation and lists what is used indeed 
+   (but cf. makehtml.log from recent makehtml.tex).
+ * `adhocfilelist.RLS' provides a release summary with 
+   `typeoutfileinfo', appearing in SrcFILEs.txt too.
+    
+v0.8 should allow -c with an explicit list of filenames ...
+
+UPLOAD r0.3 (2012-10-19):
+
+ * added present RELEASE.txt (started for v0.7)
+ * corrected adhocfilelist.tds.zip
+ * added `filedate' checks in makehtml.tex, additionally 
+   to those in srcfiles.tex
+ * \listfiles in makehtml.tex (HTML driver) more careful, 
+   using `nicefilelist', for comparison with SrcFILEs.txt
+
+UPLOAD r0.4 (2012-11-20):
+
+ * deprecated -follow replaced by -L
+ * `adhocfilelist.RLS' provides a release summary with 
+   `typeoutfileinfo', appearing in SrcFILEs.txt too.
+   [was announced earlier, but not carried out 
+    -- may worry Karl]
+ * using `fdatechk.tex'
+ * TDS: texmf/source/support/adhocfilelist, cf. `texdef'
+ 
+UPLOAD r0.4a (2012-11-22):
+
+ * exemplifies \ReadShInfos from `readprov.sty' v0.5 
+   in `makehtml.tex' and `srcfiles.tex'
+ * no change in shell script files
+
+UPLOAD r0.4c (2013-01-04):
+
+ * regenerated documentation with `morehype' r.81

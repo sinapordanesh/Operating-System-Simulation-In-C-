@@ -1,0 +1,1450 @@
+./dialogs/style/effects/images/ConicalGradient_angle2.png PNG 300x300 300x300+0+0 8-bit sRGB 15762B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./dialogs/style/effects/images/ConicalGradient_angle2.png
+./dialogs/style/effects/images/OpacityMask_mask.png PNG 300x300 300x300+0+0 8-bit sRGB 23210B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./dialogs/style/effects/images/OpacityMask_mask.png
+./dialogs/style/effects/images/InnerShadow_radius2.png PNG 300x300 300x300+0+0 8-bit sRGB 23283B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./dialogs/style/effects/images/InnerShadow_radius2.png
+./dialogs/style/effects/images/Desaturate_desaturation2.png PNG 300x300 300x300+0+0 8-bit sRGB 131559B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/Desaturate_desaturation2.png
+./dialogs/style/effects/images/DropShadow_horizontalOffset1.png PNG 300x300 300x300+0+0 8-bit sRGB 27248B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/DropShadow_horizontalOffset1.png
+./dialogs/style/effects/images/Colorize_hue3.png PNG 300x300 300x300+0+0 8-bit sRGB 118495B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/Colorize_hue3.png
+./dialogs/style/effects/images/RectangularGlow_glowRadius2.png PNG 300x300 300x300+0+0 8-bit sRGB 4596B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/RectangularGlow_glowRadius2.png
+./dialogs/style/effects/images/LinearGradient_start3.png PNG 300x300 300x300+0+0 8-bit sRGB 994B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/LinearGradient_start3.png
+./dialogs/style/effects/images/LevelAdjust_gamma2.png PNG 300x300 300x300+0+0 8-bit sRGB 22179B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./dialogs/style/effects/images/LevelAdjust_gamma2.png
+./dialogs/style/effects/images/ThresholdMask_bug.png PNG 300x300 300x300+0+0 8-bit sRGB 122641B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/ThresholdMask_bug.png
+./dialogs/style/effects/images/LinearGradient_maskSource1.png PNG 300x300 300x300+0+0 8-bit sRGB 3038B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/LinearGradient_maskSource1.png
+./dialogs/style/effects/images/Blend_mode8.png PNG 300x300 300x300+0+0 8-bit sRGB 144640B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/Blend_mode8.png
+./dialogs/style/effects/images/ZoomBlur_length2.png PNG 300x300 300x300+0+0 8-bit sRGB 88471B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./dialogs/style/effects/images/ZoomBlur_length2.png
+./dialogs/style/effects/images/Glow_spread1.png PNG 300x300 300x300+0+0 8-bit sRGB 25502B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./dialogs/style/effects/images/Glow_spread1.png
+./dialogs/style/effects/images/Original_butterfly.png PNG 300x300 300x300+0+0 8-bit sRGB 26172B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/Original_butterfly.png
+./dialogs/style/effects/images/HueSaturation_lightness1.png PNG 300x300 300x300+0+0 8-bit sRGB 118304B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./dialogs/style/effects/images/HueSaturation_lightness1.png
+./dialogs/style/effects/images/Colorize_saturation1.png PNG 300x300 300x300+0+0 8-bit sRGB 85926B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/Colorize_saturation1.png
+./dialogs/style/effects/images/ZoomBlur_length1.png PNG 300x300 300x300+0+0 8-bit sRGB 137558B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./dialogs/style/effects/images/ZoomBlur_length1.png
+./dialogs/style/effects/images/LinearGradient_start1.png PNG 300x300 300x300+0+0 8-bit sRGB 3038B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./dialogs/style/effects/images/LinearGradient_start1.png
+./dialogs/style/effects/images/RecursiveBlur_loops3.png PNG 300x300 300x300+0+0 8-bit sRGB 39517B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/RecursiveBlur_loops3.png
+./dialogs/style/effects/images/LinearGradient_end2.png PNG 300x300 300x300+0+0 8-bit sRGB 3370B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./dialogs/style/effects/images/LinearGradient_end2.png
+./dialogs/style/effects/images/GaussianBlur_radius3.png PNG 300x300 300x300+0+0 8-bit sRGB 79245B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/GaussianBlur_radius3.png
+./dialogs/style/effects/images/GammaAdjust_gamma2.png PNG 300x300 300x300+0+0 8-bit sRGB 146105B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/style/effects/images/GammaAdjust_gamma2.png
+./dialogs/images/arrow_bc.png PNG 44x24 44x24+0+0 8-bit sRGB 1071B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./dialogs/images/arrow_bc.png
+./qtopengl/images/btn_prev.png PNG 16x16 16x16+0+0 8-bit sRGB 687B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtopengl/images/btn_prev.png
+./qtopengl/images/logo.png PNG 174x71 174x71+0+0 8-bit sRGB 2370B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtopengl/images/logo.png
+./qtserialport/images/arrow_bc.png PNG 44x24 44x24+0+0 8-bit sRGB 1071B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtserialport/images/arrow_bc.png
+./qtserialport/images/home.png PNG 20x20 20x20+0+0 8-bit sRGB 1076B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtserialport/images/home.png
+./q3d/imgs/IBL-ball-environment-light-fov.png PNG 200x200 200x200+0+0 8-bit sRGB 11628B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./q3d/imgs/IBL-ball-environment-light-fov.png
+./q3d/imgs/export-colladaMaya01.png PNG 514x597 514x597+0+0 8-bit sRGB 255c 15896B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./q3d/imgs/export-colladaMaya01.png
+./q3d/imgs/effect_flip.png PNG 1280x750 1280x750+0+0 8-bit sRGB 105307B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./q3d/imgs/effect_flip.png
+./q3d/imgs/dynamictexture.png PNG 1280x720 1280x720+0+0 8-bit sRGB 256c 306927B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./q3d/imgs/dynamictexture.png
+./q3d/imgs/export-blender5.png PNG 545x461 545x461+0+0 8-bit sRGB 254c 21435B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./q3d/imgs/export-blender5.png
+./q3d/imgs/AA-ReflectionAliasing.png PNG 602x201 602x201+0+0 8-bit sRGB 103408B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./q3d/imgs/AA-ReflectionAliasing.png
+./q3d/imgs/bgrContent.png PNG 11x30 11x30+0+0 8-bit sRGB 149B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./q3d/imgs/bgrContent.png
+./q3d/imgs/home.png PNG 20x20 20x20+0+0 8-bit sRGB 1076B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./q3d/imgs/home.png
+./qtqml/images/qml-plugins-example.png PNG 200x200 200x200+0+0 8-bit sRGB 15773B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtqml/images/qml-plugins-example.png
+./qtqml/images/statemachine-button-history.png PNG 998x427 998x427+0+0 8-bit sRGB 8074B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtqml/images/statemachine-button-history.png
+./qtqml/images/ico_note.png PNG 30x27 30x27+0+0 8-bit sRGB 649B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtqml/images/ico_note.png
+./qtqml/images/bullet_dn.png PNG 7x8 7x8+0+0 8-bit sRGB 230B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtqml/images/bullet_dn.png
+./qtqml/images/btn_next.png PNG 16x16 16x16+0+0 8-bit sRGB 695B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtqml/images/btn_next.png
+./qtqml/images/extending-tutorial-chapter2.png PNG 277x170 277x170+0+0 8-bit sRGB 7318B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtqml/images/extending-tutorial-chapter2.png
+./qtdbus/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtdbus/images/ico_note_attention.png
+./qtdbus/images/dbus-chat-example.png PNG 606x372 606x372+0+0 8-bit sRGB 38530B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtdbus/images/dbus-chat-example.png
+./ctrl1/images/tableview.png PNG 152x114 152x114+0+0 8-bit sRGB 6612B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrl1/images/tableview.png
+./ctrl1/images/styling-circulargauge-tickmark-example.png PNG 300x300 300x300+0+0 8-bit sRGB 12179B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./ctrl1/images/styling-circulargauge-tickmark-example.png
+./ctrl1/images/square-red.png PNG 16x16 16x16+0+0 8-bit sRGB 178B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrl1/images/square-red.png
+./ctrl1/images/busyindicator.png PNG 68x68 68x68+0+0 8-bit sRGB 3027B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrl1/images/busyindicator.png
+./ctrl1/images/square-yellow.png PNG 16x16 16x16+0+0 8-bit sRGB 178B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrl1/images/square-yellow.png
+./ctrl1/images/slider.png PNG 140x39 140x39+0+0 8-bit sRGB 1579B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrl1/images/slider.png
+./ctrl1/images/styling-gauge-valueBar.png PNG 100x220 100x220+0+0 8-bit sRGB 3691B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrl1/images/styling-gauge-valueBar.png
+./qtwebchannel/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtwebchannel/images/ico_note_attention.png
+./qtwebchannel/images/ico_note.png PNG 30x27 30x27+0+0 8-bit sRGB 649B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtwebchannel/images/ico_note.png
+./qtwebchannel/images/bullet_sq.png PNG 6x6 6x6+0+0 8-bit sRGB 74B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtwebchannel/images/bullet_sq.png
+./qtwebchannel/images/chatclient-qml.png PNG 222x191 222x191+0+0 8-bit sRGB 253c 5018B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtwebchannel/images/chatclient-qml.png
+./qtwebchannel/images/bgrContent.png PNG 11x30 11x30+0+0 8-bit sRGB 149B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtwebchannel/images/bgrContent.png
+./11/qtquick/images/qeasingcurve-outinquart.png PNG 128x128 128x128+0+0 8-bit sRGB 2830B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/images/qeasingcurve-outinquart.png
+./11/qtquick/images/qtlabs-wavefrontmesh.png PNG 200x200 200x200+0+0 8-bit sRGB 2881B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/images/qtlabs-wavefrontmesh.png
+./11/qtquick/images/star.png PNG 32x32 32x32+0+0 8-bit sRGB 1550B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/star.png
+./11/qtquick/images/declarative-qtlogo-tilehorizontally.png PNG 120x120 120x120+0+0 8-bit sRGB 5544B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/declarative-qtlogo-tilehorizontally.png
+./11/qtquick/images/qeasingcurve-outinquad.png PNG 128x128 128x128+0+0 8-bit sRGB 2858B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/qeasingcurve-outinquad.png
+./11/qtquick/images/verticalpositioner_example.png PNG 50x124 50x124+0+0 8-bit sRGB 385B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/verticalpositioner_example.png
+./11/qtquick/images/edge2.png PNG 219x105 219x105+0+0 8-bit sRGB 3436B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./11/qtquick/images/edge2.png
+./11/qtquick/images/qeasingcurve-outinexpo.png PNG 128x128 128x128+0+0 8-bit sRGB 2923B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/qeasingcurve-outinexpo.png
+./11/qtquick/images/qml-canvas-example.png PNG 322x485 322x485+0+0 8-bit sRGB 18373B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./11/qtquick/images/qml-canvas-example.png
+./11/qtquick/images/anchor_ordering.png PNG 388x238 388x238+0+0 8-bit sRGB 19545B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/images/anchor_ordering.png
+./11/qtquick/images/qml-window-example.png PNG 392x188 392x188+0+0 8-bit sRGB 255c 9863B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/images/qml-window-example.png
+./11/qtquick/images/listview-layout-lefttoright.png PNG 224x113 224x113+0+0 8-bit sRGB 5859B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./11/qtquick/images/listview-layout-lefttoright.png
+./11/qtquick/images/qeasingcurve-outinbounce.png PNG 128x128 128x128+0+0 8-bit sRGB 3629B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/images/qeasingcurve-outinbounce.png
+./11/qtquick/images/columnlayout.png PNG 72x156 72x156+0+0 8-bit sRGB 348B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/images/columnlayout.png
+./11/qtquick/images/declarative-item_stacking3.png PNG 149x150 149x150+0+0 8-bit sRGB 464B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/images/declarative-item_stacking3.png
+./11/qtquick/images/declarative-tutorial1.png PNG 500x200 500x200+0+0 8-bit sRGB 3577B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./11/qtquick/images/declarative-tutorial1.png
+./11/qtquick/images/edge1.png PNG 211x105 211x105+0+0 8-bit sRGB 3423B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./11/qtquick/images/edge1.png
+./11/qtquick/images/qml-item-canvas-clip-complex.png PNG 724x246 724x246+0+0 8-bit sRGB 256c 67842B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/qml-item-canvas-clip-complex.png
+./11/qtquick/images/visual-coordinates-example.png PNG 204x204 204x204+0+0 8-bit sRGB 1147B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./11/qtquick/images/visual-coordinates-example.png
+./11/qtquick/images/qml-draganddrop-example.png PNG 328x507 328x507+0+0 8-bit sRGB 24196B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/qml-draganddrop-example.png
+./11/qtquick/images/declarative-pathcurve.png PNG 400x200 400x200+0+0 8-bit sRGB 6092B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/declarative-pathcurve.png
+./11/qtquick/images/qml-row.png PNG 160x55 160x55+0+0 8-bit sRGB 3090B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtquick/images/qml-row.png
+./11/qtquick/images/declarative-textstyle.png PNG 448x40 448x40+0+0 8-bit sRGB 6825B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./11/qtquick/images/declarative-textstyle.png
+./11/qtquick/1.png JPEG 1024x798 1024x798+0+0 8-bit sRGB 77210B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./11/qtquick/1.png
+./11/qtscript/images/context2d-example-smileysmile.png PNG 115x116 115x116+0+0 8-bit sRGB 3457B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtscript/images/context2d-example-smileysmile.png
+./11/qtscript/images/logo.png PNG 174x71 174x71+0+0 8-bit sRGB 2370B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./11/qtscript/images/logo.png
+./concurr.txt/images/ico_note.png PNG 30x27 30x27+0+0 8-bit sRGB 649B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./concurr.txt/images/ico_note.png
+./concurr.txt/images/bgrContent.png PNG 11x30 11x30+0+0 8-bit sRGB 149B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./concurr.txt/images/bgrContent.png
+./qthelp/images/arrow_bc.png PNG 44x24 44x24+0+0 8-bit sRGB 1071B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qthelp/images/arrow_bc.png
+./qWidG/qtsql/images/tablemodel-example.png PNG 698x304 698x304+0+0 8-bit sRGB 255c 14361B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/qtsql/images/tablemodel-example.png
+./qWidG/qtsql/images/logo.png PNG 174x71 174x71+0+0 8-bit sRGB 2370B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/qtsql/images/logo.png
+./qWidG/images.../icons-example.png PNG 641x589 641x589+0+0 8-bit sRGB 60906B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../icons-example.png
+./qWidG/images.../addressbook-tutorial-part6-save.png PNG 641x443 641x443+0+0 8-bit sRGB 24747B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../addressbook-tutorial-part6-save.png
+./qWidG/images.../qstyle-comboboxes.png PNG 672x148 672x148+0+0 8-bit sRGB 19437B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../qstyle-comboboxes.png
+./qWidG/images.../modelview-header.png PNG 370x139 370x139+0+0 8-bit sRGB 30302B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../modelview-header.png
+./qWidG/images.../ico_out.png PNG 16x13 16x13+0+0 8-bit sRGB 388B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../ico_out.png
+./qWidG/images.../graphicssimpleanchorlayout-example.png PNG 367x364 367x364+0+0 8-bit sRGB 11301B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../graphicssimpleanchorlayout-example.png
+./qWidG/images.../shareddirmodel.png PNG 801x221 801x221+0+0 8-bit sRGB 45891B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../shareddirmodel.png
+./qWidG/images.../qmdisubwindowlayout.png PNG 191x158 191x158+0+0 8-bit sRGB 3153B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../qmdisubwindowlayout.png
+./qWidG/images.../addressbook-toolsmenu.png PNG 394x219 394x219+0+0 8-bit sRGB 20979B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../addressbook-toolsmenu.png
+./qWidG/images.../checkbox.png PNG 472x239 472x239+0+0 8-bit Gray 256c 3634B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../checkbox.png
+./qWidG/images.../spinboximage.png PNG 280x91 280x91+0+0 8-bit sRGB 4544B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../spinboximage.png
+./qWidG/images.../addressbook-tutorial-part6-load.png PNG 641x443 641x443+0+0 8-bit sRGB 24797B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../addressbook-tutorial-part6-load.png
+./qWidG/images.../spreadsheet-demo.png PNG 656x456 656x456+0+0 8-bit sRGB 40187B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../spreadsheet-demo.png
+./qWidG/images.../windows-style2.png PNG 899x495 899x495+0+0 8-bit sRGB 107675B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../windows-style2.png
+./qWidG/images.../styles-3d.png PNG 337x78 337x78+0+0 8-bit sRGB 252c 10753B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../styles-3d.png
+./qWidG/images.../rogue-statechart.png PNG 402x192 402x192+0+0 8-bit sRGB 2490B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../rogue-statechart.png
+./qWidG/images.../graphicsview-items.png PNG 704x279 704x279+0+0 8-bit sRGB 62593B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../graphicsview-items.png
+./qWidG/images.../undodemo.png PNG 561x567 561x567+0+0 8-bit sRGB 84941B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./qWidG/images.../undodemo.png
+./qWidG/images.../itemviews-editabletreemodel-model.png PNG 350x309 350x309+0+0 8-bit Grayscale Gray 18629B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../itemviews-editabletreemodel-model.png
+./qWidG/images.../analogclock-viewport.png PNG 528x276 528x276+0+0 8-bit sRGB 29668B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../analogclock-viewport.png
+./qWidG/images.../imageviewer-fit_to_window_1.png PNG 253x218 253x218+0+0 8-bit sRGB 84584B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./qWidG/images.../imageviewer-fit_to_window_1.png
+./qWidG/images.../transformations-example.png PNG 861x314 861x314+0+0 8-bit sRGB 15993B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../transformations-example.png
+./qWidG/images.../pathstroke-demo.png PNG 537x561 537x561+0+0 8-bit sRGB 90746B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../pathstroke-demo.png
+./qWidG/images.../icons_qt_extended_32x32.png PNG 132x132 132x132+0+0 8-bit sRGB 130c 916B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../icons_qt_extended_32x32.png
+./qWidG/images.../widgets-tutorial-childwidget.png PNG 262x212 262x212+0+0 8-bit sRGB 8547B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../widgets-tutorial-childwidget.png
+./qWidG/images.../stylesheet-branch-more.png PNG 24x17 24x17+0+0 8-bit sRGB 136B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../stylesheet-branch-more.png
+./qWidG/images.../spinboxdelegate-example.png PNG 234x182 234x182+0+0 8-bit sRGB 4762B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../spinboxdelegate-example.png
+./qWidG/images.../shapedclock-dragging.png PNG 222x190 222x190+0+0 8-bit sRGB 18913B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../shapedclock-dragging.png
+./qWidG/images.../qtwizard-mac2.png PNG 307x220 307x220+0+0 8-bit sRGB 29591B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../qtwizard-mac2.png
+./qWidG/images.../digitalclock-example.png PNG 193x104 193x104+0+0 8-bit sRGB 1376B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../digitalclock-example.png
+./qWidG/images.../buttonbox-maclayout-vertical.png PNG 126x350 126x350+0+0 8-bit sRGB 7340B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./qWidG/images.../buttonbox-maclayout-vertical.png
+./qWidG/images.../modelview.png PNG 160x220 160x220+0+0 8-bit sRGB 2887B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../modelview.png
+./qWidG/images.../graphicsview-pixmapitem.png PNG 200x200 200x200+0+0 8-bit sRGB 10764B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qWidG/images.../graphicsview-pixmapitem.png
+./qWidG/images.../selection-extended.png PNG 198x94 198x94+0+0 8-bit sRGB 11401B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qWidG/images.../selection-extended.png
+./qWidG/images.../pushbutton.png PNG 596x386 596x386+0+0 8-bit Gray 256c 6820B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../pushbutton.png
+./qWidG/images.../menubarimage.png PNG 356x133 356x133+0+0 8-bit sRGB 4487B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../menubarimage.png
+./qWidG/images.../woodbackground.png PNG 96x96 96x96+0+0 8-bit sRGB 254c 7691B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../woodbackground.png
+./qWidG/images.../buttonbox-maclayout-horizontal.png PNG 1000x54 1000x54+0+0 8-bit sRGB 5409B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../buttonbox-maclayout-horizontal.png
+./qWidG/images.../padnavigator-example.png PNG 473x500 473x500+0+0 8-bit sRGB 219818B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../padnavigator-example.png
+./qWidG/images.../addressbook-tutorial-screenshot.png PNG 428x299 428x299+0+0 8-bit sRGB 15275B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./qWidG/images.../addressbook-tutorial-screenshot.png
+./qWidG/images.../graphicseffect-colorize.png PNG 320x195 320x195+0+0 8-bit sRGB 59745B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../graphicseffect-colorize.png
+./qWidG/images.../windows-timeedit.png PNG 312x32 312x32+0+0 8-bit sRGB 873B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.09 xYz identify 2 ./qWidG/images.../windows-timeedit.png
+./qWidG/images.../groupbox.png PNG 141x261 141x261+0+0 8-bit Gray 256c 2010B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qWidG/images.../groupbox.png
+./qWidG/images.../titlebarimage.png PNG 288x167 288x167+0+0 8-bit sRGB 6882B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../titlebarimage.png
+./qWidG/images.../msgbox1.png PNG 301x124 301x124+0+0 8-bit sRGB 4529B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../msgbox1.png
+./qWidG/images.../application.png PNG 564x384 564x384+0+0 8-bit sRGB 39984B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../application.png
+./qWidG/images.../graphicsview-parentchild.png PNG 200x200 200x200+0+0 8-bit sRGB 7944B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../graphicsview-parentchild.png
+./qWidG/images.../stylesheet-scrollbar1.png PNG 182x31 182x31+0+0 8-bit sRGB 4c 150B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../stylesheet-scrollbar1.png
+./qWidG/images.../qtwizard-aero2.png PNG 251x220 251x220+0+0 8-bit sRGB 16560B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../qtwizard-aero2.png
+./qWidG/images.../titlebar.png PNG 182x257 182x257+0+0 8-bit Gray 256c 2609B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../titlebar.png
+./qWidG/images.../qtuitools/images/bullet_dn.png PNG 7x8 7x8+0+0 8-bit sRGB 230B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../qtuitools/images/bullet_dn.png
+./qWidG/images.../mdi-cascade.png PNG 235x207 235x207+0+0 8-bit sRGB 14590B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../mdi-cascade.png
+./qWidG/images.../settingseditor-example.png PNG 658x366 658x366+0+0 8-bit sRGB 19473B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/images.../settingseditor-example.png
+./qWidG/images.../notepad4.png PNG 426x353 426x353+0+0 8-bit sRGB 9494B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../notepad4.png
+./qWidG/images.../lineedits-example.png PNG 428x304 428x304+0+0 8-bit sRGB 256c 8237B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../lineedits-example.png
+./qWidG/images.../mainwindow-examples.png PNG 150x116 150x116+0+0 8-bit sRGB 10271B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../mainwindow-examples.png
+./qWidG/images.../tabletexample.png PNG 223x238 223x238+0+0 8-bit sRGB 9900B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../tabletexample.png
+./qWidG/images.../addressbook-tutorial-part4-remove.png PNG 750x114 750x114+0+0 8-bit sRGB 22248B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../addressbook-tutorial-part4-remove.png
+./qWidG/images.../home.png PNG 20x20 20x20+0+0 8-bit sRGB 1076B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../home.png
+./qWidG/images.../moveblocks-example.png PNG 307x331 307x331+0+0 8-bit sRGB 4532B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../moveblocks-example.png
+./qWidG/images.../windows-lcdnumber.png PNG 76x62 76x62+0+0 8-bit sRGB 491B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../windows-lcdnumber.png
+./qWidG/images.../draganddroppuzzle-example.png PNG 696x477 696x477+0+0 8-bit sRGB 259104B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../draganddroppuzzle-example.png
+./qWidG/images.../notepad3.png PNG 909x497 909x497+0+0 8-bit sRGB 40584B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/images.../notepad3.png
+./qWidG/images.../buttonbox-mac-modeless-vertical.png PNG 125x350 125x350+0+0 8-bit sRGB 5177B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/images.../buttonbox-mac-modeless-vertical.png
+./qWidG/wkscr/images/ico_note.png PNG 30x27 30x27+0+0 8-bit sRGB 649B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/wkscr/images/ico_note.png
+./qWidG/wkscr/images/arrow_bc.png PNG 44x24 44x24+0+0 8-bit sRGB 1071B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/wkscr/images/arrow_bc.png
+./qWidG/wkscr/timline/xmlpats/images/qml-xmllistmodel-example.png PNG 364x76 364x76+0+0 8-bit sRGB 5252B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qWidG/wkscr/timline/xmlpats/images/qml-xmllistmodel-example.png
+./qWidG/wkscr/timline/xmlpats/images/bullet_sq.png PNG 6x6 6x6+0+0 8-bit sRGB 74B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qWidG/wkscr/timline/xmlpats/images/bullet_sq.png
+./qWidG/wkscr/timline/xmlpats/images/bgrContent.png PNG 11x30 11x30+0+0 8-bit sRGB 149B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/wkscr/timline/xmlpats/images/bgrContent.png
+./qWidG/wkscr/timline/xmlpats/images/home.png PNG 20x20 20x20+0+0 8-bit sRGB 1076B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qWidG/wkscr/timline/xmlpats/images/home.png
+./qWidG/wkscr/timline/images/ico_out.png PNG 16x13 16x13+0+0 8-bit sRGB 388B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qWidG/wkscr/timline/images/ico_out.png
+./global/template/images/bg_l.png PNG 215x1 215x1+0+0 8-bit sRGB 100B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./global/template/images/bg_l.png
+./global/template/images/bgrContent.png PNG 11x30 11x30+0+0 8-bit sRGB 149B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./global/template/images/bgrContent.png
+./qtquickextras/images/bullet_sq.png PNG 6x6 6x6+0+0 8-bit sRGB 74B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.01 xYz identify 2 ./qtquickextras/images/bullet_sq.png
+./qtquickextras/images/piemenu.png PNG 294x207 294x207+0+0 8-bit sRGB 13641B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtquickextras/images/piemenu.png
+./qtdesigner/images/designer-add-files-button.png PNG 25x24 25x24+0+0 8-bit sRGB 1130B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtdesigner/images/designer-add-files-button.png
+./qtdesigner/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtdesigner/images/ico_note_attention.png
+./qtdesigner/images/designer-widget-tool.png PNG 32x32 32x32+0+0 8-bit sRGB 1863B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.01 xYz identify 2 ./qtdesigner/images/designer-widget-tool.png
+./qtdesigner/images/directapproach-calculatorform.png PNG 271x132 271x132+0+0 8-bit sRGB 7718B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtdesigner/images/directapproach-calculatorform.png
+./qtdesigner/images/designer-form-layoutfunction.png PNG 282x146 282x146+0+0 8-bit sRGB 6864B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtdesigner/images/designer-form-layoutfunction.png
+./qtdesigner/images/designer-buddy-making.png PNG 321x227 321x227+0+0 8-bit sRGB 8885B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtdesigner/images/designer-buddy-making.png
+./qtdesigner/images/designer-connection-highlight.png PNG 221x127 221x127+0+0 8-bit sRGB 5297B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtdesigner/images/designer-connection-highlight.png
+./qtdesigner/images/designer-set-layout.png PNG 148x65 148x65+0+0 8-bit sRGB 4018B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./qtdesigner/images/designer-set-layout.png
+./qtdesigner/images/designer-creating-menu-entry1.png PNG 259x140 259x140+0+0 8-bit sRGB 4705B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtdesigner/images/designer-creating-menu-entry1.png
+./qtdesigner/images/calculatorform-example.png PNG 288x105 288x105+0+0 8-bit sRGB 3967B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtdesigner/images/calculatorform-example.png
+./qtdesigner/images/designer-form-settings.png PNG 404x343 404x343+0+0 8-bit sRGB 14971B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtdesigner/images/designer-form-settings.png
+./qtdesigner/images/designer-creating-menu4.png PNG 160x140 160x140+0+0 8-bit sRGB 2884B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtdesigner/images/designer-creating-menu4.png
+./qtdesigner/images/logo.png PNG 174x71 174x71+0+0 8-bit sRGB 2370B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtdesigner/images/logo.png
+./.qttestlib/qtxml/images/ico_note.png PNG 30x27 30x27+0+0 8-bit sRGB 649B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./.qttestlib/qtxml/images/ico_note.png
+./.qttestlib/qtxml/images/xmlstreamexample-helpmenu.png PNG 237x201 237x201+0+0 8-bit sRGB 10856B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./.qttestlib/qtxml/images/xmlstreamexample-helpmenu.png
+./.qttestlib/qtxml/images/home.png PNG 20x20 20x20+0+0 8-bit sRGB 1076B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./.qttestlib/qtxml/images/home.png
+./qtgui/images/qpainter-vectordeformation.png PNG 175x118 175x118+0+0 8-bit sRGB 30591B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtgui/images/qpainter-vectordeformation.png
+./qtgui/images/qradialgradient-reflect.png PNG 220x296 220x296+0+0 8-bit sRGB 33668B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtgui/images/qradialgradient-reflect.png
+./qtgui/images/runion.png PNG 100x48 100x48+0+0 8-bit sRGB 3c 221B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtgui/images/runion.png
+./qtgui/images/qpen-dashdotdot.png PNG 196x118 196x118+0+0 8-bit sRGB 5999B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtgui/images/qpen-dashdotdot.png
+./qtgui/images/qpen-dash.png PNG 195x118 195x118+0+0 8-bit sRGB 8221B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtgui/images/qpen-dash.png
+./qtgui/images/coordinatesystem-transformations.png PNG 726x266 726x266+0+0 8-bit sRGB 59180B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtgui/images/coordinatesystem-transformations.png
+./qtgui/images/qtexttableformat-cell.png PNG 321x231 321x231+0+0 8-bit sRGB 24454B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtgui/images/qtexttableformat-cell.png
+./qtgui/images/qpainterpath-addpolygon.png PNG 259x240 259x240+0+0 8-bit sRGB 7625B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtgui/images/qpainterpath-addpolygon.png
+./qtgui/images/openglwindow-example.png PNG 648x507 648x507+0+0 8-bit sRGB 19920B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtgui/images/openglwindow-example.png
+./qtgui/images/qrectf-diagram-one.png PNG 333x249 333x249+0+0 8-bit sRGB 9594B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtgui/images/qrectf-diagram-one.png
+./qtgui/images/qpainter-arc.png PNG 83x84 83x84+0+0 8-bit sRGB 91c 635B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtgui/images/qpainter-arc.png
+./qtgui/images/texttable-merge.png PNG 120x70 120x70+0+0 8-bit sRGB 45c 746B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtgui/images/texttable-merge.png
+./qtgui/images/qpen-solid.png PNG 194x118 194x118+0+0 8-bit sRGB 7416B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtgui/images/qpen-solid.png
+./qtgui/images/qcolor-cmyk.png PNG 289x209 289x209+0+0 8-bit sRGB 18878B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtgui/images/qcolor-cmyk.png
+./qtgui/images/cursor-arrow.png PNG 25x25 25x25+0+0 8-bit sRGB 171B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtgui/images/cursor-arrow.png
+./qtassistant/images/btn_prev.png PNG 16x16 16x16+0+0 8-bit sRGB 687B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./qtassistant/images/btn_prev.png
+./qtassistant/images/ico_note.png PNG 30x27 30x27+0+0 8-bit sRGB 649B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtassistant/images/ico_note.png
+./qtassistant/images/simpletextviewer-findfiledialog.png PNG 392x280 392x280+0+0 8-bit sRGB 12421B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtassistant/images/simpletextviewer-findfiledialog.png
+./ctrls/images/switchdelegate-handle.png PNG 26x26 26x26+0+0 8-bit sRGB 226B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./ctrls/images/switchdelegate-handle.png
+./ctrls/images/roundbutton-background.png PNG 40x40 40x40+0+0 8-bit sRGB 350B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/roundbutton-background.png
+./ctrls/images/spinbox-background.9.png PNG 122x32 122x32+0+0 8-bit sRGB 214B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/spinbox-background.9.png
+./ctrls/images/checkdelegate-indicator-partially-checked-pressed.png PNG 20x20 20x20+0+0 8-bit sRGB 131B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/checkdelegate-indicator-partially-checked-pressed.png
+./ctrls/images/qtquickcontrols2-spinbox-textual.png PNG 144x40 144x40+0+0 8-bit sRGB 1096B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtquickcontrols2-spinbox-textual.png
+./ctrls/images/button-background-highlighted-pressed.9.png PNG 46x34 46x34+0+0 8-bit sRGB 185B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/button-background-highlighted-pressed.9.png
+./ctrls/images/qtr2.png PNG 540x960 540x960+0+0 8-bit sRGB 20119B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtr2.png
+./ctrls/images/radiodelegate-background-hovered.9.png PNG 23x15 23x15+0+0 8-bit sRGB 120B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/radiodelegate-background-hovered.9.png
+./ctrls/images/combobox-indicator-editable-disabled.png PNG 32x32 32x32+0+0 8-bit sRGB 197B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./ctrls/images/combobox-indicator-editable-disabled.png
+./ctrls/images/radiodelegate-indicator-checked-pressed.png PNG 20x20 20x20+0+0 8-bit sRGB 269B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/radiodelegate-indicator-checked-pressed.png
+./ctrls/images/qtquickcontrols2-swipedelegate-custom.png PNG 125x44 125x44+0+0 8-bit sRGB 1818B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtquickcontrols2-swipedelegate-custom.png
+./ctrls/images/tabbutton-background-hovered.9.png PNG 42x34 42x34+0+0 8-bit sRGB 127B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/tabbutton-background-hovered.9.png
+./ctrls/images/switchdelegate-indicator-pressed.png PNG 52x26 52x26+0+0 8-bit sRGB 283B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/switchdelegate-indicator-pressed.png
+./ctrls/images/checkdelegate-indicator-partially-checked-focused.png PNG 20x20 20x20+0+0 8-bit sRGB 131B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/checkdelegate-indicator-partially-checked-focused.png
+./ctrls/images/qtquickcontrols2-textarea-custom.png PNG 200x40 200x40+0+0 8-bit sRGB 1320B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtquickcontrols2-textarea-custom.png
+./ctrls/images/qtquickcontrols2-spinbox-custom.png PNG 140x40 140x40+0+0 8-bit sRGB 185c 1006B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtquickcontrols2-spinbox-custom.png
+./ctrls/images/roundbutton-background-highlighted-hovered.png PNG 40x40 40x40+0+0 8-bit sRGB 350B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/roundbutton-background-highlighted-hovered.png
+./ctrls/images/switchdelegate-background.9.png PNG 23x15 23x15+0+0 8-bit sRGB 120B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/switchdelegate-background.9.png
+./ctrls/images/checkbox-indicator-checked.png PNG 20x20 20x20+0+0 8-bit sRGB 275B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/checkbox-indicator-checked.png
+./ctrls/images/radiobutton-indicator-disabled.png PNG 20x20 20x20+0+0 8-bit sRGB 213B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/radiobutton-indicator-disabled.png
+./ctrls/images/slider-background-vertical.9.png PNG 24x202 24x202+0+0 8-bit sRGB 175B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/slider-background-vertical.9.png
+./ctrls/images/textarea-background.9.png PNG 30x24 30x24+0+0 8-bit sRGB 196B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/textarea-background.9.png
+./ctrls/images/spinbox-background-editable.9.png PNG 122x32 122x32+0+0 8-bit sRGB 214B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/spinbox-background-editable.9.png
+./ctrls/images/groupbox-background.9.png PNG 23x23 23x23+0+0 8-bit sRGB 190B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/groupbox-background.9.png
+./ctrls/images/button-background-highlighted-disabled.9.png PNG 46x34 46x34+0+0 8-bit sRGB 185B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/button-background-highlighted-disabled.9.png
+./ctrls/images/button-background-highlighted-focused.9.png PNG 46x34 46x34+0+0 8-bit sRGB 185B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/button-background-highlighted-focused.9.png
+./ctrls/images/qtquickcontrols2-tabbar-wireframe.png PNG 149x201 149x201+0+0 8-bit sRGB 348B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/qtquickcontrols2-tabbar-wireframe.png
+./ctrls/images/qtquickcontrols2-groupbox-checkable.png PNG 150x200 150x200+0+0 8-bit sRGB 5006B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/qtquickcontrols2-groupbox-checkable.png
+./ctrls/images/applicationwindow-background.png PNG 1x1 1x1+0+0 8-bit Gray 256c 67B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/applicationwindow-background.png
+./ctrls/images/swipedelegate-background-disabled.9.png PNG 23x15 23x15+0+0 8-bit sRGB 120B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/swipedelegate-background-disabled.9.png
+./ctrls/images/qtquickcontrols2-tabbutton.png PNG 302x40 302x40+0+0 8-bit sRGB 2646B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/qtquickcontrols2-tabbutton.png
+./ctrls/images/qtquickcontrols2-scrollview-custom.png PNG 200x200 200x200+0+0 8-bit sRGB 4423B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/qtquickcontrols2-scrollview-custom.png
+./ctrls/images/qtquickcontrols2-button-custom.png PNG 100x40 100x40+0+0 8-bit sRGB 1299B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.01 xYz identify 2 ./ctrls/images/qtquickcontrols2-button-custom.png
+./ctrls/images/qtquickcontrols2-toolbar-custom.png PNG 96x40 96x40+0+0 8-bit sRGB 1174B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/qtquickcontrols2-toolbar-custom.png
+./ctrls/images/menuitem-indicator-checked-focused.png PNG 20x20 20x20+0+0 8-bit sRGB 271B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/menuitem-indicator-checked-focused.png
+./ctrls/images/qtquickcontrols2-itemdelegate-custom.png PNG 127x44 127x44+0+0 8-bit sRGB 1358B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/qtquickcontrols2-itemdelegate-custom.png
+./ctrls/images/arrow_bc.png PNG 44x24 44x24+0+0 8-bit sRGB 1071B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/arrow_bc.png
+./ctrls/images/qtquickcontrols2-stackview-wireframe.png PNG 145x224 145x224+0+0 8-bit sRGB 227B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtquickcontrols2-stackview-wireframe.png
+./ctrls/images/qtr1.png PNG 540x960 540x960+0+0 8-bit sRGB 4798B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtr1.png
+./ctrls/images/scrollbar-handle.png PNG 3x3 3x3+0+0 8-bit sRGB 79B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.06 xYz identify 2 ./ctrls/images/scrollbar-handle.png
+./ctrls/images/qtquickcontrols2-material-light.png PNG 393x511 393x511+0+0 8-bit sRGB 11182B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/qtquickcontrols2-material-light.png
+./ctrls/images/qtquickcontrols2-slider-custom.png PNG 212x38 212x38+0+0 8-bit sRGB 454B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/qtquickcontrols2-slider-custom.png
+./ctrls/images/qtquickcontrols2-frame-custom.png PNG 152x44 152x44+0+0 8-bit sRGB 1930B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./ctrls/images/qtquickcontrols2-frame-custom.png
+./ctrls/images/combobox-background-focused.9.png PNG 122x34 122x34+0+0 8-bit sRGB 197B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/combobox-background-focused.9.png
+./ctrls/images/menuitem-indicator-checked-pressed.png PNG 20x20 20x20+0+0 8-bit sRGB 275B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/menuitem-indicator-checked-pressed.png
+./ctrls/images/switchdelegate-background-disabled.9.png PNG 23x15 23x15+0+0 8-bit sRGB 120B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./ctrls/images/switchdelegate-background-disabled.9.png
+./ctrls/images/qtquickcontrols2-material-elevation.png PNG 140x150 140x150+0+0 8-bit sRGB 2566B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/qtquickcontrols2-material-elevation.png
+./ctrls/images/checkbox-indicator-pressed.png PNG 20x20 20x20+0+0 8-bit sRGB 121B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./ctrls/images/checkbox-indicator-pressed.png
+./ctrls/images/dial-handle-pressed.png PNG 10x5 10x5+0+0 8-bit sRGB 156B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./ctrls/images/dial-handle-pressed.png
+./ctrls/images/button-background-flat-disabled.9.png PNG 46x34 46x34+0+0 8-bit sRGB 117B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/button-background-flat-disabled.9.png
+./ctrls/images/radiobutton-indicator-checked-focused.png PNG 20x20 20x20+0+0 8-bit sRGB 269B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./ctrls/images/radiobutton-indicator-checked-focused.png
+./ctrls/images/button-background-flat-hovered.9.png PNG 46x34 46x34+0+0 8-bit sRGB 185B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./ctrls/images/button-background-flat-hovered.9.png
+./ctrls/images/auto.png PNG 2784x1708 2784x1708+0+0 8-bit sRGB 356738B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./ctrls/images/auto.png
+./qtnetwork/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtnetwork/images/ico_note_attention.png
+./qtnetwork/images/bullet_dn.png PNG 7x8 7x8+0+0 8-bit sRGB 230B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtnetwork/images/bullet_dn.png
+./qtnetwork/images/logo.png PNG 174x71 174x71+0+0 8-bit sRGB 2370B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./qtnetwork/images/logo.png
+./imgfmts/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./imgfmts/images/ico_note_attention.png
+./imgfmts/images/bullet_dn.png PNG 7x8 7x8+0+0 8-bit sRGB 230B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.02 xYz identify 2 ./imgfmts/images/bullet_dn.png
+./qtcore/images/qeasingcurve-outinquart.png PNG 128x128 128x128+0+0 8-bit sRGB 2830B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.01 xYz identify 2 ./qtcore/images/qeasingcurve-outinquart.png
+./qtcore/images/cursor-sizeall.png PNG 25x25 25x25+0+0 8-bit sRGB 174B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtcore/images/cursor-sizeall.png
+./qtcore/images/modelindex-no-parent.png PNG 344x216 344x216+0+0 8-bit Gray 256c 7407B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtcore/images/modelindex-no-parent.png
+./qtcore/images/qrect-diagram-two.png PNG 333x249 333x249+0+0 8-bit sRGB 9378B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtcore/images/qrect-diagram-two.png
+./qtcore/images/statemachine-nonparallel.png PNG 630x378 630x378+0+0 8-bit sRGB 5350B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtcore/images/statemachine-nonparallel.png
+./qtcore/images/brush-styles.png PNG 419x613 419x613+0+0 8-bit sRGB 64c 13980B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtcore/images/brush-styles.png
+./qtcore/images/qrectf-diagram-three.png PNG 333x249 333x249+0+0 8-bit sRGB 9392B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtcore/images/qrectf-diagram-three.png
+./qtcore/images/cursor-wait.png PNG 25x25 25x25+0+0 8-bit sRGB 172B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtcore/images/cursor-wait.png
+./qtcore/images/qeasingcurve-inelastic.png PNG 128x128 128x128+0+0 8-bit sRGB 3304B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtcore/images/qeasingcurve-inelastic.png
+./qtcore/images/bullet_sq.png PNG 6x6 6x6+0+0 8-bit sRGB 74B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtcore/images/bullet_sq.png
+./qtcore/images/qeasingcurve-inquart.png PNG 128x128 128x128+0+0 8-bit sRGB 2727B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtcore/images/qeasingcurve-inquart.png
+./qtcore/images/cursor-arrow.png PNG 25x25 25x25+0+0 8-bit sRGB 171B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtcore/images/cursor-arrow.png
+./qtcore/images/modelview-begin-remove-rows.png PNG 137x191 137x191+0+0 8-bit sRGB 10896B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtcore/images/modelview-begin-remove-rows.png
+./qtcore/images/modelview-begin-remove-columns.png PNG 241x137 241x137+0+0 8-bit sRGB 14518B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtcore/images/modelview-begin-remove-columns.png
+./print/images/btn_prev.png PNG 16x16 16x16+0+0 8-bit sRGB 687B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./print/images/btn_prev.png
+./print/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./print/images/ico_note_attention.png
+./qtqmltest/images/bgrContent.png PNG 11x30 11x30+0+0 8-bit sRGB 149B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtqmltest/images/bgrContent.png
+./qtnfc/qtsensors/images/ico_out.png PNG 16x13 16x13+0+0 8-bit sRGB 388B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtnfc/qtsensors/images/ico_out.png
+./qtnfc/qtsensors/images/sensorgesturecpp.png PNG 347x562 347x562+0+0 8-bit sRGB 33013B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtnfc/qtsensors/images/sensorgesturecpp.png
+./qtnfc/images/ico_out.png PNG 16x13 16x13+0+0 8-bit sRGB 388B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtnfc/images/ico_out.png
+./qtnfc/images/qml-poster-example.png PNG 625x399 625x399+0+0 8-bit sRGB 7946B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtnfc/images/qml-poster-example.png
+./qtnfc/images/logo.png PNG 174x71 174x71+0+0 8-bit sRGB 2370B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtnfc/images/logo.png
+./qtnfc/qtlinguist/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtnfc/qtlinguist/images/ico_note_attention.png
+./qtnfc/qtlinguist/images/linguist-check-off.png PNG 16x16 16x16+0+0 8-bit sRGB 434B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtnfc/qtlinguist/images/linguist-check-off.png
+./qtnfc/qtlinguist/images/linguist-check-on.png PNG 16x16 16x16+0+0 8-bit sRGB 192B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtnfc/qtlinguist/images/linguist-check-on.png
+./qtnfc/qtlinguist/images/linguist-arrowpad_nl.png PNG 208x177 208x177+0+0 8-bit sRGB 161c 1706B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtnfc/qtlinguist/images/linguist-arrowpad_nl.png
+./qtnfc/qtlinguist/images/linguist-arrowpad_fr.png PNG 208x177 208x177+0+0 8-bit sRGB 161c 1671B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtnfc/qtlinguist/images/linguist-arrowpad_fr.png
+./qtnfc/qtlinguist/images/home.png PNG 20x20 20x20+0+0 8-bit sRGB 1076B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtnfc/qtlinguist/images/home.png
+./qtnfc/qtmultimedia/images/audiooutput-example.png PNG 216x138 216x138+0+0 8-bit sRGB 9249B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qtnfc/qtmultimedia/images/audiooutput-example.png
+./qtnfc/qtmultimedia/images/bgrContent.png PNG 11x30 11x30+0+0 8-bit sRGB 149B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.04 xYz identify 2 ./qtnfc/qtmultimedia/images/bgrContent.png
+./qtpositioning/images/ico_out.png PNG 16x13 16x13+0+0 8-bit sRGB 388B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtpositioning/images/ico_out.png
+./qmake/images/ico_note_attention.png PNG 30x27 30x27+0+0 8-bit sRGB 529B 0.000u 0:00.000
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.03 xYz identify 2 ./qmake/images/ico_note_attention.png
+./qmake/images/ico_note.png PNG 30x27 30x27+0+0 8-bit sRGB 649B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qmake/images/ico_note.png
+./.pfhdrs/images/home.png PNG 20x20 20x20+0+0 8-bit sRGB 1076B 0.010u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./.pfhdrs/images/home.png
+./qtbluetooth/images/opp-example-1.png PNG 568x673 568x673+0+0 8-bit sRGB 152770B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtbluetooth/images/opp-example-1.png
+./qtbluetooth/images/bullet_sq.png PNG 6x6 6x6+0+0 8-bit sRGB 74B 0.000u 0:00.001
+identify: unable to open image `2': No such file or directory @ error/blob.c/OpenBlob/2923.
+identify: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
+Command exited with non-zero status 1
+0.05 xYz identify 2 ./qtbluetooth/images/bullet_sq.png

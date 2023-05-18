@@ -1,0 +1,56 @@
+Font: Missaali
+Design: Tommi Syrj??nen
+Author: Tommi Syrj??nen
+Version: 1.004
+Date: 25 XII 2016
+
+Copyright (c) 2016 Tommi Syrj??nen
+
+The font Missaali is released under the SIL Open Font License 1.1
+(OFL) with Reserved Font Name Missaali. See file OFL.txt for details.
+The documentation and style files are released under the Latex Project
+Public License (LPPL) version 1.3c. See file lppl.txt for details.
+
+This work has the LPPL maintenance status "maintained".
+The Current Maintainer of this work is Tommi Syrj??nen.
+This work consists of the files listed in this file. 
+
+The files in this work are divided into five classes:
+
+1. The actual OpenType/PS font file:
+ - Missaali-Regular.otf
+
+2. Documentation files:
+ - missaali.pdf   - the users' manual
+ - README         - a short description of the font
+
+3. Font source code: 
+ - Missaali.glyphs - the Glyphs source of the font
+
+4. XeLaTeX style file:
+ - missaali.sty
+
+5. Documentation source files
+ - doc/missaali.tex               - LaTeX source for the manual
+ - doc/missaali.bib               - the bibliography file
+ - doc/symbols.tex                - list of symbols in the font
+ - doc/pics/pic-1.png             - image file for documentation
+ - doc/pics/pic-2.png             - image file for documentation
+ - doc/pics/word_features.png     - image file for documentation
+ - doc/pics/missale-preface.png   - image file for documentation
+ - doc/pics/missale-normal.png    - image file for documentation
+ - doc/pics/missale-tinyfont.png  - image file for documentation
+ - doc/pics/missale-largefont.png - image file for documentation
+ 
+If you create derived work from this work, please rename the files
+that contain the word 'missaali' in their filenames. 
+
+The Condition 3 of the Latex Project Public License allows you to
+distribute a Compiled Work version of this work. Such a version should
+contain the files Missaali-Regular.otf, missaali.pdf, and optionally
+missaali.sty if the distribution is intended to be used with the
+XeLaTeX system. Strictly speaking only Missaali-Regular.otf is
+absolutely necessary but the font is complex and non-standard enough
+that without the user's manual it is difficult to get all use out of
+it. Including the license files is a good idea, too.
+

@@ -1,0 +1,1 @@
+-follow -daystart -maxdepth 1 ( -name \*.tex -o -name \*.sty -o -name \*.cfg -o -name \*.fdf ) ! -name jobname.tex ! -name hallo\*.tex ! -name \*gullet.tex

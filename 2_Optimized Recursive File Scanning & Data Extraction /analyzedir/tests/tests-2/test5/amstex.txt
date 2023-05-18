@@ -1,0 +1,3468 @@
+AMSTEX.DOC (FOR AMSTEX.TEX VERSION 2.0)
+COPYRIGHT (C) 1989 BY MICHAEL SPIVAK
+
+THIS COPYRIGHTED MATERIAL MAY BE REPRODUCED, EITHER IN PRINTED FORM,
+OR AS A COMPUTER FILE, WHICH MAY THEN BE PLACED ON ANY COMPUTER OR
+COMPUTER NETWORK, PROVIDED THAT THE FIRST TWO LINES OF THIS FILE, AS
+WELL AS THIS PARAGRAPH, ARE ALSO REPRODUCED. IT MAY NOT BE SOLD,
+EXCEPT FOR A NOMINAL FEE NOT TO EXCEED $5.00 PER COPY; CHARGES FOR
+SHIPPING MAY BE ADDED, BUT ADDITIONAL CHARGES FOR PACKAGING,
+HANDLING, ETC., ARE EXPRESSLY FORBIDDEN.
+
+
+This is the documentation for AmS-TeX, specifically the file
+AMSTEX.TEX.
+
+
+**********************************************************************
+Comments of the form %1, %2, etc., accompany the %1, etc., that occur
+within the file AMSTEX.TEX in the definition of the construction in
+question.
+**********************************************************************
+
+
+**********************************************************************
+Some explanations given earlier in the file will be required at later
+points. Such material is often set off by lines of *'s, like this.
+TB refers to The TeXbook.
+**********************************************************************
+
+
+\def\fmtname ...
+----------------
+We record the format name in \fmtname, overriding the definition that
+comes from plain.  But we store the format version for plain in
+\plainfmtversion, in case someone needs to look at that, and record
+the version of AmS-TeX in \fmtversion.
+
+
+**********************************************************************
+\catcode`\@=11
+--------------
+We make @ a letter, so that we can make private control sequences,
+which we won't have to worry about users wanting to define
+themselves.  The private control sequences from plain, like \p@,
+\@ne, etc., are also used extensively.  Most of the time optional =
+signs are omitted. (Note, however, that in a test like \ifnum< >=< >
+the = is NOT optional.)
+**********************************************************************
+
+
+\ifx\amstexloaded@
+------------------
+We have to prevent AMSTEX.TEX from being read in twice; see TB,
+p. 382 (and the definition of \/). The code didn't fit on one line;
+it was imperative that the \endinput...\fi was all on one line,
+however.
+
+
+\W@, \CR@
+---------
+\W@ writes to screen and log file.
+
+\CR@, the copyright notice, is defined as a sequence of \W@'s.  We
+use \fmtversion so that the first line doesn't have to be changed.
+
+
+\CR@
+----
+Then we print the copyright notice.
+
+
+\everyjob{\CR@}
+---------------
+Then we make sure it's printed even if a format file is made.
+
+
+**********************************************************************
+\toksdef\toks@@
+---------------
+We will need a second scratch token, in addition to \toks@ (TB,
+p. 346); \toks@@ is set to \toks2, rather than \toks1, in accordance
+with rule (3) on that page.
+**********************************************************************
+
+
+\rightappend@ is \rightappend from TB, p. 378.
+
+
+\def\alloclist@
+----------------
+We modify the allocation routines from TB, Appendix B, so that
+nothing is written to the log file.  But we collect all information
+that might go there, so that it can be written later if
+\showallocations appears in the input file. \alloclist@ will be the
+list of things that previously went to the log file, in the form of
+TB, p. 378.
+
+
+\showallocations writes each thing in \alloclist@, and sets a flag
+\ifalloc@ for any later things to be written.
+
+
+\alloc@ is redefined from TB, p. 347. Near the end, it will be redefined
+once again. We \edef\next@ to be the token list that we want added to
+\alloclist@ by \rightappend@, so that \the\allocationnumber will be
+expanded out to the actual number.
+
+
+**********************************************************************
+We will be using the scratch tokens \next, \next@, \nextii@,
+\nextiii@, etc.  In order to keep the number down, many definitions
+will, for example, define \nextiv@ back in terms of \next@, \nextii@,
+etc.  There is only one problem that we have to guard against:
+Sometimes our definitions have clauses like \def\next@{ ... \next
+...}.  The definitions of \next@ won't be made until these
+definitions are invoked, and at that time \next might be \outer (!!)
+because some previous \futurelet may have \let\next be something that
+is \outer; this error will only be encountered at that time, not when
+the definitions are read by AmS-TeX, because \next isn't outer when
+AmS-TeX is making the definition!  So we could end up with a pretty
+incomprehensible error message at some point when AmS-TeX is being
+used.  Similarly, an outer \next might cause a problem if it is used
+in some \if... construction, since outer control sequences aren't
+allowed while TeX is skipping conditional text.  To guard against
+this, we will, first of all, always reserve \next for \futurelet
+constructions. That is why \next@ is used instead of \next in our
+redefinition of \alloc@.  Later we will mention the other thing we
+have to do to guard against the problem.
+**********************************************************************
+
+
+\newcount\count@@, \newcount\count@@@
+-------------------------------------
+We will need two more counters. Since \count@, \count@@, and
+\count@@@ will all be used only for local assignments, we don't
+bother with rule (3) of TB, p. 346.
+
+
+\FN@, \DN@, \DNii@, \RIfM@, \RIfMIfI@, \setboxz@h, \wdz@,
+   \boxz@, \setbox@ne, \wd@ne
+---------------------------------------------------------
+These definitions abbreviate combinations that occur sufficiently
+often to make it worthwhile using up control sequence names.
+
+
+\iterate, from plain, is redefined using the method of Kabelschacht,
+see TUGboat, Volume 8, No. 2, p. 184.
+
+
+**********************************************************************
+It is assumed that the user of this documentation already understands
+why it is often necessary to use constructions like
+
+     \if...\def\next{\csa}\else\def\next{\csb}\fi\next
+
+instead of simply \if...\csa\else\csb\fi.
+
+Kabelschacht's method also replaces this by the construction
+
+     \if...\expandafter\csa\else\expandafter\csb\fi.
+
+We will call this the ``K-method''.  The K-method will often be used
+without explicit mention; however, it is not always valid or
+practicable, as we will mention later.
+**********************************************************************
+
+
+^^J is made the \newlinechar for help messages, and also for use in
+the definition of \comment later on.
+
+
+\err@ is the standard form for AmS-TeX error messages.
+
+
+\newhelp\defaulthelp@
+---------------------
+We make a standard default help, equivalent to the usual second level
+help message you get with TeX (so that there won't be an error
+message from TeX saying that it doesn't know how to give help).
+
+
+\Err@ is the standard form for AmS-TeX error messages with default
+help.
+
+
+\eat@ is used to gobble tokens.
+
+
+\in@ tests whether string #2 contains token #1; see TB, p. 379,
+setting a flag \ifin@.
+
+
+**********************************************************************
+\def\space@
+-----------
+We frequently need a token that is \let equal a space. The % after
+`\space@. ' insures that the space isn't deleted.
+**********************************************************************
+
+
+\athelp@
+--------
+Now comes the mechanism by which @<token> will be defined, when @ is
+made active, at the end.  \athelp@ is a help message.
+
+
+{\catcode`\@=\active
+--------------------
+Now we have to define how @ will work when it will be active. This
+whole mechanism occurs within a group in which @ is active, so most
+\defs are \gdefs.
+
+
+\lccode`\Z=`\@, \lccode`\I=`\I
+------------------------------
+We want any auxiliary control sequences that are mentioned in this
+process to have the letter @ as part of their name, even though
+@ is now active, so we have to use the \lowercase trick: we set
+the \lccode of Z to be @, name such control sequences as
+\csname...Z\endcsname, and then \lowercase the whole thing.  This
+often requires \expandafter.  For example, we have to say
+
+          \expandafter\gdef\csname ...\endcsname,
+not
+          \gdef\csname...\endcsname.
+
+Finally, we also set the \lccode of I to I, since I appears in some
+error messages that we will be defining in this process, and we don't
+want this I changed to lowercase!
+
+Things are so complicated here, that we won't even contemplate using
+the K-method!
+
+%1 The very first thing we want to do is make @ mean
+   \futurelet\next\at@ (and then we will define \at@ in terms of
+   \next).  Trying to say all that with \csname seems a hopeless
+   muddle, so we first create \futureletnextat@ to stand for that.
+
+%2 \at@ will call \at@@ if the next token is a letter or number, but
+   \at@@@ if it is a control sequence (we allow @\Vert, for example)
+   and \at@@@@, which will be an error message, otherwise.
+
+%3 \at@@ <token> will be the control sequence `\<token>@at' (created
+   by \atdef@) if this control sequence has actually been created,
+   otherwise an error message with the \athelp@ help message.
+
+%4 \at@@@\cs will be the control sequence `\\cs@@at' (created by
+   \atdef@@) or an error message.
+
+%5 \at@@@@ is an error message, which also swallows up the next
+   input.
+
+%6 The last right brace in this line matches the left brace in
+   `{\catcode`\@=\active'.  The previous right brace closes the
+   `\lowercase{'.
+
+
+\atdef@<token> creates the control sequence `\<token>@at'; we don't
+test for whether this already exists, since \atdef@ isn't for the
+user.
+
+
+\atdef@@\cs creates the control sequence `\\cs@@at'. \atdef@@ can
+also be used with active characters.
+
+
+\newhelp\defahelp@, \newhelpf\defbhelp@
+---------------------------------------
+Next comes the mechanism for \define. \defahelp@ is the help message
+when the wrong syntax is used; \defbhelp@ is the help message when an
+already defined control sequence appears after the \define.
+
+
+\define gives an error message if it isn't followed by a control
+sequence, and we add the tokens \def\nextii@@ so that what follows
+gets swallowed up into the definition of \nextii@.  We are using the
+K-method here, hence \expandafter\define@@ in line %1 and
+\expandafter\def\expandafter\nextii@ in line %2.  Note that this
+method clearly becomes impractical when many tokens are present in
+one of the cases.
+
+
+\def\undefined@@@@@@@@@@, \def\preloaded@@@@@@@@@@, \def\next@@@@@@@@@@
+-----------------------------------------------------------------------
+We want \define@@#1 to detect whether #1 has already been \def'd.
+The idea is to use \csname\expandafter\eat@\string#1\endcsname to
+reproduce #1; since \csname...\endcsname is given the value \relax if
+it produces an undefined control sequence, using an \ifx test between
+\relax and this new control sequence tells us whether it already
+exists.  But that won't work for \relax, nor for the control
+sequences \undefined and \preloaded, which we want to remain
+undefined.  Moreover, we don't want the user to be able to
+\define\next, since this scratch token is often redefined by various
+macros.  So first we test for \relax, and then for \undefined,
+\preloaded, or \next. For the latter, we first define
+\undefined@@@@@@@@@@, \preloaded@@@@@@@@@@, and \next@@@@@@@@@@ as {};
+these are the only control sequences with 10 @'s (in fact, there are
+none with even 5 @'s, but we might as well be on the safe side). Then
+we use \csname to construct a new control sequence `#1@@@@@@@@@@' and
+test this with \ifx against \preloaded@@@@@@@@@@; we will get true
+only for \preloaded, \undefined, and \next.
+
+One of the nice features of all this is that a control sequence \cs
+becomes undefined, and thus available to be \define'd, simply by saying
+\let\cs\undefined.
+
+There is one additional subtle point. The final test recreates #1 with
+\csname...\endcsname, and causes \def#1 to be invoked if this is \relax.
+But when \csname...\endcsname creates a new control sequence and gives it
+the value \relax, it does this GLOBALLY; more precisely, it makes it equal
+to an internal control sequence that always has the value of \relax, see
+TeX, The Program, pp. 156 and 93. If \define is being used within a group,
+we want #1 to be undefined once this group is over, so we add
+\global\let#1\undefined before we invoke the \def#1.
+
+We don't use the K-method here, since things are already so complicated.
+
+%1 Give error message if #1 is relax.
+%2 Give error message if #1 is \undefined, \preloaded, or \next.
+%3 Do \def#1 if #1 is previously undefined, otherwise give error message.
+
+
+\redefine, \predefine, should be obvious.  Note that
+\predefine\cs{...} works, since the braces get removed by TeX.
+
+
+\undefine was added recently. It seems even better than \redefine: to
+redefine an already defined control sequence \cs, you just have to
+say \undefine\cs to first make it undefined.
+
+
+\captionwidth@ is used to store the default width for captions.
+It is made 1.5 inches less than \hsize.  If a style file resets
+\hsize, it should use \pagewidth, to automatically reset
+\captionwidth@.
+
+
+\pagewidth,...,\vcorrection
+---------------------------
+\pagewidth resets \captionwidth@ automatically. \relax added for safety.
+
+
+\tie is a synonym for ~ but is defined slightly differently, because
+spaces are automatically ignored after \tie, but not after ~ , which
+is defined a little later on.
+
+
+\graveaccent, ..., \underscore are substitute names for some control
+symbols.
+
+\B, \D are AmS-TeX substitutes for \= and \. (\. will be redefined
+later and \= will later be made undefined).
+
+
+\let\ic@\/, \def\/
+------------------
+We want \/ to ignore spaces before it.  It is this definition that
+makes it necessary to prevent AMSTEX.TEX from being read in twice.
+
+
+\textfonti, and later \textfontii, are introduced not for purposes of
+abbreviation, but because their values will sometimes be reset by
+\text.
+
+
+\t is redefined using \textfonti.  It is also made a control sequence
+with two arguments for consistency (now a space is allowed before the
+second letter).
+
+
+~ differs from in plain; spaces are allowed on either side.
+
+
+\. gives a non-end-of-sentence period by specifically setting
+\spacefactor.
+
+
+\atdef@ is used to make @; and @: and @? have desired values. (But @, and
+@! are defined later, since they differ in math mode.)  Just in case
+these are ever used at the beginning of a paragraph (unlikely, of
+course!), we put \leavevmode at the beginning.
+
+If some macro package makes ! active [for French punctuation,
+say], then \atdef@@! would have to be used instead of \atdef@!.
+
+
+\@ is defined directly as \char64 , since we will have @ active at
+the end (64 takes fewer tokens than '100).
+
+
+**********************************************************************
+\def\relaxnext@
+---------------
+The construction \let\next\relax, abbreviated \relaxnext@, is needed
+whenever we have a definition, like the ones to follow, where we have
+a \futurelet\next, or \ifx\next, or anything else involving \next,
+within a \def that is itself within a \def.  As discussed before,
+this could lead to havoc if \next happened to be \outer, so we add
+\relaxnext@ at the beginning to protect ourselves.
+**********************************************************************
+
+
+\atdef@-
+--------
+We want @-, @-- and @--- to create \hbox{-} or \hbox{--} or
+\hbox{---}, respectively, using as many \futurelet's as needed to
+find out how many -'s there are (TeX won't hyphenate around boxes).
+
+**********************************************************************
+It would be more transparent to write the succeeding definitions as:
+
+\atdef@-{\leavevmode\futurelet\next\hyphen@}
+\def\hyphen@{\relaxnext@\ifx\next-\def\next@-{\futurelet\next
+  \hyphen@@}%
+  \else\def\next@{\leavevmode\hbox{-}}\fi\next@}
+\def\hyphen@@{\ifx\next-\def\next@-{\leavevmode\hbox{---}}\else
+              \def\next@{\leavevmode\hbox{--}}\fi\next@}
+
+But this uses up two new control sequences, \hyphen@ and \hyphen@@,
+and such constructions appear frequently, so we save control sequence
+names by using a `compressed format': the same names \next@,
+\nextii@, etc., are used within different constructions, and
+redefined within each construction.  This makes things go a little
+slower, since \next@, etc., have to be redefined all the time, but
+seems worth it, especially since most such constructions are major
+formatting ones that introduce a lot of space anyway.  Notice that
+the `first' clause \futurelet\next\next@ has to be made last, after
+all the subsidiary definitions have been made.
+
+In this situation, where the symbol - is made part of the syntax for
+one of \next@'s (to swallow up this -), the K-method would not work.
+**********************************************************************
+
+
+\srdr@ ...
+----------
+The kerns to put between single right-double right quotes, etc., are
+recorded in control sequences, so that they can easily be changed for
+different fonts.
+
+These values are used in defining @", which has to look ahead to see
+if it is followed by ' or '' or ` or `` .  Also \lq or \rq might be
+used instead of ` or '.  Finally, we also have to skip over any space
+that follows @".
+
+**********************************************************************
+AmS-TeX always does this by using a \futurelet to find out if the
+next token is a space (testing with \ifx\next\space@), and calling
+either `\next@. ' or `\next@.'  The . after the \next@ makes the
+space `visible' to TeX.
+**********************************************************************
+
+Compressed format is used in \atdef@". The K-method would be
+hopelessly complicated.
+
+
+\flushpar doesn't confuse the user by having no effect if it doesn't
+happen to be used after a paragraph has ended.
+
+
+\textfontii has been mentioned previously, with \textfonti.
+
+
+\lbrace@, \rbrace@ are defined directly as delimiters, so that we can
+have \{ and \} work in math mode or outside it.
+
+
+\{, \} outside of math mode specify the actual font the character
+comes from (but as \textfontii, so it can be changed by \text), and
+we also let the \spacefactor work correctly with them.  The \@sf
+construction is taken from TB, p. 363. The \relax after \@sf is
+needed (a digit might follow \}).
+
+
+\lbrace, \rbrace are made synonyms for the new \} and \{.
+
+
+\AmSTeX is now defined using \textfontii instead of math mode.
+
+
+\vmodeerr@, \mathmodeerr@ are two error messages that we will use
+frequently, with various arguments. For example, \vmodeerr@\linebreak
+gives an error message about not using \linebreak between paragraphs.
+
+
+\linebreak gives error messages unless in horizontal mode; we add an
+\unkern in case a \kern appeared at the end of previous text (for
+example, an \enspace at the end of a \proclaim).
+
+
+\slash differs from in plain; a space before it is ignored.
+
+
+**********************************************************************
+\saveskip@ is used to record previous space, given by \lastskip,
+before we \unskip to get rid of it (and then put it back with
+\saveskip@).  We only \hskip\saveskip@ if \saveskip@ is non-zero,
+because a zero skip does change things---it allows breaks.  Notice
+that \saveskip@\lastskip is an abbreviation for \saveskip@=\lastskip.
+Abbreviations of this sort are always used, and should be borne in
+mind.
+**********************************************************************
+
+
+\allowlinebreak uses \saveskip@.
+
+
+\refskip@ plays no role now; but after \Refs, in AMSPPT.STY, there
+will be reasons to have \refskip@ in \nolinebreak.
+
+
+\nolinebreak also uses \saveskip@.
+
+
+\newline allows \newline\par not to give an Underfull \hbox message,
+but it probably wasn't worth it to do this, since you can still
+manage to get the message if you do something weird enough, like
+\newline\newline\par.  The \null keeps the \hfill from disappearing
+at the break. Compressed format is used. Within the definition of
+\next@, the K-method is used (for a conditional within a
+conditional).  Although this works, the K-method doesn't work in
+general in the multi-case situation.
+
+
+\dmatherr@, ..., \nonmatherr@ are error messages that are used
+frequently.
+
+
+\mathbreak, ..., \allowmathbreak are for breaks in math mode, which
+have been arranged to require different commands than for breaks
+outside it.  The main reason for this arrangement was that LaTeX-like
+features, like [...]  to indicate desirability of a break, might
+later be implemented for breaks outside of math. But AmS-TeX
+definitely shies away from such use of brackets in math mode, since
+brackets are so frequently used as text in math mode, so one
+would want different commands (and different additional syntax to
+indicate desirability) for math breaks.
+
+
+\pagebreak means \removelastskip\break between paragraphs,
+\vadjust{\break} within paragraphs (to break after current line), and
+\postdisplaypenalty-10000 in display math (see TB, p. 189).  The
+\removelastskip is needed in case there is already a \vskip, say from
+an \endproclaim.
+
+
+\nopagebreak is similar.
+
+
+\vnonvmodeerr@ is another useful error message.
+
+
+\vnonvmode@#1#2 does #1 if in vertical mode, otherwise #2, except
+that we are considered to be in vertical mode if a \par comes next.
+This is because users will naturally consider certain constructions
+to be `between' paragraphs if they stick them at the end of the
+paragraph, just as they count as between paragraphs if they go at the
+beginning.  Compressed format is used in the definition.
+
+
+\newpage, ..., \bigpagebreak all use \vnonvmode@.
+
+
+\NoBlackBoxes, \BlackBoxes use capitals, to tell user they are global.
+
+
+
+**********************************************************************
+\Invalid@, \Invalid@@
+---------------------
+Many control sequences in AmS-TeX, like \caption and \captionwidth,
+don't have real meanings themselves, but are only indicators for
+other control sequences to take appropriate action.  \Invalid@ is
+used to make their meaning an error message when they are encountered
+at unexpected times.  This is more than a mere convenience for the
+user, however. If \caption, for example, were actually undefined,
+the \ifx test involving \caption could fail for unexpected reasons,
+including the misspelling of \caption in the input file.
+
+Although things like \Invalid@\caption take up little room in the
+input file, they would expand to a lot if the error message was
+always spelled out, so we abbreviate most of the error message with
+\Invalid@@.
+**********************************************************************
+
+
+\smallcaptionwidth@ is the caption width that will actually be used.
+(It may be smaller than \captionwidth@ if the caption is not that wide.)
+
+
+\topspace and \midspace are defined together, like \topinsert and
+\midinsert of plain, using a flag \ifmid@.  The definition is made in
+terms of \ins@, which is similar to plain's \@ins.
+
+
+\captionfont@ is the font used for captions; it is inserted here so
+that style files that want a different font for captions can simply
+redefine \captionfont@, instead of redefining \ins@, which follows.
+
+
+\ins@ saves its argument as \thespace@, and looks ahead (skipping
+spaces) for \caption, with its argument saved as \thecaption@, and
+then for \captionwidth, with its argument saved as
+\smallcaptionwidth@ (initially set to \captionwidth@).  An additional
+complication occurs because we have to skip over spaces after the }
+at the end of \caption{...} or \captionwidth{...}.  The caption is
+set in a box, and centered within \smallcaptionwidth@ if smaller than
+this amount, otherwise reset into a paragraph of this \hsize.  The
+\allowbreak is specifically introduced because we have no reason not
+to allow a break before the insert, and this \allowbreak may help TeX
+to find the best placement.  [Cf. TB, p. 116: ``There is a slight
+.... processing text ahead of the current page. You may want to say
+`\goodbreak' just before \midinsert.''  The point is that \allowbreak
+in the definition is much better, because it causes TeX to see if a
+page break is feasible, so a break will definitely be taken if it has
+already processed too much for the current page.] Compressed format is
+used.
+
+
+\def\newcodes@ ...
+------------------
+Next comes the mechanism for \comment ... \endcomment.  There are
+probably some unnecessary things here, left over from the old TeX,
+since we now use \futurelet, rather than a macro argument, to see
+what's coming, but it works, so why fool with it.
+
+
+Now we start on math constructions.
+
+
+\def\pr@m@s ...
+---------------
+\pr@m@s is changed from plain (TB, p. 357), because we don't want the
+'^ mechanism to work (since you can't get ^' to work similarly).  We
+also surround the prime character with empty boxes to make sure there
+is no extra kerning around it---this character does kern with
+characters on the symbol font, because it is the \skewchar for its
+font and the kern contains information for the math accents (TB, pp.
+351 and 443). The whole construction is put inside another group, so
+that ^\prime will still work.
+
+
+\let\dsize ...
+--------------
+Now we set up AmS-TeX alternate names, and also allow \, and \! and
+\; to be used both in math mode and in text.  There is an important
+reason for doing this, besides mere convenience: \, or \; might be
+used within a \format...\\ line for a \matrix (see below) to specify
+spacing.  Although the user would naturally think that this spacing
+is in math mode, it actually isn't!  We also make plain's \thinspace
+and \negthinspace the same as \, and \! respectively, for maximum
+consistency.  Since plain's \> is almost never used we make it
+undefined (at the end), and provide \medspace instead.  So we also
+add \negmedspace and \thickspace and \negthickspace.
+
+
+@, and @! will be 1/10 of \, and \! in math mode.
+
+
+@. is special in math mode, because it leaves a blank space where a
+horizontal arrow should go in commutative diagrams (see \CD below).
+
+
+\and, \implies, \impliedby are similar to plain's \iff; the \DOTSB
+are added so that \dots will know they are binary operators (see
+\dots, later).
+
+
+\frac, ..., \tfrac should be obvious.
+
+
+\ex@ is a dimension that is essentially 1 point, but that will change
+properly with changes of fonts. For cmr10, .2326ex is 1pt.
+
+
+\thickness is one of the syntax pieces \thickfrac looks for.
+
+
+\thickfrac, if followed by \thickness{<number>}, should make a
+fraction made with \above <number>\ex@.  Otherwise, we want to use
+\above 1\ex@ (i.e., 1 point) for the thickness.
+
+
+\fracwithdelims, \thickfracwithdelims are strictly analogous.
+
+
+\binom, ..., \tbinom should be obvious.
+
+
+\: is for constructions like f:A --> B. Spacing was specified by AMS.
+The symbol before the \: could be a \mathbin or \mathrel (e.g.,
++\:R\times R\to R or <\:R\times R\to\{T,F\}), or even a \mathop
+(e.g., \sum\:2^R\to R).  In all cases, it should be replaced by a
+\mathord, so far as the spacing in this formula is concerned.  There
+is naturally no way that we can get back to the symbol preceding \:
+so we first put in a \mathpunct{}.  The spacing between a \mathop or
+\mathrel and a \mathpunct is 0, and when a \mathbin precedes a
+\mathpunct, it is changed to a \mathord, so the spacing is again 0.
+Then, since the spacing between the \mathpunct{} and the \mathord {:}
+that we want to add is \nonscript\mskip\thinmuskip, we want to
+subtract this space before the {:}.
+
+
+\snug deletes the \mathsurround space, so that $n$\snug- won't have
+space between the n and the - even if \mathsurround is non-zero.
+
+
+\topsmash and \botsmash are needed in addition to just \smash from
+plain.  We use a procedure similar to that used in plain for
+\phantom, which has the variants \hphantom and \vphantom (TB, p.
+360); we use much of the plain mechanism for \smash (TB, p. 360),
+using flags \iftop@, \ifbot@, mainly changing \finsm@sh.  We also
+add \leavevmode before the \box\z@, in case this comes at the
+beginning of a paragraph.
+
+
+\def\LimitsOnSums ...
+---------------------
+Now we come to the modifications for the big operators like \sum.  In
+each case we introduce a subsidiary name for the operator, and then
+the definition has this name followed by \slimits@, which will be
+equivalent to either \displaylimits or \nolimits, depending on the
+style. We also introduce \LimitsOnSums and \NoLimitsOnSums to allow
+the user to set the value of \slimits@. The default is \LimitsOnSums.
+The \DOTSB are added for the sake of \dots, as explained later.
+
+
+\def\LimitsOnInts ...
+---------------------
+\int and \oint are treated similarly, using \ilimits@, except that
+\intop and \ointop are already available from plain, to have
+\ilimits@ after them.  We introduce \LimitsOnInts and \NoLimitsOnInts
+to allow the user to set the value of \ilimits@.  The default is
+\NoLimitsOnInts.  We also use \DOTSI, which is explained later.
+
+
+\def\intic@ ...
+---------------
+Next come multiple integrals. The main problem here is the proper
+positioning of a limit when limits are set above and below. For
+example, with \iint (double integral sign), the lower limit should be
+centered between the bottoms of the two integral signs, not centered
+in the whole region they make up. In such cases we basically need
+
+     \hskip-.5em\mathop{\hskip.5em\intop\intop}\limits
+
+---the \hskip.5em on the left of the two integral signs places the
+center of this symbol in the right place, and the \hskip-.5em
+corrects for it.  (For a different font than cmex10, .5em might have
+to be changed.)
+
+A different correction is needed when we are not in \displaystyle, so
+\intic@, the proper correction, is defined as a \mathchoice.  The
+negative amounts are stored in \negintic@, another \mathchoice, since
+it seems nearly impossible to get out the negatives of dimensions
+stored in a \mathchoice.
+
+We also need to move the integral signs closer together, by an amount
+stored in \intkern@, also a \mathchoice.
+
+Finally, the dots to be used in \idotsint (two integral signs
+separated by dots) are defined in \intdots@, again a \mathchoice.
+This uses \plaincdots@, defined later, which is basically \cdots as
+in plain (\cdots itself will be redefined later also).
+
+
+\newcount\intno@ ...
+--------------------
+To define all multiple integrals together, we store the number of
+integral signs in \intno@ (with \intno@ arbitrarily set to 0 for
+\idotsint), and then use \ints@ after a \futurelet construction,
+which is needed to see if \limits or \nolimits happened to have been
+typed after the control sequence.
+
+
+\def\ints@
+----------
+\ints@ first calls \findlimits@, which uses \iflimits@ to record
+whether or not limits should be used.  Limits are used if the next
+token is \limits, or if \ilimits@ is set to \displaylimits and we are
+in displaystyle and the next token is not \nolimits.  We also use
+\iflimtoken@ to record whether or not the next token was either
+\limits or \nolimits---we need this information, since we will have
+to \eat@ the \limits or \nolimits token if it occurs.
+
+
+\multint@ and \multintlimits@ produce the basic symbol---the proper
+number of integral signs, dots and spacing---based on \intno@.
+
+%1 If we are making \intdotsint, put in the dots.
+%2 Otherwise, put in kern before next integral sign.
+%3 If \intno@ >= 3, add second kern and int.
+%4 If \intno@ =4, add third kern and int.
+%5 Then add final int sign.
+
+\multintlimits@ uses \intop, because the result will be put inside a
+\mathop later.
+
+
+\ints@@, finally, uses \multint@ or a construction involving
+\multinlimits@ for the final result, which also depends on the value
+of \iflimtoken@.
+
+%1 If there was a \limits or \nolimits afterwards:
+%2 when we are using limits, use a special construction,
+%3 but when we're not, use the simple construction;
+%4 and then discard the \limits or \nolimits token.
+%5 Otherwise, do the same thing, but don't discard the next token.
+
+
+\def\LimitsOnNames ...
+----------------------
+We also have \nlimits@ to tell whether limits should be used on
+operator names, like \max and \min. We introduce \LimitsOnNames and
+\NoLimitsOnNames. The default is \LimitsOnNames.
+
+
+\def\nolimits@
+--------------
+Certain operator names, like \sin, should NEVER have limits, even if
+\limits has been typed afterwards, so instead of \nolimits we use
+\nolimits@, which replaces a \limits token that follows with
+\nolimits. Compressed format is used in that definition.
+
+
+\def\newmcodes@
+---------------
+When we make a new operator, with \operatorname or
+\operatornamewithlimits, we want ' and * and - and / to be treated as
+ordinary text, not as math symbols.  The same is true for . and :
+except that we would like a little space after them, so we have
+\newmcodes@ to temporarily change the \mathcode's of these symbols.
+
+
+\operatorname and \operatornamewithlimits both make \mathop's, using
+the new \mathocode's from \newmcodes@.  \operatorname has \nolimits@
+at the end, to defeat any \limits typed after it, while
+\operatornamewithlimits simply has \nlimits@, which will be set
+either to \displaylimits or \nolimits@, depending on the style. The
+\kern 0pt is added because the argument might be just one symbol, and
+TeX's rules (TB, p. 443) imply that this symbol would be centered
+vertically around the axis.
+
+In all cases we use \fam\z@ instead of plain's \rm, since we will
+later change the meaning of \rm.
+
+
+\qopname@ and \qopnamewl@ are quick constructions, used to redefine
+\sin, \cos, etc., to have either \nlimits@ or \nolimits@ after them.
+
+
+\def\arccos, ..., \def\tanh redefine things using \qopname@ and
+\qopnamewl@.
+
+\inflim and \projlim are new; they are not in plain.
+
+
+\varinjlim, ..., \varlimsup are more complicated.  Adjustments for
+\varinjlim, \varprojlim and \varliminf were made by eye. We don't
+bother about making these change size in subscripts, since they
+should never be used that way---the symbols would be too cramped to
+see. Notice that the \rm before the lim is NOT being used in math mode,
+so it is OK.
+
+
+\newdimen\buffer@ ...
+---------------------
+\ChangeBuffer allows the user to change \fontdimen13 \tenex. Since
+changes to \fontdimen's are global, the only way to allow the user to
+restore the original value, with \ResetBuffer, is to keep it in an
+inaccessible place, \buffer@. We also want \buffer as a place to
+store the current value of \fontdimen13 \tenex, since it is used in
+\shave and its relatives; the user is also supposed to be able to
+access \buffer, so it has no @.
+
+
+\def\shave ...
+--------------
+To shave the buffer space off the top and bottom of a symbol like
+\sum_{i=1}^n, we reset it with \fontdimen13 \tenex = 0pt, make a
+\mathop of this new symbol, and then reset \fontdimen13 to current
+value, stored in \buffer.  To shave off the top buffer space only, we
+\topsmash the symbol, which leaves the bottom buffer space alone, add
+\vphantom{\shave{#1}} to get the right height, and make a \mathop of
+the whole thing.
+
+%1 We need \m@th from plain to shut off any \mathsurround. \m@th is
+   used similarly in many places, without further comment.
+
+\Invalid@\\
+-----------
+The \Sp...\endSp and \Sb...\endSb constructions, for multiline
+limits, is the first of many constructions based on \halign where we
+want to use \\ for line breaks, instead of the usual TeX primitive
+\cr.
+
+**********************************************************************
+\def\Let@
+---------
+This involves a TeXnical trick.  In such constructions, we want to
+say \let\\=\cr. [Note that we want a \let here, and not simply
+\def\\{\cr}, because there is a big difference between a control
+sequence defined to be \cr, and \cr itself or something \let=\cr: a
+\cr (or & or \span) is immediately intercepted by TeX's scanner even
+when it is not expanding macros (TB, p. 248), while something defined
+as \cr will not indicate the end of a row until macros are expanded
+out.  We will mention later one of the problems this can cause.]
+
+But if we happen to use \let\\=\cr within another such construction,
+as we certainly will want to do, then \\ will already be equivalent
+to \cr, and because of the way TeX parses things in an \halign, this
+\\ will immediately be used to stop the scanning of the element,
+leaving \let all by itself somewhere, and horrible error messages.
+As explained in TB, p. 386, the construction
+
+   \iffalse{\fi\let\\=\cr\iffalse}\fi
+
+circumvents this difficulty, because the { } hide the \let\\=\cr from
+the \halign, yet doesn't actually put it inside a group. Of course we
+need \relax first, in case this occurs at the beginning of an \halign
+(TB, p. 240).  Since this is used so often, we have a special
+abbreviation for it.
+**********************************************************************
+
+
+\Invalid@\vspace, \def\vspace@
+------------------------------
+We want \vspace to be used only within certain constructions (all
+based on \halign).  So we make it invalid in general, and let these
+constructions give the proper definition of \vspace.  Since this
+happens so often, we abbreviate the definition of \vspace. We add
+\crcr before the \noalign in case the user forgets the \\.
+
+
+\def\multilimits@, ..., \def\endSp
+----------------------------------
+\Sb...\endSb and \Sp...\endSp will translate to ^{...} and _{...} for
+the very same construction {...}, which we call \multilimits@.
+
+This \multilimits@ construction is similar to many other
+constructions, like those for \matrix, \align, etc. We begin with
+\bgroup, which is almost like {, except that the matching \egroup,
+which is almost like }, needn't be in the same definition, but can
+actually be contributed by the \endSb or \endSp; then we define
+\vspace for use within this construction, and then we properly make
+\\ the same as \cr.
+
+Then comes something special.  We want to get the same result from
+\Sb i\\ j\endSb as we would get with _{\scriptstyle i\atop
+\scriptstyle j}.  The rules for making an \atop are somewhat
+complicated.  They are stated in TB, p. 444, rule 15.  For \atop, we
+have the parameters u=\fontdimen10 of the relevant math italic font,
+\scriptfont2; v=\fontdimen12 \scriptfont2; and phi=3\fontdimen8 of
+the corresponding symbol font, \scriptfont3. \atop is normally set
+with the numerator moved up by u and the denominator moved down by v,
+i.e., with \baselineskip=u+v.  But if this makes them less than phi
+apart, they are set phi apart.  This will be obtained by making
+\lineskiplimit and \lineskip equal to phi.
+
+
+\def\spreadlines
+----------------
+\Sp and \Sb are special sorts of alignments, but now we start the
+main ones.  First of all, we want \spreadlines to be like \openup,
+except for consistency we want it to work as a macro taking an
+argument, rather than using the TeX assignment syntax.  Also we want
+it to be used only in display mathematics; this means, in particular,
+that its effect will always be local to the display in which it
+appears.
+
+
+\def\Mathstrut@...
+------------------
+\Mathstrut@ is like \mathstrut, but only for \textstyle, the style we
+will be using it for in all our alignments.  Whenever you trace
+through macros that involve \mathstrut, you get screens full of
+uninteresting stuff; it got so depressing that I decided to make
+\Mathstrut@ instead. We first make \Mathstrutbox@ an empty box, but
+with height and depth set to that of a ( in math mode.
+
+
+\newdimen\spreadmlines@ ...
+---------------------------
+In plain TeX, \matrix uses \normalbaselines to overrule any \openup's
+that have been used.  We want to have a more general way of adjusting
+the spacing in a \matrix also.  So we use \spreadmlines@ to store the
+desired amount to \openup in a \matrix.  Like \spreadlines,
+\spreadmatrixlines should be used only in displayed mathematics; thus
+it will be local to the display in which it appears.
+
+
+\matrix is very much like \multilimits@, used before.  However, now
+there are two \bgroups, corresponding to the {'s for \vcenter{ and
+\halign{; and \endmatrix contributes two \egroups. The combination
+\normalbaselines\openup\spreadmlines@ means that the \baselineskip is
+the normal one, unless \spreadmlines has been used (within the
+display the \matrix appears in) to change things. The effect of
+\Mathstrut@\crcr\noalign{\kern-\baselineskip} in \matrix is to insure
+that the first row is as tall as \Mathstrut@, and the one in
+\endmatrix makes the last row as deep. The purpose of this is to make
+sure that the height or depth of a matrix won't depend, for example,
+on whether the first row has tall letters, like A, or only short
+ones, like x --- so two similar matrices will usually line up right
+in formulas like <matrix1> = <matrix2>.
+
+There are two other new features. First, we put \, around the
+\vcenter; this looks better, especially with delimiters.  The second
+feature is the \null before the first \,  This is because of the rule
+regarding numbered formulas on TB, p. 189---if a very wide \matrix is
+used in a formula with a \tag, we don't want TeX to assume that we
+put glue before the \matrix in order to control its positioning with
+respect to that tag!
+
+
+\format...\\ is the construction that is used to allow a different
+preamble to be used in the \matrix.  In all other AmS-TeX
+constructions, where such optional syntax is used, we use a
+\futurelet to see if this syntax is present.  But it would be fatal
+to
+
+    \def\matrix{\futurelet\next\matrix@}
+
+because the \matrix might be used within another \matrix, and a \let
+within an \halign can cause havoc. This is hinted at in the
+next-to-last paragraph of TB, p. 248, although the viewpoint is
+different.  The real problem arises when you have a \matrix
+containing another \matrix that happens to begin with & (because the
+first entry is blank).  Just what does happen is complicated and
+interesting, but there's no point going into it here, since we are
+not going to be using a \futurelet. What we do instead is simply let
+\format end the \matrix (giving an empty matrix), and then start a
+new \matrix, with the appropriate preamble.
+
+**********************************************************************
+However, at this point we have to pull another TeXnical trick,
+somewhat like the one for \Let@, but different (see TB, p. 385). The
+construction
+
+     \iffalse{\fi\ifnum`}=0 \fi
+
+has balanced braces, so can appear within a \def. The same is true of
+
+      \ifnum`{=0 \fi\iffalse}\fi.
+
+As far as \halign is concerned, however, the first begins a group and
+the second ends one, so \format ... \\ looks to \halign like
+
+      \crcr\egroup [begin a new group] \format@ ...\\
+
+and thus as
+
+      \crcr\egroup [begin a new group]
+           make definitions [end the group] ...
+
+This is important, since otherwise the \\ will be interpreted as \cr
+if the \matrix is inside another \matrix, leading to havoc.
+**********************************************************************
+
+
+\newtoks\hashtoks@, ..., \def\format@
+-------------------------------------
+Having circumvented this difficulty, the idea is that \l&\r\\, for
+example, should be interpreted as $#$\hfil&\hfil$#$. Since #'s can
+usually appear only in special constructions, we want them to pop up
+as tokens, so we make a new token \hashtoks@ whose value is #.  Then,
+if we define \preamble@ to be \l&\r, and define \l as
+{$\the\hashtoks@$\hfil}, etc., we can \edef\Preamble@{\preamble@} and
+\Preamble@ will have the desired result.
+
+Once the desired preamble is stored in \Preamble@, we still have to
+say \span\Preamble@ to have it be expanded (TB, p. 238, last two
+paragraphs).  Notice that the \span\Preamble@ construction works when
+it is being used within a \def, even though we have single #'s
+instead of ##'s (normally an \halign within a \def needs ##'s instead
+of #'s).  By the way, \show\hashtoks@ will actually give the result
+`##', but this is due to TeX's convention for printing token lists,
+see TB, p. 205, Exercise 20.7.
+
+
+\smallmatrix is a lot simpler, since we don't allow \spreadmlines,
+but essentially use \baselineskip=9pt (suitably adjusted using \ex@),
+don't worry about correcting the height of the first line or the
+depth of the last (since \smallmatrix'es aren't meant to be used
+together in formulas), and don't allow \format.
+
+
+\pmatrix, etc., are trivial.
+
+
+\hdots, for use within a \matrix, is plain's \ldots (which we change
+later).
+
+
+\newmuskip\dotsspace@
+---------------------
+The spacing in the \spacehdots...\for... macro will be a new mu-unit
+\dotsspace@, which we set to 1.5mu.
+
+
+\def\strip@, ..., \def\hdotsfor
+-------------------------------
+\spacehdots#1\for#2 macro should normally be used as
+
+     \spacehdots<number1>\for<number2>
+
+but it's quite conceivable that someone will type
+
+     \spacehdots{<number>}\for...
+
+even though the braces are unnecessary; in such a case TeX will
+actually consider the first argument to be {<number>}.  So we don't
+want to specify the spacing simply as \mkern#1\dotsspace@, since this
+will be a syntactical error if #1 has braces around it.  The macro
+\strip@ solves this problem.  When argument #1 of \spacehdots is
+passed to \strip@, the braces are removed, but the space that
+delimits the argument is explicitly added.  So if #1 is `3' or `{3}'
+or `{3 }' then we end up with `\strip@3 ' or possibly
+`\strip@3|_||_|' so we finally get `3\dotsspace@' or `3 \dotsspace@'.
+
+
+\multispan@ is just like \multispan from plain (TB, p. 243), except
+that we have an \unskip so that & \spaceinnerhdots ...  will ignore
+the space after the &.
+
+
+\spaceinnerhdots needs the \strip@ trick for #2 also, since braces in
+\mscount={<number>} would be an error.
+
+
+\cases is easy since it is just made up of a \matrix, with a particular
+\format; we also want to \spreadmlines@\jot, and we put this inside a
+group, so that it will effect only the \cases, not another \matrix in the
+display.
+
+
+\newif\ifinany@
+---------------
+The line spacing in \aligned, \alignedat, \gathered, and \split is
+different from that in \matrix, because we want to \openup\jot. The
+problem, however, is that any of these might occur within one of the
+constructions \align, \alignat, \xalignat, \xxalignat, \gather,
+\multline, which already \openup\jot.  So we need a flag, \ifinany@, to
+tell whether the construction is in any of these.
+
+
+\newif\ifinalign@
+-----------------
+For the purpose of deciding whether to \openup\jot, we also need a
+flag, \ifinalign@, to tell \split whether or not it is in an \align.
+
+
+\newif\ifingather@
+------------------
+Finally, because we allow a very special construction where \align
+appears in \gather (but within curly braces), we also need a flag,
+\ifingather@, to tell \align whether or not it is in a \gather.
+
+
+\strut@ is used as a quicker alternative for \strut, just as
+\Mathstrut@ was introduced as a shorter alternative to \mathstrut.
+We use \copy\strutbox@ rather than \unhcopy\strutbox@, because we
+will be using \strut@ in situations where we don't have to worry
+about entering horizontal mode.  The dimensions of \strutbox@
+are determined by taking the baselineskip (we assume 12pt)
+and subtracting the lineskiplimit (1pt, set in AMSPPT.STY).
+
+
+\topaligned, \botaligned, and \aligned are practically the same, the
+first being a \vtop, the second a \vbox, and the third a \vcenter.
+
+
+\aligned@ is similar to \matrix, except we \openup\jot if we are not
+in a construction that sets \inany@true.  Note that we put \strut@ in
+every line, since this is actually easier than putting it in only the
+first and last lines, and won't make any difference because of the
+\openup\jot.  The main purpose of the \strut@'s in all the following
+constructions is so that when some of them are placed vertically
+above others (as they will be by certain other constructions) the
+spacing will still be correct.  (Actually, the spacing won't always
+be exactly correct, if some lines contain extra tall or deep
+characters, but the discrepancies will be small, and in these cases
+one often has to add some extra spacing by hand anyway.)
+
+
+\alignedat is similar to \aligned, except that the preamble depends
+on the argument; we use \doat@ to produce this preamble, as
+\preamble@@, which we then reproduce, using \span\preamble@@.
+
+
+\newcount\atcount@, \def\doat@
+------------------------------
+\doat@, with argument n, first makes the token list \toks@ be
+
+   \hfil\strut@$\displaystyle{\the\hashtoks@}$&
+     $\displaystyle{{}\the\hashtoks@}$\hfil
+
+and then adds another n-1 copies of
+
+   &\hfil$\displaystyle{\the\hashtoks@}$&
+     $\displaystyle{{}\the\hashtoks@}$\hfil
+
+(the \strut@ isn't needed for these copies, only for the first one),
+using the method of TB, p. 373. This involves a \loop, and we use
+the counter \atcount@ to keep track of the number of iterations.  If
+we then \xdef\preamble@{\the\toks@}, the resulting \preamble@ isn't
+yet the desired result, since we have \the\hashtoks@ appearing
+everywhere that # should appear, so we \xdef\preamble@@{\preamble@}
+to get the right result in \preamble@@.
+
+%1 Initialize \toks@.
+%2 Set \atcount@ to 1 less than #1.
+%3 Add \atcount@ copies of the other tokens.
+
+
+\gathered is much easier.
+
+
+This completes the aligned constructions that are treated as
+individual symbols, but leaves things like \align, in which each
+formula can have a \tag.  So first we have to deal with \tag itself.
+
+
+\newif\iftagsleft@ ...
+----------------------
+Basically, \tag is supposed to mean \leqno or \eqno, depending on
+whether the flag \iftagsleft@ has been set.  \TagsOnLeft sets
+\tagsleft@true, \TagsOnRight sets \tagsleft@false. The default is
+\TagsOnLeft.  It seems reasonable to make these global, so their
+names have capitals in them.
+
+
+\newif\ifmathtags@ ...
+----------------------
+\tag has another slight problem, because \eqno and \leqno treat their
+arguments as math formulas, which isn't convenient when - is used as
+a hyphen; normally, it is better to have the argument treated as
+text.  We will allow the argument to be treated both ways, depending
+on the flag \ifmathtags@.  \TagsAsMath sets \mathtags@true, while
+\TagsAsText sets \mathtags@false, with the default being
+\TagsAsText.  Again it seems reasonable to make these global, so
+their names have capitals in them.
+
+
+\tagform@ describes the formatting of tags desired by the style (more
+precisely the formatting desired when tags are treated as text). The
+default is to put tags in parentheses.
+
+[NOTE: TeX puts an \eqno or \leqno on a separate line unless the space
+between the tag and the formula is at least as wide as the tag
+itself, i.e., the formula plus a box twice the width of the tag
+should fit on the line.  By diddling with \tagform@, this rule could
+be changed.  For example, if the rule is that the space between the
+tag and the formula should be at least 1em (seems to be used by
+Cambridge University Press) we could
+
+  \def\tagform@#1{\setbox0\hbox{\rm(\ignorespaces#1\unskip)}%
+    \dimen0=\wd0 \advance\dimen0 1em \divide\dimen0 by 2
+    \wd0=\dimen0 \box0 }
+
+Then twice the width of \tagform@{#1} would be the `real' width of
+the tag plus 1em.]
+
+
+\thetag allows a fastidious user who wants to refer to `equation (3)',
+without being sure whether the style will use this particular format,
+to do so by typing `equation \thetag3'; the definition of \thetag has
+\leavevmode at the beginning, since \tagform@ is often an \hbox, and
+might begin a paragraph.
+
+
+\def\tag, \def\maketag@, ...
+----------------------------
+Finally, given a displayed formula $$ .... \tag ...$$, \tag has to be
+replaced by \leqno or \eqno, and ... has to be replaced by the proper
+formatting for this expression.  The argument ... is everything from
+\tag to $$.
+
+\maketag@#1\maketag@ is basically just \tagform@{#1} (if tags are
+treated as text), but we also provide a mechanism for overriding the
+default formatting, by typing \tag "..." to get ... as the tag,
+exactly as typed.  (This fits in with the scheme used in AMSPPT.STY
+for `literal' arguments to \footnote and \item in \roster's.)
+Compressed format isn't used since \tag's are used so often.
+
+%1 Let \tag be \leqno or \eqno.
+%2 Replace #1 by \maketag@#1\maketag@.
+%3 Finish off the displayed formula.
+
+%1 Here #2 is a possible space after the second " symbol; this
+   possible space is the reason for using the syntax where the
+   argument is delimited by a second \maketag@.
+
+
+\interdisplaylinepenalty from plain is used as a counter to store
+penalties for page breaks in alignments, but is initially set to
+10000, thus completely inhibiting such breaks.
+
+
+\allowdisplaybreaks should be used only within a displayed formula to
+set \interdisplaylinepenalty to 0 (perhaps a value like plain's 100
+would be better).
+
+
+\Invalid@\allowdisplaybreak, ..., \def\displaybreak@
+----------------------------------------------------
+We also want to use \allowdisplaybreak and \displaybreak to allow or
+force a break after a particular line of an alignment, but we want
+these control symbols to make sense only within these alignments, so
+we handle them like \vspace, etc.
+
+
+\Invalid@\intertext, \def\intertext@
+------------------------------------
+We want \intertext to produce \noalign'ed text, and again want this
+to make sense only with these alignments. The problem here is that
+when more than one line of text is produced, the height of the \vbox
+will be so large that only \lineskip glue would be used, not the
+proper amount to make the baseline of the first line of the \vbox the
+proper distance from the previous line.  So instead of
+\vbox{\noindent##1} we use
+
+     \vbox{\null\noindent##1}
+
+Within this \vbox, the glue between the \null and the \noindent'ed
+paragraph will be just enough to make the space between the \null and
+the top line of the \vbox be \baselineskip.  So we just have to put
+the \vbox on the list preceded by \nointerlineskip, to suppress any
+extra space.
+
+
+\centering@ is like plain's \centering, except that no shrinking of
+glue will be allowed, because we will regard such cases as overfull
+boxes that will either give error messages or be treated specially.
+
+
+\def\align
+----------
+$$\align...  will essentially be an
+
+     $$\halign to\displaywidth{...
+
+unlike $$\aligned... which is essentially
+
+     $$\vcenter{\halign{ ... .
+
+Since the construction \halign to\displaywidth...  without $$ at the
+beginning is actually allowed in TeX, but is quite different, we want
+to guard against errors by having \align give an error message if it
+is not being used within a displayed formula.  However, we do allow
+the special construction {\align...\endalign} within a \gather.  So
+we have \align give one construction in a \gather, but \align@ in
+display math mode, and an error message otherwise.
+
+**********************************************************************
+There is a special problem with \align, which has \endalign as part
+of its syntax, and so will all similar constructions.  Basically,
+\align@ is supposed to call one control sequence, originally called
+\lalign@, if tags are on the left, another control sequence,
+originally called \ralign@, if tags are on the right, and yet a third
+control sequence, originally called \galign@, when it is in a
+\gather.  Moreover, orginally these choices were made by setting
+\let\next@\lalign@, etc., and calling \next@.  But if the user typed
+$$\align ... $$ without the \endalign, then at the end of the
+paragraph there would be an error message
+
+    ! Paragraph ended before \next@ was complete.
+
+which is totally incomprehensible (and the same for all such
+constructions).  So, first of all, in such cases we use \def\next@
+instead of \let\next@.  Moreover, we want the control sequence
+appearing in the error message to be known to the user. We will use
+
+    \csname align \endcsname
+
+as a substitute for \lalign@, which shows up on the screen as \align
+with only one extra space, and
+
+    \csname align \space\endcsname
+
+as a substitute for \ralign@, which shows up with two extra spaces.
+For the special case of \align with \gather, we use
+
+    \csname align (in \expandafter\eat@\string\\gather)\endcsname
+
+which just shows up as
+
+    \align (in \gather)
+
+(This happens to bomb in the special case
+
+    $$\gather {\align }\endgather$$
+
+with nothing on either side of the {\align}, but seems to work in
+most reasonable cases.)
+**********************************************************************
+
+In the definition of \align we \let\next@\align@, since \align@ will
+then call the other control sequences.
+
+
+\newhelp\andhelp@, ..., \def\align@
+-----------------------------------
+\align@ will set the flags \ifinalign@ and \ifinany@, and properly
+define \vspace, \allowdisplaybreak, \displaybreak, and \intertext.
+It will reduce to \align|_| when tags are on the left, otherwise
+\align|_||_|.  These latter will essentially be \halign's, with two
+&'s per line; a line `lhs & =rhs \tag 3' will really be `lhs & =rhs &
+3'.
+
+In the special case of `lhs \tag 3', however, this line must become
+`lhs && 3'.  So we will use a counter \and@ to record the number of
+&'s in the current line, and define \tag in terms of this number
+(\everycr will be used to set \and@ back to 0 at the beginning of
+each line).
+
+Moreover, if the user types `lhs &= rhs &= rhs', with or without a
+following \tag, then we want a more informative error message than
+`Misplaced alignment tab'.  So we will let \tag set a flag \iftag@
+(with \everycr setting \tag@false), and have the tag part of the
+preamble give an error message if the flag hasn't been set.  An extra
+& in a row will usually lead to chaos, and there's no point relying
+on TeX's decision to change the & to \cr; so we make the message
+strong, and add a help message, reiterating this.
+
+It is important to note that because we are \def'ing \tag to be
+something, and not simply \let'ing \tag=&, TeX's scanning mechanism
+would generally not properly intercept these hidden &'s as needed.
+Fortunately, that isn't a problem in this case, because the first two
+parts of the preambles for \measure@ and \align|_| and \align|_||_|
+do not involve # as an argument to a macro; so TeX isn't swallowing
+tokens blindly as it reads in the first two elements of each row of
+the \halign.
+
+
+\def\Tag@, ..., \def\measure@
+-----------------------------
+A whole new level of complication for \align is introduced by the
+fact that we want a tag automatically to be set on a separate line if
+it needs to be.  There is no way to figure this out on a line-by-line
+basis, because the position of a line is influenced by all the other
+lines.  So we will first `\measure@' our \align, to obtain three
+quantities: \maxlwidth@, the maximum length of the left hand side of
+all lines; \maxrwidth@, the maximum length of the right hand side of
+all lines; and \totwidth@ = \maxlwidth@ + \maxrwidth@.
+
+As we proceed through the lines, \lwidth@ and \rwidth@ will be used
+for the left hand length and right hand length of the current line.
+We apply \measure@ to everything up to the \endalign.
+
+Since \measure@ is used before anything else, we must catch the error
+of an extra & at that point.  For convenience later on (in defining
+\alignat and \xalignat), we abbreviate the construction that
+supplies the error message, as \Tag@.
+
+%1  Initialize widths and \and@ to 0pt.
+%2  We just set a box, which we will not use.
+%3  We set \tag@false and reset \and@ to 0 at each \\ (which is
+    \let=\cr); \global needed since \noalign material is in
+    restricted vertical mode.
+
+%4  Each left hand side is just set in \displaystyle. \@lign is required
+    to make sure that if any such formula involves an \halign, the current
+    \everycr won't affect it.
+
+%5  Store width of entry in \lwidth@; \global needed since each entry
+    is essentially in its own group.
+
+%6  \maxlwidth@ is always largest of the \lwidth@'s found so far.
+
+%7  \and@ will be 1 at next entry.
+
+%8  \@lign needed here, as in %4.
+
+%9  Treat the right hand side similarly, getting maximum in
+    \maxrwidth@.
+
+%10 \and@ will be 2 at next entry.
+
+%11 The second &, if it is supplied by \tag, will simply throw away
+    the tag.  But if it wasn't supplied by \tag, it will give an
+    error message.
+
+%11 Finally, make \totwidth@ = \maxlwidth@ + \maxrwidth@.
+
+
+**********************************************************************
+WARNING: Because \align processes its argument twice, you have to be
+careful if you are using an ad hoc construction in the form of a \box
+that just been set.  This box must be used as \copy, rather than as
+\box, or it will be emptied out by the time \measure@ has gotten
+through with it!
+**********************************************************************
+
+
+\displ@y@ is just like plain's \displ@y, except that it also sets
+\and@ to 0 and \tag@false at each \cr (we need the \tag@false for
+certain later constructions, even though \align no longer needs it).
+
+
+\def\black@
+-----------
+Alignments do not show an overfull black box on any of their overfull
+rows (TB, p. 303).  Since \align is just an \halign, this means that
+no black boxes would be shown when a row is overfull.  To alleviate
+this problem, we at least arrange for a black box to show up at the
+last line of the alignment, by adding \black@\totwidth@ at the end.
+\black@#1, with any argument #1, simply backs up a line, and then
+adds some extra non-aligned empty material, which is specified as
+
+    \vbox{\noindent\hbox to#1{\strut@\hfill}}.
+
+This makes a \vbox that contains a paragraph starting (and containing
+only) a box of width #1 and height and depth of \strut@; if #1 >
+\hsize, then this paragraph has an overfull box in it, which will
+produce the desired black line, of height and depth of \strut@
+(unless \NoBlackBoxes has been specified).  However, we will add this
+box only if #1 > \displaywidth (which could conceivably be larger
+than \hsize).
+
+%1 Save \prevdepth in \dimen@, and then inhibit interline glue with
+   \nointerlineskip (which just sets \prevdepth=-1000pt).
+
+%2 Back up enough to put in line with height of \strut@.
+
+%3 Put in the overfull \vbox.
+
+%4 Restore \prevdepth.
+
+
+\expandafter\def\csname align \space ...
+----------------------------------------
+Since \align|_||_| is created with \csname ... \endcsname, we have to
+use an \expandafter\def construction.  \align|_||_| produces the
+\align when tags are on the right.  We first \measure@ to find
+\maxrwidth@ and \totwidth@.  Our display will be centered within a
+region of width \displaywidth,
+
+
+ <---------------------------\displaywidth------------------------>
+ |               xxxxxxxxxxxxxx = yyyyyyyyy                       |
+ |                       xxxxxx = yyyyyyyyyyyyyyyyy               |
+ |                    xxxxxxxxx = yyyyy<------------L------------>|
+ |
+                 <------------\totwidth@---------->
+
+ <--left margin->                                   <-right margin->
+
+
+so the left and right margins will each be
+
+     1/2(\displaywidth-\totwidth@).
+
+The tag for a line (say line 3 in the above picture) can go on that
+line if the length L is at least twice as big as the tag's length.
+We have
+
+     L = (right margin) + \maxrwidth@ - (\rwidth@ for this line).
+
+So we need
+
+    1/2(\displaywidth-\totwidth@)+\maxrwidth@-(\rwidth@ for the line)
+           >= (twice tag length).
+
+When the tag has to be put on a separate line, we basically just
+replace the tag by a two-line box with an empty first line and the
+tag on the second line.
+
+[NOTE: Diddling with \tagform@ (and hence with \maketag@) will
+change the rules for the tags here just as with \tag itself.]
+
+[NOTE: Since \align computes \lwidth@ and \rwidth@ at each line, it
+is easy to add commands that use knowledge of these widths.  For
+example, suppose that one wants formulas like
+
+     a = xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    + yyyyyyyyyyyyyyy
+
+where the y...y is set flush right with the x...x instead of being
+indented some fixed amount.  To type this as
+
+     \align a & = xxxxxxxxxxxxxxxxxxxxxxxxxxxx \\
+          & \flushright {+yyyyyyyyyyyyyyy} \\
+
+we could introduce a new dimension \prevrwidth@ to store the \rwidth@
+of the previous line and let \flushright#1 mean
+
+     \hbox to\prevrwidth@{\hfil#1}}
+
+(To get this to work correctly, we would probably need to add
+
+     \global\prevrwidth@\rwidth@
+
+to the \everycr{\noalign{...}} clause.)]
+
+%1  \measure@, set \and@=0.
+
+%2  Use \displ@y@, except if in a \gather just set \and@=0 at each
+    \cr.
+
+%3  Left hand formulas in the \halign to\displaywidth will have
+    \tabskip\centering@ glue before them to push them to the right.
+
+%4  \@lign required so that an \halign in a left hand formula will
+    not have the \tabskip\centering@ affect it.
+
+%5  As we go through the lines once again, we set \lwidth@ to the
+    length of the current left hand side, as before, except now we
+    also print this left hand side (\box0 ).
+
+%6  Tabskip glue is zero between the two sides.
+
+%7  \@lign needed here, as in %4.
+
+%8  We set \rwidth@ to the length of the current right hand side,
+    but now also print right hand side.
+
+%9  Right hand formulas have \tabskip\centering@ glue after them to
+    push them to the left.
+
+%10 First we store the \tag in \box0. \@lign required in case the tag
+    involves an \halign!
+
+%11 Let dimen0 = 1/2(\displaywidth-\totwidth@)+\maxrwidth@ - \rwidth@.
+
+%12 If not enough space for tag on this line, we \llap a two-line box
+    with first line empty, and tag on the second line.
+
+%13 If there is enough space we just \llap the tag.
+
+%14 \tabskip glue is 0 after the tag.
+
+%15 Now do all the lines.
+
+%16 Finally, add black box if \totwidth@ > \displaywidth.
+
+
+\newdimen\lineht@, \expandafter\def\csname align \endcsname ...
+---------------------------------------------------------------
+\align|_| is similar, except that our calculations for whether the
+tag fits will involve \maxlwidth@ and \lwidth@.  Moreover, when the
+tag has to be set on a separate line, we need to replace it by a
+two-line box with the tag on the first line and an empty second line.
+This empty second line has to have the same height as the line to
+which the tag applies, so we need a dimension \lineht@ to store this
+height in.
+
+%1 \displaywidth@ is max of \totwidth@ and \displaywidth.
+
+%2 Record height of left hand side in \lineht@.
+
+%3 Update \lineht@ to height of right hand side, if it's bigger.
+
+%4 The \kern-\displaywidth@ moves the tag back over to the left (to
+   the left margin of the page, unless \totwidth@ is greater than
+   \displaywidth@ [so that our display is actually overfull], in
+   which case it is moved to the left margin of the display).
+
+
+\expandafter\def\csname align (in ...
+-------------------------------------
+In the case where \align was in a \gather, it reduced to a control
+sequence called
+
+            \align (in \gather)
+
+We simply make this a \vcenter{\align@...} (where \align@ will reduce
+to\align|_| or \align|_||_|).
+
+
+\Invalid@\endalign
+------------------
+Notice that \endalign is quite different from \endaligned, because
+the latter actually ends a group, whereas \endalign is just used as
+the delimiter for the argument of \align.  This could cause great
+difficulties if we needed \align ... \endalign within a group that
+has other \\ constructions.  Fortunately, the only such case is
+\align ... \endalign within a \gather, and we simply insist that
+braces are used around the \align ... \endalign in this case.  But we
+ought to do something more than just leaving \endalign undefined.
+
+
+\newif\ifxat@
+-------------
+\alignat and \xalignat have much in common, so we will write their
+definitions similarly, using \ifxat@ as a flag to do things
+differently for the \xalignat.
+
+
+\alignat first checks to make sure we are in display math mode, and
+then calls \alignat|_| (created by \csname...\endcsname), which uses
+\endalignat as part of its syntax.  In the case of \alignat, the test
+for tags on the left or right is made afterwards, so we don't need
+separate names for the two possibilities.
+
+
+\newif\ifmeasuring@, \newbox\savealignat@
+-----------------------------------------
+In `\alignat|_| n' the argument n determines how many &'s are allowed
+per line, namely 2n (2n - 1, plus 1 for the \tag).  This in turn
+determines how many &'s have to be added when a \tag appears in a
+line with fewer &'s, and when an error message should be given: if
+\tag appears in a column where \and@ has value k, then we need to add
+2n-k &'s; if we have k > 2n, then the \tag part of the preamble
+should give an error message.
+
+We won't try to set tags on separate lines automatically, but we do
+want to produce a black box if lines are too long, so we still need
+to measure things. Instead of separately calling a \measure@ type of
+argument, we will use a flag \ifmeasuring@ to determine if we are
+measuring or actually typesetting the alignment; the appropriate
+preamble will be made by \attag@, which will depend on \ifmeasuring@
+(and on \ifxat@).  When measuring, we will save the result in the box
+\savealignat@.
+
+
+\expandafter\def\csname alignat \endcsname ...
+----------------------------------------------
+
+%1 #1 is the number after \alignat, #2 is everything else.
+%2 First we are just measuring.
+%3 We make the proper preamble with \attag@.
+%4 Then we are actually typesetting.
+%5 We make a new preamble with \attag@.
+%6 Then we typeset all the lines.
+%7 Finally we add a black box if necessary.
+
+
+\endalignat, like \endalign, has no definition of its own.
+
+
+\xalignat, like \alignat, first checks to see that we are in display
+math mode, and then calls \xalignat|_|, since it has \endxalignat as
+part of its syntax.
+
+
+\xalignat|_| is exactly the same as that for \alignat|_|, except that
+we have \xat@true (which will influence \attag@, when building the
+preambles).
+
+
+\attag@ finally builds the preamble.  Although the process is similar
+to that used for building the preamble for \alignedat, it is
+complicated by the fact that we have to include \maketag@ and \Tag@
+among the tokens and make sure that they aren't expanded out when we
+do our \xdef's.
+
+%1 Store \maketag@ in \Maketag@ and \Tag@ in \TAG@.
+
+%2 Insure that \maketag@ and \Tag@ won't be expanded.
+
+%3 The preamble will be written in terms of \llap@ and \rlap@, which
+   are simply \llap and \rlap when we are typesetting, but when we
+   are measuring will be a box twice the width of the tag.
+
+%4 \toks@ will be the first part of the \preamble; it acts slightly
+   different for \xalignat|_| and \alignat|_|.
+
+%5 \toks@@ will be the final part of the \preamble; it differs
+   significantly for \xalignat|_| and \alignat|_|.
+
+%6 We use a \loop to add on pieces of the preamble to \toks@.
+
+%7 Then we add on the last part.
+
+%8 Then we do one more \xdef, as with \alignedat.
+
+%9 Finally, we restore the meaning of \maketag@ and \Tag@.
+
+
+\endxalignat also has no definition.
+
+
+\xxalignat is simpler, because we don't have to worry about tags at
+all.  First we make \xxalignat call \xxalignat|_|, since it uses
+\endxxalignat as part of its syntax, in display math, but gives an
+error message otherwise.
+
+
+\xxalignat|_| is similar to \alignat|_| and \xalignat|_|, except we
+don't bother about measuring things, since we don't have to worry
+about tags.
+
+
+\xxattag@ is used to make the preamble, rather than \attag@.
+
+
+\endxxalignat also has no definition.
+
+
+\newdimen\gwidth@, \newdimen\gmaxwidth@
+---------------------------------------
+\gather is naturally easier than \align, but we still have the
+problem of putting the \tag on a separate line, so we still have to
+measure things.  But we need only the one quantity \gmaxwidth@, the
+maximum width of all the formulas; \gwidth@ is the width of each line
+as it is measured.
+
+
+\gmeasure@ is analogous to \measure@ for \align@.
+
+
+\gather gives an error message if we are not in display math mode,
+and otherwise calls either \gather|_| or \gather|_||_|, since both
+use \endgather as part of their syntax.
+
+
+\gather|_||_| is analogous to \align|_||_|.
+
+
+\gather|_| is analogous to \align|_|, using the \glineht@ instead of
+\lineht@.
+
+
+\newif\ifctagsplit@ ...
+-----------------------
+It seems more elegant if a \split ... \endsplit formula has its tag
+either at the left of the top line or the right of the bottom line,
+but we will allow the tag to be centered, depending on the flag
+\ifctagsplit@. We provided \CenteredTagsOnSplits and
+\TopOrBottomTagsOnSplits to allow the user to set the flag. The
+default is \TopOrBottomTagsOnSplits.
+
+
+\split will be \outsplit@ if it is not in some other alignment, but
+if it is in some other alignment it will be \insplit@, which is the
+interesting thing. We don't need to worry about the
+\csname...\endcsname trick here because \split doesn't actually use
+\endsplit as part of its syntax. The K-method wouldn't work in this
+multi-case situation.
+
+
+\insplit@ just starts setting \box0 as \vbox{\halign{... with the
+proper format.
+
+
+\endpslit then finishes \box0 and calls either \lendsplit@ or
+\rendsplit@.
+
+
+\def\rendsplit@
+---------------
+For tags on the right, we need to get out the last line of the
+\insplit@, which is a \vbox made up of the various lines of the split
+formula, with glue between them. If TG represents various tabskip
+glues (which all happen to be 0pt) and HF represents various glues
+added by the \hfil's in the preambles, this box looks like
+
+                      ....
+                      ....
+       \hbox{TG\hbox{HF lhs}TG\hbox{rhs HF}TG}
+                <interline glue>
+       \hbox{TG\hbox{HF lhs}TG\hbox{rhs HF}TG}
+
+
+%1 \box9 now has everything in \box0 except the last line, which is
+   now \box8, and the interline glue that preceded the last box,
+   which is removed by \unskip. \box8 is now of the form
+
+     \box8 = \hbox{\TG\hbox{HF lhs}TG\hbox{rhs HF}TG}.
+
+#2 In \box1 we \unhcopy8. \unskip removes the last TG.  Then \box2
+   becomes \hbox{rhs HF} (\box 2 is saved by \global).  The next
+   \unskip removes the middle TG. Then \box3 (also saved by \global)
+   becomes \hbox{TG{HF lhs}}.  Notice that the width of \box3 is the
+   same as the width of the whole left part of the split (the TG is
+   0, but the HF fills out all lines to the same width, [even though
+   lhs is actually usually empty in a split]).
+
+%3 Finally, \box7 is now the right side of the last line, set to its
+   natural width (the HF glue at the end having been removed by
+   \unskip).
+
+Now we will define \split@ to be the proper repositioning of
+elements.
+
+%4 Suppose our \split is within an \align, and we want tags centered
+   on the \split.
+
+%5 Then we make \split@ be one more line of the form LHS & RHS, where
+   RHS is a \vcenter of the whole split (\box0 ) except moved left by
+   width of \box3, which is the width of the whole left hand side.
+   This means that the symbols that the \split were aligned along
+   will now align with all the other symbols in the \align. We also
+   make LHS an empty box with the same width as the whole left hand
+   side, so that \split will still have the proper width.
+
+%6 Otherwise, we want the tag on the last line, so we have \split@
+   add two lines: one having \box 9 (everything in the \split except
+   the last line and interline glue) on the right, except moved over
+   to the left the right amount, the width of \box3; and another
+   having \box3 on the left and on the right \box7, which is the
+   proper right side (cut down to its natural width). The proper
+   interline glue will then be added back between these two lines.
+
+%7 If we're not in an \align, so don't need to worry about lining up
+   with other things, we do similar, but simpler, things, without
+   worrying about moving things over.
+
+%8 And finally, having defined \split@ correctly, we insert it.
+
+
+\def\lendsplit@
+---------------
+For tags on the left we have to proceed somewhat differently. We
+can't conveniently obtain the first line, but we can begin by making
+a \vtop out of our \vbox:
+
+%1 \box9 is just like \box0, except baseline is that of first line.
+
+%2 Now \box8 is last line.
+
+%3 Now \box3 is as before (but \box2 hasn't been saved, because we
+   don't need to find the natural width of the last right side).
+   \box1 is just a scratch box, so can be used twice like this.
+
+Now we define \split@.
+
+%4 Suppose our \split is within an \align, and we want tags centered
+   on the \split.
+
+%5 Then we make \split@ be one more line of the form LHS & RHS, where
+   RHS is a \vcenter of the whole split, except with a new baseline
+   (\box9 ) and moved left the right amount, and LHS an empty box as
+   before.
+
+%6 Otherwise, we want the tag on the first line, as before.
+
+
+\outsplit@ is just reduced to \insplit@.
+
+
+\newdimen\multlinegap@
+----------------------
+Finally, we come to \multline.  We store the gap between the margins
+and the left and right sides of the \multline in a dimension
+\multlinegap@.
+
+
+\newdimen\multlinetaggap@
+-------------------------
+For \multline we use the rule that there must be at least
+\multlinetaggap@ space between the formula and the tag. (This seems
+more reasonable than the usual rule, since the formula doesn't have
+to be centered.)
+
+
+\MultlineGap globally changes \multlinegap@.
+
+
+\multlinegap can only be used in a displayed formula, and then
+affects only this formula.
+
+
+\nomultlinegap is an abbreviation for \multlinegap{0pt}.
+
+
+\multline first checks to see that we are in display math mode, and
+calls \multline@ if we are. There is no point using the
+\csname...\endcsname trick here, because eventually we use the syntax
+\endmultline$$, so if the \endmultline is missing, at the end of the
+paragraph we just get an error message about a missing $ sign.
+
+
+\newif\iftagin@, \def\tagin@
+----------------------------
+\multline@ has to be processed differently depending on whether or
+not the displayed formula it appears in has a \tag.  We use a flag
+\iftagin@ to tell us, and test with \tagin@.
+
+
+\multline@ first does the \tagin@ test and then calls either
+\multline@l or \multline@r.
+
+
+\newdimen\mwidth@, \def\rmmeasure@
+----------------------------------
+When tags go on the right, we will need to measure the last line of
+the \multline, and store its width in \mwidth@.  This is easily done
+with \rmmeasure@; we set \mwidth@ to the width of each line, so that
+its final value is just the width of the last line.
+
+%1 Don't worry about what \shoveleft and \shoveright really are,
+   since we only care about the result of the last line, which
+   shouldn't have either.
+
+
+\newdimen\mlineht@, ..., \def\lmmeasure@
+----------------------------------------
+When tags go on the left, however, we will need to measure the FIRST
+line of the \multline, again storing its width in \mwidth@ (we will
+also need to store its height, in \mlineht@).  This is more
+complicated, and we actually need two new flags, \ifzerocr@ and
+\ifonecr@, to keep things under control.
+
+%1 After the first \cr, which is the one that follows the preamble,
+   we have \zerocr@false and \onecr@true. Then after the first \\ in
+   the \multline, we always have \onecr@false (and also
+   \zerocr@false).  So \onecr@true holds only for the first line of
+   the \multline.
+
+
+\newbox\mtagbox@, ..., \newdimen\rtwidth@
+-----------------------------------------
+We will need to store the tag in a box \mtagbox@.  And \ltwidth@ and
+\rtwidth@ are dimensions where we will store the widths of this box,
+for use with \shoveleft and \shoveright; however, \ltwidth@ will be
+made 0pt when a tag on the left can't go on the same line as the
+formula (since in this case we want \shoveleft to shove all the way
+to the left), and similarly for \rtwidth@.
+
+
+\multline@l calls \lmultline@@ if there is a \tag, and \lmultline@@@
+otherwise. In the latter case, it first sets \mtagbox@ to \null, and
+makes \ltwidth@ and \rtwidth@ be 0pt.
+
+
+\lmultline@@ sets other values for \mtagbox@, \ltwidth@, and
+\rtwidth@ when there's a \tag, and then simply calls \lmultline@@@.
+
+%1 \mtagbox@ is a box with the tag in it.
+
+%2 \dimen@ is
+
+     (width of first line) + (width of tag) + \multlinetaggap@.
+
+%3 \ltwidth@ is just the width of the tag, unless the tag won't fit
+   on the line (determined by \dimen@>\displaywidth), in which case
+   it is 0pt (because the tag won't really be there!).
+
+
+\lmultline@@@ mainly has to define \shoveright and \shoveleft.
+\shoveright is simple: the \hfilneg cancels the \hfil normally on the
+right, but we add \hskip\multlinegap@, so that the line will come out
+the same distance from the right margin as the last line.  \shoveleft
+is more complicated.  First of all, we put \hfilneg at the beginning,
+to cancel the \hfil.  Then, if \ltwidth@ isn't 0pt (so that the tag
+is actually on the line), we \hskip the width of this tag plus the
+\multlinetaggap@ (the total space from the margin to the beginning of
+the first line); but if \ltwidth@ is 0pt, so that the tag is on a
+separate line, we just \hskip the \multlinegap@.  Unfortunately, this
+doesn't quite do it, because the formula that we are applying
+\shoveleft to might begin + A + B + ...  for example.  Our preamble
+for the \multline involves $\displaystyle{}#$, so that the initial +
+sign will have a medium space between it and the A.  But there is
+also a medium space BEFORE the + sign, so the + sign will not really
+line up correctly on the left.  To get around this, we set our
+formula with {} before it in \box0 and without the {} before it in
+\box1.  When a symbol like + begins the formula, the difference
+between the width of \box0 and the width of \box1 will be two of
+these thick spaces, so we exactly cancel out any extra space with
+\hskip.5\wd1 \hskip-.5\wd0.
+
+%1 First define \shoveright and \shoveleft.
+
+%2 We begin the \multline with a separate line starting with
+   \hfilneg, to cancel the \hfil.
+
+%3 Suppose first that there is a tag.
+
+%4 Moreover, suppose it will fit on the first line.
+
+%5 Then we put in the tag, and skip the proper gap.
+
+%6 But if it won't fit on the first line, we manufacture a box
+   containing the tag on top and an empty box the height of the first
+   line on the bottom.
+
+%7 If there isn't a tag, we just skip the \multlinegap@.
+
+
+\multline@r works just like \multline@l.
+
+
+\rmultline@@ works just like \lmultline@@.
+
+
+\rmultline@@@ works like \lmultline@@@, except that now we don't
+have to worry about the tag yet, which will be taken care of by the
+\endmultline.  However, now the definition of \shoveright is a little
+more complicated to take into account whether or not the tag goes on
+the same line as the last line; the definition of \shoveleft is
+simpler, but we still have to do the same trick to take care of
+formulas like + A + ... .
+
+
+\endmultline works slightly differently for tags on the left and tags
+on the right, so we have it call either \lendmultline@ or
+\rendmultline@.
+
+
+\lendmultline@ is trivial.
+
+
+\rendmultline@ has to put in the tag.
+
+%1 Suppose there is a tag.
+
+%2 Suppose, moreover, that it will fit on the last line.
+
+%3 Then we skip the proper gap before the tag, and put in the tag.
+
+%4 But if it won't fit on the last line, we manufacture a box
+   containing an empty box on the first line, and the tag on the
+   bottom line.
+
+%5 If there isn't a tag, we just skip the \multlinegap@, before
+   adding the \hfilneg.
+
+
+\bmod, ..., \mod are easier. \bmod is exactly as in plain, but with
+\fam\z@ instead of \rm.  And \pmod is also based on plain, except
+that more space seems to look better in displays.  \pod is the same
+as \pmod, but without the word `mod', and \mod is similar, except
+without the parentheses, and slightly different spacing.
+
+
+\newcount\cfraccount@, ..., \def\rcfrac
+-----------------------------------------
+Next come continued fractions. TeX's \over construction
+
+     {...\over\displaystyle ... +
+        {\strut ... \over\displaystyle ... ...}}...}
+
+is admirably suited for a recursive definition, since each new level
+contributes one left brace, with all the right braces occurring at
+the end; we just have to keep track, in a counter \cfraccount@, of
+how many levels we have entered. However, it doesn't look good if TeX
+puts the usual \nulldelimiterspace around each of the subfractions,
+so we will actually have one more level around each subfraction, with
+\nulldelimiterspace subtracted inside it. Thus, each \cfrac will
+contribute two \bgroup's.
+
+We also have to make \\ mean \over\displaystyle inside the \cfrac. In
+case the \cfrac appears in some other construction where \\ has been
+\let=\cr, we use the usual \iffalse{\fi...\iffalse}\fi trick to
+enclose this definition. \lcfrac is just like \cfrac, except that the
+next \\ will put \hfill before the \over (hence at the end of the
+next numerator); and \rcfrac puts in the \hfill before the numerator.
+
+
+\def\gloop@, \def\endcfrac
+--------------------------
+Finally, \endcfrac puts in pairs of }'s, with
+\hskip-\nulldelimiterspace between them. A \loop...\repeat type of
+construction is meant to be used here, in which we decrease
+\cfraccount@ by 1 at each step.  But there is a complication, because
+\loop uses \def\body to keep track of things, and after each
+iteration we are two levels up, so that \body is no longer defined
+(it might even be some old definition of \body!).  So we have to use
+\gloop@, which is just like \loop, except that it uses \gdef\body.
+
+
+\def\binrel@
+------------
+For \overset and \underset, we want a way to check whether a symbol S
+is either a binary operator or a binary relation, since \overset and
+\underset are supposed to preserve this. The idea is to compare the
+formula $S$ (with \mathsurround=0pt) and the formula ${}S{}$.  To
+make the comparison both independent of the present values of
+\thinmuskip, etc., and easy, we set the formulas with
+\thinmuskip=0pt, \medmuskip=1mu, \thickmuskip=-1mu.
+
+The spacing between the \mathord {} and a binary operator is
+\medmuskip, between {} and a binary relation is \thickmuskip and
+between {} and anything else is either 0 or a \thinmuskip. So, S must
+be a binary operator if the formula gets wider, and a binary relation
+if the formula gets narrower.  Instead of saving the results of the
+test in control sequences, we just make \box2 have the width of {}S{}
+minus the width of S, and check on the width of \box2, since this
+test will always be done right at the beginning of any construction.
+
+
+\overset and \underset are essentially as in plain, except we make
+the result a binary operator or relation if it started as one; we
+also add the \kern\z@ as in \operatorname, in case only a single
+letter is involved.
+
+
+\oversetbrace and \undersetbrace are simply convenient abbreviations.
+
+
+\def\sideset
+------------
+In a construction like \sideset ^+ \and ^* \to \sum, the final symbol
+will look like {\vphantom{\sum}}^+ {\sum}^* --- with the \vphantom
+used to get the prescript ^+ at the right height.  To get the limits
+in the right place, we need a construction like that used for
+multiple integrals: \hskip-<...>\mathop{\hskip<...>{\vphantom } }
+where the correction <...> is the width of {\sum}^* which we set in
+\box2, minus the width of \sum with the prescript, which we set in
+\box1.
+
+
+\rightarrowfill@, ..., \def\leftrightarrowfill@ depend on the math
+style, to modify \overrightarrow and \overleftarrow from plain so
+that they work in all styles, using \mathpalette. The \smash- is
+used because the height of the minus sign happens to be the height of
+the plus sign (thus, larger than you'd like).
+
+
+\overrightarrow, ..., \underleftrightarrow are now defined, using
+\overrightarrow@, ..., \underleftrightarrow@ for use with
+\mathpalette.
+
+
+Now we come to \dots, which is probably the most complicated thing in
+all of AmS-TeX!
+
+We would like \dots to know what to do on the basis of the next
+token, which we can get with a \futurelet. (It turns out that we
+don't happen to encounter any problems if we have \dots & within a
+\matrix, etc. This can be explained only by serendipity.) If that
+next token is a comma, then we will use \dotsc.  If it is the token
+\not, then the \not presumably cancels a binary operator, so we will
+use \dotsb@ [\dotsb@ is essentially \dotsb, except that \dotsb will
+look ahead to see if extra space should be left because the next
+symbol might be a right delimiter]. If the next token is +, =, <, >,
+-, * or : then we again want to use \dotsb@.
+
+Otherwise, however, it's not clear what to do with the token. For
+example, we can't simply make a formula containing only that token,
+since it might be something like \matrix that doesn't make any sense
+by itself (we don't have this problem with \underset and \overset,
+since they are actually applied to arguments, which must be
+meaningful formulas).
+
+The only hope at this point is actually to look at the next token in
+detail, using \meaning!!
+
+When we look at \meaning<token> we might get
+
+   \mathchar"...    or      macro...->...
+
+(Remember, however, that all the characters here will have type 12.)
+
+If we get \mathchar"... the number ... is of the form xnnn, where x
+gives the ``class'', with 2 for a binary operator and 3 for a binary
+relation.  So if we set a counter to the number and divide by 4096,
+the value will be 2 and 3 for binary operators and relations,
+respectively.
+
+If we get macro...->... then we don't want to go berserk and actually
+try to figure the macro out, but if the definition begins with \not
+we should use \dotsb (remember that \ne, for example, is a macro that
+expands to \not=). Moreover, we ought to use \dotsb if the definition
+begins with \mathbin or \mathrel.
+
+In addition, if we test to see whether the definition begins with
+\DOTSB we can use \DOTSB as a signal that we are using a binary
+operator (and the user can add this to a definition also).  Later we
+will add \DOTSB to certain of plain's definitions, since this will be
+the only reasonable way to see that they represent binary operators
+or relations.  For example, \longrightarrow begins with \relbar, and
+\Longrightarrow with \Relbar.  We have simply added \DOTSB in front
+of both.  \DOTSB has also been added previously to the various big
+operators, so that \dotsb will be used before them.
+
+Similarly, \DOTSI will indicate that \dotsi should be used, for dots
+before an integral sign.
+
+Once \dots has figured out whether to use centered or low dots, it
+will still try to figure out whether some extra space should be left,
+because the next symbol is a right delimiter.  Here we will find
+\DOTSX useful, to be put into a macro definition to indicate that it
+represents a right delimiter.
+
+
+\let\DOTSI\relax, ..., \let\DOTSX\relax
+---------------------------------------
+Initially, these are all simply \relax.
+
+
+\newif\ifmath@, {\uccode ...
+----------------------------
+First we make a flag to tell that \meaning begins with \math, where
+\ m a t h are all of type 12.  To do this we have to use the \uccode
+trick, temporarily setting the \uccode of various numbers and of !
+(all of which are type 12) to \ m a t and h, so that when we
+\uppercase them we will get type 12 \ m a t and h.  We will use
+\math@___\math@ to test ___ and set \ifmath@ true if the first five
+symbols are \ m a t and h, storing what remains in \meaning@. We are
+going to be applying constructions like \math@, which takes at least
+5 arguments, to the unknown ___ and then sometimes yet another
+construction taking at least 5 arguments, so, as will appear later,
+we will always add ten periods (any other symbol would do as well) to
+___ before we begin the whole testing process.
+
+(This construction assumes that ! is of type 12.  If some macro
+pacakge changes this [for French punctuation, say], then the ! should
+be replaced by some other symbol that is guaranteed to be of type
+12.)
+
+
+\newif\ifmathch@, {\uccode ...
+------------------------------
+When something begins with `\math', we will further test to see if it
+is followed by ch??" (we don't bother testing the ? characters, since
+no other result of \meaning could be like this).  The test is of the
+form \mathch@___\mathch@, setting \ifmathch@ true if it passes, and
+then storing the " and what comes after in a new \meaning@.
+
+
+\newcount\classnum@, \def\getmathch@
+------------------------------------
+Next we define a control sequence to test whether the "____
+combination we've picked up begins with 2 or 3, by computations with
+the hex number `"____' Since we've added periods, we must be careful
+to pick up only the number before the first period. At this point we
+no longer store the result, but directly define \thedots@ [the main
+thing that \dots is trying to produce] to be \dotsb@ if we do have 2
+or 3.
+
+
+\newif\ifmathbin@, {\uccode ...
+-------------------------------
+When we test whether a macro meaning begins with \mathbin or
+\mathchar we will first use the above \math@ test to see if it begins
+with \math.  Then we will have to test if it is followed by `bin'.
+But we actually have to test whether it is followed by `bin|_|'
+(since someone might have defined a new control sequence beginning
+\mathbin...). Spaces created by \meaning still have their usual type
+10, so we will use \space@ for this part of the test, picking up the
+token after `bin' with a \futurelet.  Compressed format is used here.
+The final result of the test is flagged by \ifmathbin@.
+
+
+\newif\ifmathrel@, {\uccode ...
+-------------------------------
+Similarly, we test for \mathrel.
+
+
+\newif\ifmacro@, {\uccode  ..., \def\macro@@
+--------------------------------------------
+To test whether \meaning begins with `macro', we just test for the
+`mac', since no other possible result of \meaning could begin like
+this.  The test sets \ifmacro@ and stores the result in (a new)
+\meaning@, which uses \macro@@ to isolate the part after the ->,
+i.e., the actual macro definition.
+
+
+\newif\ifDOTS@, \newcount\DOTSCASE@, {\uccode ...
+-------------------------------------------------
+To test whether a macro definition begins with \DOTSB or \DOTSI or
+\DOTSX we first test for the \DOTS, with \DOTS@...\DOTS@.  If it
+doesn't we just set \ifDOTS@ false, otherwise we further test for the
+`B|_|' or `I|_|' or `X|_|', setting \ifDOTS@ true if the test is
+passed, and setting a counter \DOTSCASE@ equal to 0, 1 or 2 in these
+cases.
+
+
+\newif\ifnot@, {\uccode ...
+---------------------------
+This is the test for whether something starts with \not.
+
+
+\newif\ifkeybin@, \def\keybin@
+------------------------------
+We abbreviate the process of checking for all the possible binary
+operators and relations that can be entered from the keyboard.
+
+
+\def\dots
+---------
+Finally, we're ready to define \dots ! which is different in text and
+math.
+
+
+\def\tdots@
+-----------
+In text, we want to ignore spaces before \dots, and we want to leave
+an extra thin space if the next token, which we get with a
+\futurelet, is a , or . or ; or : or ? or !  Otherwise (another letter
+or symbol comes next) we want to leave an ordinary space.
+
+
+\def\mdots@, \def\mdots@@
+-------------------------
+Finally, in math mode we want \mdots@, which uses \futurelet to get
+the next token.  Compressed format isn't used here, because things
+are confusing enough already.
+
+The main aim of \mdots@@ is to define \thedots@, which will be used
+at the very end.  We begin by defining \thedots@ to be \dotso@ (the
+dots before ordinary symbols), and then modifying it under the stress
+of various tests.  The order has been chosen so that the more
+complicated tests come near the end.
+
+Notice that the \xdef\meaning@{\meaning\next..........} is allowed,
+even if \next happens to be outer.
+
+%1  By default, we use \dotso@.
+
+%2  If \boldkey (explained below) happens to come next, then we simply
+    want to swallow up the \boldkey and use \boldkeydots@ instead.
+
+%3  Similarly, if \boldsymbol happens to come next, then we simply want
+    to swallop up the \boldsymbol and use \boldsymboldots@ instead.
+
+%4  Otherwise, if , comes next we use \dotsc.
+
+%5  If \not comes next we use \dotsb@.
+
+%6  If +, =,  etc.,  comes next we use \dotsb@.
+
+%7  Otherwise we want to look at \meaning applied to the next token;
+    we get this by \xdef\meaning@{\meaning\next..........} where the
+    extra periods are added for reasons explained above.  We also
+    make another copy, \meaning@@, for later use.
+
+%8  If \meaning@ begins `\math', we further test for ch??"; if this
+    test is passed we use \getmathch@ to define \thedots@.
+
+%9  Otherwise we see if we have a macro.  We test on \meaning@@,
+    since the previous test has already changed \meaning@.
+
+%10 Suppose we do have a macro (so that \meaning@ is now the part
+    after ->).
+
+%11 We see if the macro begins with \not. If it does, \thedots@
+    is \dotsb@.
+
+%12 Otherwise, we see if the macro begins with `\DOTSB' or `\DOTSI'
+    or `\DOTSX', and if so, we set \thedots@ to \dotsb@ for \DOTSB
+    and \dotsi for \DOTSI.
+
+%13 Otherwise we still have to see if the macro definition begins
+    with \mathbin or \mathrel. Once again, we see if it starts with
+    \math, storing the remainder in the new value of \meaning@.
+
+%14 If it does we see if it really begins \mathbin and choose \dotsb@
+    if it does (the test doesn't change the value of \meaning@).
+
+%15 Otherwise we also see if it really begins \mathrel, and choose
+    \dotsb@ if it does.
+
+
+Now that we've gotten to \thedots@, which is either \dotsc or \dotsi
+or \dotso@ or \dotsb@ or \boldkeydots@ or \boldsymboldots@, we have
+to define these.
+
+
+\plainldots@, \plaincdots@ are used to store away plain's definitions
+of \ldots and \cdots.
+
+
+\dotsi and \dotsb@ are simple.
+
+
+\newif\ifextra@, ..., \def\rightdelim@
+--------------------------------------
+But \dotso@ is supposed to leave extra space if followed by a right
+delimiter, so it is more complicated.
+
+We use \ifextra@ to say if extra space should be left, after results
+of a test on \next, which a \futurelet will let equal the next token.
+For simplicity, first we simply test if the next token is an obvious
+right delimiter, storing the result in \ifrightdelim@, and then we
+make the real test.
+
+%1 \rightdelim@ is true if
+%2 \next is ) ] \rbrack ...
+%3 or \Biggr, but false otherwise.
+
+
+\extra@ is the real test to set \ifextra@.
+
+%1 \ifextra@ is true if the \rightdelim@ test is passed.
+
+%2 It is also true if a $ sign comes next.
+
+%3 Otherwise we look at \meaning again.
+
+%4 Suppose we have a macro.
+
+%5 Then if it starts with \DOTSX, \ifextra@ is again true.
+
+
+\newif\ifbold@, \dotso@
+-----------------------
+\dotso@, the most common result of \mdots@, has to act specially
+if it was called by \boldkeydots@ or \boldsymboldots@, which
+will be signalled by the flag \ifbold@.
+
+In the standard case, where \ifbold@ is false, we just want to
+use a \futurelet to get the next symbol, use \extra@ to test
+this symbol for a right delimiter, and then use \plainldots@,
+followed by \, if the next symbol is a right delimiter.  If this
+were the only case to consider, we could use the definition
+
+         \def\dotso@{%
+          \DN@{\extra@\plainldots@\ifextra@\,\fi}%
+          \FN@\next@}
+
+But when \ifbold@ is true, the next symbol will already have been
+scanned by \boldkeydots@ or \boldsymboldots@, and stored in
+\delayed@.  In this case, we don't want to use a \futurelet, but
+simply want to apply \extra@ with \next being \delayed@.
+
+So when \ifbold@ is true we \let\next\delayed@ and then define
+\nextii@ to be this combination, but if \ifbold@ is false we define
+\nextii@ to be the whole combination \DN@{\extra@...}\FN@\next@}, and
+then we call \nextii@.
+
+
+\def\extrap@
+------------
+
+We still haven't defined \dotsc, which will actually be the last kind
+of dots we define, and there's also \dotsb and \dotso (as opposed to
+\dotsb@ and \dotso@) and similarly \ldots and \cdots.
+
+\dotsb, \dotso, \ldots, and \cdots are slightly different from
+\dotso@ and \dotsb@, because they might be used before , or . or :
+especially at the end of a displayed formula that ends with
+punctuation, since that punctuation would have to appear before the
+$$ signs. So we want extra space here also.
+
+We use \extrap@, which takes as argument another (dot producing)
+macro.  It is used as an abbreviation for a construction that puts an
+extra thin space before a , or . or ; as well as something that
+passes the \extra@ test.
+
+
+\ldots and \cdots use \extrap@, and of course must have low and
+centered dots, respectively.
+
+
+\dotso is just \ldots, and \dotsb is just \cdots, although other
+styles could change that.  Similarly, \dotsm is \dotsb in this style.
+
+
+\dotsc, however, is a little special because we DON'T want extra space
+if it's followed by a comma---someone might have typed \dotsc,
+instead of simply \dots---so we have to explicitly check for only
+a ; or .
+
+
+\cdot should be treated as an ordinary symbol by \dots. We can
+arrange for this by using the fact that \dots doesn't check a macro
+definition for \mathchar!
+
+
+\longrightarrow, ..., \iff need to have \DOTSB added to their plain
+definitions.
+
+
+\dddot, ..., \spvec have nothing special.  A lot of adjustment was
+done by eye.
+
+
+\textonlyfont@ is just a control sequence to allow us conveniently to
+redefine \rm, \it, \sl, \bf, \smc, etc.
+
+
+\oldnos will be used instead of \oldstyle, which doesn't fit in this
+scheme; in fact, \cal and \oldstyle and \mit will be made
+\undefined at the end.  \oldnos is just a control sequence with an
+argument; as a convenience, it doesn't leave extra spaces around
+commas that might occur in the number.
+
+
+\text in text is basically just an \hbox, but allowed to begin a
+paragraph; in math it will be \text@, which is much more complicated.
+Actually, \text should also reset \mathsurround if this has a non-zero
+value, just in case \text is used within a math formula that appears in
+some construction where \m@th has been used.
+
+
+\def\mathhexbox@, ..., \def\P
+-----------------------------
+Once \text@ is defined, it will be possible to create symbols that
+can be used in either math mode or in text mode without $ signs,
+because \text{$...$} will always change sizes right.  With this in
+mind, we redefine \dag, etc., from plain so that they change sizes
+automatically.  \mathhexbox@ is the obvious modification of plain's
+\mathhexbox. An extra set of braces is inserted, so that ^\dag, etc.,
+will work.
+
+
+\newif\iffirstchoice@, ..., \def\text@
+---------------------------------
+\text@ will be a \mathchoice; in each case we will simply set an
+\hbox, but we will specify the style that we want for our math
+formulas and also which fonts we want for \rm, etc.  This involves a
+few details, but there is also a detail of another sort that needs to
+be attended to.
+
+Conceivably, someone could use \footnotemark (which is actually
+defined in AMSPPT.STY, rather than in AMSTEX.TEX) within \text (so
+that, together with \footnotetext, a footnote could be set on some
+text within a displayed formula).  \footnotemark increases the
+counter \footmarkcount@, and since a \mathchoice is set four times,
+\footmarkcount@ would be increased by 4, instead of by 1.  To get
+around this, we let the flag \iffirstchoice@ normally be true but set
+it to be false in all but the first part of the \mathchoice for
+\text@, and in AMSPPT.STY we only advance the counter \footmarkcount@
+when \iffirstchoice@ is true.
+
+Aside from this, we will use \everymath to set the style at each
+size, and the control sequence \textdef@@ will be used to select the
+proper text fonts; depending on its argument, T, S or s, it will
+choose the \textfont or \scriptfont or \scriptscriptfont for each
+family of fonts.  We also redefine \textfonti and \textfontii to be
+the proper size of families 1 and 2, for any text macros that use
+these. (At present that includes \{ and \} in text, which are fairly
+important, as well as \t and \AmSTeX.)
+
+
+\textdef@@ simply uses \textdef@ for each of the families, \rm, \bf,
+\sl, \it we need.  If another family is added that should work
+properly in \text, the appropriate clause should be added here.
+
+
+\def\rmfam{0}, \def\textdef@
+----------------------------
+\textdef@ works under the assumption that \bf has a corresponding
+\bffam, \sl a corresponding \slfam, etc., all with names obtained by
+adding `fam' to the font change name. We therefore have to define
+\rmfam to be 0.  If a new font, say \bfit, is introduced,
+\newfam\bfitfam should be used to create a new family with the
+corresponding name.
+
+To get the name of the family, e.g., \bffam, from the name \bf of the
+font, \textdef@ uses
+
+   \csname\expandafter\eat@\string\bf fam\endcsname.
+
+Then it redefines the font name \bf to be the \textfont for \bffam if
+the first argument is T, or the \scriptfont for \bffam if it is S,
+etc.  The \relax is needed because \bffam is just a number, after the
+\edef.
+
+
+\scriptfont\itfam ...
+---------------------
+Any family that will be used with \text@ should have some assignment
+for its \scriptfont and \scriptscriptfont; otherwise there will be
+error messages even if only text or display size is being used,
+because a \mathchoice actually sets all four possibilities.
+\sevenit, etc., are not defined in plain.  If \sevenit, etc., are
+available, then they can be used here, or in amsppt.sty.
+
+
+\foldedtext, \topfoldedtext, and \botfoldedtext, like \smash and
+\phantom, use one basic definition, with flags \iftopfolded@ and
+\ifbotfolded@.
+
+
+\foldedwidth is syntax that has to be looked for.  We don't store the
+\foldedwidth, which is .3\hsize by default, anywhere special, but use
+it as soon as we get it.
+
+
+\def\bold ...
+-------------
+Next come the control sequences for changing fonts in math mode.  The
+reason for defining \bold@ in terms of \bold@@, instead of directly,
+is that later on we will sometimes want to change the definition to
+eliminate the extra set of braces, and this is easily done by saying
+\let\bold@=\bold@@. \relax is added after \fam\bffam, etc., because
+these families are just numbers.
+
+
+\Cal@@ has \noaccents@ for reasons that will appear later.
+
+
+
+\mathchardef\Gamma ...
+----------------------
+We make the upper case Greek letters ordinary symbols instead of
+variables, because we don't change them with font change
+instructions.
+
+
+\mathchardef\varGamma ...
+-------------------------
+The variant upper case Greek letters are exactly the same, except "00
+is replaced by "01, since they are on the math italic font, which is
+family 1.
+
+
+
+\newif\ifmsamloaded@ ...
+------------------------
+Originally, \loadmsam, \loadmsbm, and \loadeufm were created because
+the msam, msbm and eufm fonts are not available to everyone, so
+instead of loading them directly, we defined control sequences to
+load them; we also needed to set flags so that AMSPPT.STY will know
+whether to load in the corresponding fonts for the eightpoint size.
+
+Now, \loadmsam, \loadmsbm, and \loadeufm are considered part of
+AmS-TeX, but we keep the same structure, since other font families
+are treated this way.
+
+We will later have a list, \fontlist@, in the form of TB, p. 378,
+that is supposed to list all the fonts used.  To make sure that any
+fonts loaded are added to this list, instead of \font we use \font@,
+which is defined later.  When we load in fonts for a family we also
+want to use \newfam to create the family name, but \newfam is \outer,
+so we would need an inner version, or the code itself.  But there is
+another problem here; we want the allocations we make to use the
+present definition of \alloc@, for proper use of \showallocations. So
+we use \alloc@@ for the present meaning, and then write the code for
+\newfam in terms of \alloc@@.
+
+
+\def\hexnumber@ ...
+-------------------
+We will need to use various family numbers in \mathchar and
+\mathchardef's.  But we need the hexadecimal values if any family is
+greater than 9, so we use \hexnumber@ to get it. An \ifcase is most
+efficient here.
+
+In addition to the family number of new families that we will load,
+we will also need to use the family number of the family \bffam, so
+we use \bffam@ to stand for its hexadecimal number.  We \edef\bffam@,
+rather than \def'ing it, so that if someone is loading in AMSTEX.TEX,
+instead of using a format file, succeeding definitions will take less
+time.
+
+\loadmsam and \loadmsbm set flags to say they are loaded, declare the
+necessary fonts, create the corresponding new families, assign the
+fonts to these families, and create \msam@ and \msbm@ for the
+hexadecimal numbers of these families.
+
+In addition, once the msam fonts are loaded we will let
+\dashrightarrow, ..., \dasharrow (which use \dabar@), and \ulcorner,
+..., \maltese be defined, because they are defined specially. All
+other symbols can be handled by \newsymbol, explained below.
+
+Similarly, we will redefine plain's \widehat and \widetilde to take
+advantage of wider symbols in the msbm fonts, but these will not be
+used unless the msbm fonts are loaded.
+
+
+\newsymbol
+----------
+We don't want \loadmsam or \loadmsbm to introduce names for all the
+symbols, since this will use up too many control sequence names
+needlessly. Instead we let \newsymbol be used in the form
+
+         \newsymbol\nleqslant 230A
+
+or, more generally,
+
+         \newsymbol\cs 230A
+
+where \cs is the user's choice of a control sequence, and the
+4-character ``ID'' 230A should be listed along with the ``standard''
+name \nleqslant in the list of symbols. The first character of this
+ID will be 1 for symbols on the msam fonts, and 2 for symbols on the
+msbm fonts.
+
+For \newsymbol we first \define the control sequence to be empty, to
+get an error message if it is already defined.  Then we let \next@ be
+\relax, but change \next@ to \msamfam@ if #2 is 1 and the msam fonts
+are loaded or to \msbmfam@ if #2 is 2 and the msbm fonts are loaded.
+Then, if \next@ is still \relax we give error messages; otherwise we
+do a \mathchardef, using the values of \next@.
+
+
+\UseAMSsymbols
+--------------
+For people who want to use the AMS's names, \UseAMSSymbols will
+\input the file amssym.tex.
+
+This file begins with \catcode`\@=11 (so that it can use the tests
+\ifmsamloaded@, \ifmsbmloaded@).  If these families are loaded, it
+uses \newsymbol with the standard names for all the symbols on the
+fonts.  However, it does this within a group where \globaldefs=1 so
+that these names will be globally made, even if \UseAMSsymbols is,
+for some reason, used within a group. We must \undefine
+\rightleftharpoons, \angle, and \hbar before using them with
+\newsymbol, since they are already defined.
+
+At the end, the file makes @ \active again.
+
+If the families aren't loaded we give error messages, and we also
+first add \catcode`\@\active, so that @ will be certain to be active.
+
+
+If the \msbfam is loaded, we can use \Bbb, just like the other font
+change instructions; like \Cal, it has \noaccents@, which will be
+explained later.
+
+
+Though defined here, \loadmsam, \loadmsbm and \loadeufm must actually
+appear later, after \font@ has been defined.
+
+
+\frak has been added for changing to the \eufmfam in math mode.
+Similarly, any other added families of fonts should be treated like
+this, if their characters are basically just specified by typing
+letters.
+
+\goth is just a convenient alternative for \frak.
+
+
+\ifcmmibloaded@ ...
+-------------------
+Next comes the mechanism for loading the two families of bold fonts,
+cmmib and cmbsy.  We will have a single control sequence \loadbold
+for loading both, but separate flags for telling when each family is
+loaded (so that users who know what they are doing and who decide to
+load only one family [or only certain sizes of a family] can still
+use subsequent control sequences).
+
+\mathchari@, \mathcharii@ simply give \mathchar's if the first,
+respectively second, family of bold symbols is loaded, otherwise
+error messages.
+
+
+\boldkey
+--------
+\boldkey basically has to test all the various possiblities for
+``keys'' that come after it.
+
+We can test for a letter by using \ifcat\noexpand#1A; in this case we
+just use #1 in \fam\cmmibfam if it is loaded, and give an error
+message otherwise.
+
+Otherwise, we first test individually for !  ( ) + : ; = ?  [ ] and
+use the appropriate symbol on the \bf fonts.
+
+After this test, we test individually for , - .  / < > * | and use
+the appropriate symbol on the appropriate bold fonts, specifying them
+with \mathchari@ or \mathcharii@, to get error messages if the fonts
+aren't loaded.
+
+Finally, we test for the digits 0, ..., 9, and simply replace them
+with \bold0, ..., \bold9, already defined (\boldkey isn't supposed to
+be used with digits, but if it is we might as well revert to \bold).
+
+
+\def\boldsymbol ...
+-------------------
+\boldsymbol is much more complicated, since we will have to look at
+\meaning.
+
+We begin by defining \next@ to be an error message; it will be
+changed to \relax whenever we reach a case where \boldsymbol can be
+used. (Eventually, alternate error messages may be defined.)
+
+Again, we first test for letters, and use \fam\cmmibfam in this case,
+unless this family isn't loaded, in which case we just give a special
+error message (and let \next@ be \relax, so that the original error
+message isn't given).
+
+Then we do some of the same manipulations with \meaning#1 as in
+\dots. If we had a \mathchar, we will use \boldsymbol@@ on the value
+of \meaning@ (instead of the \getmathch@...\getmathch@ from \dots).
+
+Some of the things we want to use with \boldsymbol are defined as
+delimiters, so if we don't have a \mathchar, we have to use \macro@
+from \dots, together with a new construction \delim@, defined below,
+to see if this is the case, and if so, we will use \delim@@ with
+\meaning@.
+
+Finally, if none of these tests are passed, we will still use a final
+test, \boldsymbol@, for certain exceptional symbols.
+
+
+\mathhexboxii@ is just \mathhexbox@ for the cmbsy family, but an
+error message if this family isn't loaded.
+
+\boldsymbol@, the final check, just examines individual possiblities,
+and defines the result in terms of \mathcharii@ or \mathhexboxii@ or
+\bffam@, in the case of \lbrack and \rbrack (if they are used instead
+of [ and ], which would be used with \boldkey.)
+
+
+\boldsymbol@@#1.#2\boldsymbol@@ is going to be applied
+where #2 are the remaining .'s from \meaning@, and #1 is
+the hexadecimal number after the \mathchar.
+
+%1.  We set both \classnum@ and \count@@@ to #1.
+
+%2.  We divide \classnum@ by 4096 to get the first hexadecimal
+     digit (first from the left), and set \count@ to this value.
+
+%3.  Then we multiply \count@ by 4096, and subtract from the
+     original value, \count@@@, so that \count@@@ now has the
+     value of last three hexadecimal digits.  We also set
+     \count@@ to this value.
+
+%4.  Then we divide the new \count@@@ by 256 to get the second
+     hexadecimal digit, which we store in \count@.
+
+%5.  Then we multiply the second hexadecimal digit, \count@@@,
+     by 256 and subtract from \count@@, which still has the
+     value of the last three hexadecimal digits, so that
+     \count@@ now has the value of the last two hexadecimal
+     digits.
+
+%6.  Then we divide \count@@@ by 256 again, so that it has the
+     value of the second hexadecimal digit.
+
+%7.  Finally, we multiply \classnum@, the first hexadecimal
+     digit, by 4096 again and add \count@@, the last two
+     hexadecimal digits to it.  So if the hexadecimal digit was
+     "abcd, \classnum@ is now "a0cd, and \count@@@ = b.
+
+%8.  Now, if \count@@@ = 0, so that our symbol came from family
+     0 (i.e., the roman fonts, which should mean that our symbol
+     was one of \Gamma, ..., \Omega), we want to use the
+     corresponding symbol in the \bf family, which means that it
+     is \mathchar"axcd, where x is the number for \bffam, so we
+     get this by adding 256 times the hexadecimal number \bffam@
+     to \classnum@, and then using \mathchar\number\classnum@.
+
+%9.  On the other hand, if \count@@@ = 1, so that our symbol
+     came from family 1 (i.e., the math italic fonts), then we
+     want to use the corresponding symbol in the cmmib family,
+     so we add 256 times the hexadecimal number \cmmibfam@ to
+     \classnum@ and use \mathchar\number\classnum@, except that
+     we give an error message if these fonts aren't loaded.
+
+%10. Similarly if \count@@@=2 (in which case our symbol came
+     from family 2 (i.e., the math symbol fonts).
+
+
+\newif\ifdelim@ ...
+-------------------
+\delim@#1\delim@ sees if #1 starts with \ d e l; if so, it makes
+\ifdelim@ true and sets \meaning@ to be the rest.
+
+When \delim@@#1"#2#3#4#5#6\delim@@ is used, #2 will be the type of
+delimiter, #3 will be the font family the symbol occurs on, "#4#5
+will be the location of the symbol on the font, and #6 will be
+everything else (i.e., the large variant, if there is one).  If #3
+isn't the second family, we stick with the original error message
+that \boldsymbol can't be used with this symbol; otherwise we let
+\next@ be \relax, so that we won't get this error message, and then
+either produce the symbol, with \mathcharii@#2#4#5, or else give an
+error message if the family isn't loaded.
+
+
+\vert, \Vert (and \|) and \backslash have to be redefined so that the
+initial hexadecimal digit 0 is specifically added, in order for the
+definition of \delim@@ to work (plain simply leaves out the 0).
+
+
+\boldkeydots@#1 and \boldsymboldots@#1 are called if \dots is
+followed by \boldkey or \boldysmbol.
+
+In both cases, we first make \ifbold@ true, and then set \next to be
+#1.  The value of \next will be used by \mdots@@ to decide whether to
+use \dotso@, etc.  If \dotso@ is used, then we need to reset \next to
+#1, for use by \ifextra@, so we first store #1 in \delayed@, and
+include \let\next\delayed@ in the definition of \dotso@.  After the
+dots are put in by \mdots@@, we then put in the right symbol with
+\boldkey#1 or \boldysmbol#1, and finally set \ifbold@ to be false
+again.
+
+On subtle point: in \boldkeydots@, the = after \let\next and
+\let\delayed@ are required, because #1 might be = , in which case it
+would disappear, so that \next would be set to \let, or \delayed@ to
+\mdots@@, etc., resulting in no end of mischief.
+
+
+\newif\ifeufbloaded@ ... \newif\ifeurbloaded@ ...
+-------------------------------------------------
+The next five sets of definitions make it easy to load the rest of
+the Euler fonts, one at a time, when needed.  The user should take
+care not to try to load too many at once, as TeX's limit of 16
+families cannot be changed.
+
+
+\def\accentclass@, ..., \makeacc@\bar
+-----------------------------------
+We change the definition of \hat, etc., so that constructions like
+\bold{\hat A} will use the bold \hat symbol. But we want \Cal{\hat A}
+and \Bbb{\hat A} to use the usual \hat symbol, since these fonts
+don't have accent characters.  That is why we added \noaccents@ to
+the definitions.  The strategy is to change \hat from
+\mathaccent"705E to \mathaccent"\accentclass@05E, where \accentclass@ is
+usually 7, but is redefined as 0 when \noaccents@ is in force. To
+save space we use \makeacc@ to produce these definitions.
+
+
+\vec is different, as the accent itself is on only one font
+(\textfont1).
+
+
+\newcount\skewcharcount@, ..., \def\theskewchar@
+------------------------------------------------
+Now come definitions of \Hat, etc., which will get double accents
+correctly positioned.  After \dots, these are the most complicated
+things in AmS-TeX.
+
+TeX properly places single accents over letters in math mode by using
+the kern, s, between the letter, L, and the \skewchar for its font
+(TB, p. 443); we have to emulate this procedure.  The results of the
+instructions in Rule 12 on p. 443 can be obtained by replacing L by
+{L\hskip 2s}, putting (i.e., centering) the accent over this box, and
+then adding \hskip-2s.
+
+This means, first of all, that we have to find the \skewchar of the
+font.  The \skewchar is -1 or '177 for the fonts in plain, but might
+be anything; however, we assume that the \skewchar for all the fonts
+in any particular family are the same.  Moreover, we assume that the
+kerns are proportional in different size fonts within a family, so
+that the kern in the \textfont for the family is all we need to know.
+(This seems to give quite adequate results for the Computer Modern
+fonts.)
+
+The control sequence \theskewchar@ globally sets \skewcharcount@ to
+the \skewchar for the family if it is between 0 and 127, and to -1
+otherwise.  We use \global because \theskewchar@ will be used within
+an \hbox.  If the \skewchar is between 0 and 127, \theskewchar@ will
+also produce the \skewchar character for the font. This character can
+be obtained as \mathchar....  where .... is (the \skewchar for the
+family) + (256 times the family number) + (4096 times the class),
+where we should take the class to be 7 (variable), so that \mathchar
+will select whatever family we are in.
+
+TeX always sets \fam to -1 at the beginning of a formula.  This means
+that we should assume that our character is in family 1 (where the
+ordinary letters lie), unless \fam has a different value between 0
+and 15.
+
+%1 First assume that \fam=-1, so that our letter is in family 1, and
+   set \familycount@ to 1, and set \skewcharcount@ to the \skewchar
+   for family 1.
+
+%2 But if \fam has a legal value, between 0 and 15, so that our
+   letter is in this \fam, set \familycount@ to this value, and
+   \skewcharcount@ to the \skewchar for this \fam.
+
+%3 If \skewcharcount isn't between 0 and 127, just set
+   \skewcharcount@ to -1.  Otherwise add 256 times \familycount@ to
+   the \skewchar, and then add 28672 (= 7 x 4096), and produce this
+   \mathchar.
+
+
+\newcount\pointcount@, \def\getpoints@
+--------------------------------------
+The construction \getpoints@...\getpoints@ will be applied to things
+like \the\dimen0.  If \the\dimen0 is 23.456pt, \pointcount@ will be
+set to 23, the integer number of points in \dimen0.  The use of . in
+the syntax for \getpoints@ is OK, since constructions like
+\the\dimen0 always produce the decimal point.
+
+
+\newdimen\accentdimen@, ..., \def\dimentomu@
+--------------------------------------------
+Eventually, we will use \theskewchar@ to store the kern between our
+letter and the \skewchar in a dimension register \accentdimen@.  We
+will use the control sequence \dimentomu@ to convert this to mu's and
+store the number of mu's in a counter \accentmu@, so that we can use
+\accentmu@ mu to get a kern that varies appropriately with the style
+of the formula.
+
+Essentially, we want to multiply the number of points by 1.8, since
+there are 18 mu in 10 points.  Since we are going to deal in whole
+numbers, we will actually multiply by 1800 and divide by 1000.  In
+the definition below, multiplying \accentdimen@ by 100 first lets
+\getpoints return a good value.
+
+
+\def\Makeacc@
+-------------
+Finally, we are ready to produce \Hat, etc., with \mathaccent@, the main
+thing left for us to define.  As with ordinary accents, we use a
+control sequence to abbreviate the constructions, and incorporate
+\accentclass@ to take care of the case where letters come from a font
+that doesn't have accent characters.
+
+
+\unbracefonts@ temporarily changes the meanings of \rom, \bold, etc.,
+so that the extra pair of braces isn't included.
+
+
+\def\mathaccent@
+----------------
+
+%1 First we store the current family in \thefam@; as usual, it is set
+   to 1 if it is -1, i.e., if \fam hasn't been changed yet.
+
+%2 We initialize \accentdimen@ to 0pt; it may have been changed by a
+   previous \Hat, etc.
+
+%3 Now we set the formula #2 in the current family (and in
+   \textstyle).  \unbracefonts@ isn't really important here, but we
+   put it in for consistency, since it will be needed in a
+   corresponding box later on.
+
+   Although we initialized \accentdimen@ to 0pt, it may have changed,
+   because #2 might already involve a \Hat, etc. In fact, we will
+   later arrange explicitly for this to happen in such a case.
+
+%4 If \accentdimen@ hasn't changed, the accent is simple.
+
+%5 But we will globally make \accentdimen@ different from 0pt, so
+   that a \Hat applied to this new accented character will be treated
+   differently, via the clause after the final \else in this
+   definition.  Moreover, we will globally set \accentmu@ to the
+   number that we want to be used for this new accented character:
+
+   %5a \box1 is the formula #2 followed by the \skewchar for the font
+       (or by nothing, if the \skewchar isn't between 0 and 127).
+       Here \unbracefonts@ is needed if #2 is something like \bold X:
+       we don't want the extra braces around the \fam\bffam X,
+       because we want \fam to be \bffam when \theskewchar@ does its
+       thing.
+
+   %5b \box2 is the \skewchar alone (or nothing). It is in the right
+       family, because \skewcharcount@ was most recently globally set
+       in box 1.
+
+   %5c \accentdimen@ is now the kern between #2 and the \skewchar.
+
+   %5d We double it, change to mu's, and add 1 for good measure.
+
+%6 If we're in the case where \accentdimen@ was changed, we use the
+   value of \accentmu@ that was created to properly position the
+   accent.  We make the whole result an ordinary symbol, and add an
+   empty group so that things like \Hat{\Hat A}^2 will work OK.
+
+
+\Makeacc@ ...
+-------------
+Now we make all these accents.
+
+
+\Vec is special, as with \vec.
+
+
+\def\newbox@, \def\accentedsymbol
+---------------------------------
+We want \accentedsymbol to create a \newbox to store the symbol.
+Since \newbox is \outer, we need an inner version (we can't simply
+use the code, because we are going to be using it after
+\expandafter).
+
+The \newbox created by \accentedsymbol\Ahathat{\Hat{\Hat A}} will
+just be called \Ahathat@box, which we create with
+\csname...\endcsname.
+
+
+\def\sqrt ...
+-------------
+\radical, \underline and \overline are like ^ and _ : they operate on
+the next <math field> rather than on the next macro argument (TB, p.
+291).  So, for example, \underline\noteq becomes \underline\not=
+which underlines only the \not, and \underline\notin gives mysterious
+error messages.  To avoid this, we redefine \sqrt, \underline and
+\overline as control sequences with arguments.
+
+
+\Invalid@\leftroot, .., \def\plainroot@
+---------------------------------------
+\root will have both \leftroot and \uproot as possible parts of its
+syntax.  The definition is messy because we allow them to occur in
+either order. We also have to worry about skipping over spaces after
+a right brace after \leftroot{...} or \rightroot{...}.  The net
+result of all the mess is simply to assign values to the counters
+\uproot@ and \leftroot@.
+
+\root actually begins working with the code on the last line: it
+starts a group (to keep the values of \uproot@ and \leftroot@ local,
+for \root's within \root's), initially sets \uproot@ and \leftroot@
+to 0, and after \uproot@ and \leftroot@ have been properly assigned,
+it calls \plainroot@, which is almost exactly the same as plain's
+\root, except the \mathchoice involving \r@@t has to be written out,
+rather than using \mathpalette, in order to get the final \egroup in
+the right place.
+
+And \r@@t is like plain's \r@@t, except that we add corrections for
+the values of \uproot@ and \leftroot@.  For \leftroot@ we simply
+change the \mkern-10mu between the root and the main quantity by
+\mkern-10mu\mkern\leftroot@ (i.e., we leave more room between them,
+since \leftroot@ is the amount to move the root to the left); we have
+to correct for this extra shift with \mkern-\leftroot@ mu at the
+beginning.
+
+\uproot@ is handled a little differently, since mu is a unit for
+horizontal distances, not vertical ones. We set a box of width
+w=\mskip\uproot@ mu, and increase \dimen@, the amount involved in
+raising the root, by 10/6 w. (Then, since we raise by .6\dimen@, the
+extra amount we are raising is w.)
+
+
+\boxed makes a box with rules of width .4\ex@ (so .4pt at 10 points),
+and we want its baseline to be the baseline of the original formula.
+The \vbox on lines 3--5 of the definition surrounds \box0, the
+original formula in \displaystyle, with three points of space and the
+rules on all sides. It is now too high by 3pts + .4\ex@ + depth of
+\box0 (since the construction \vbox{\vskip3\ex@\box\z@\vskip3\ex@}
+produced a box of depth 0).  So we lower by that total amount.
+
+
+\let\amspersand@\relax
+----------------------
+Now come commutative diagrams.  The diagrams themselves aren't much
+of a problem, and the interesting things are the arrows within them.
+It is pleasant that one can avoid using & in commutative diagrams, by
+having the arrows put the &'s in themselves; the only problem is that
+the same construction used for horizontal arrows in commutative
+diagrams is also supposed to work for individual arrows in math mode.
+The way to do this is to have the macros contain \ampersand@ in the
+right places, where \ampersand@ is usually \relax, but can be changed
+to & within a commutative diagram.
+
+
+\newdimen\minaw@ ...
+--------------------
+We also want the arrow constructions to give different lengths for
+arrows within commutative diagrams and for individual arrows in math
+mode (except that in either case the arrows will get longer, if
+necessary, when they have formulas above and/or below them).  We
+store the minimum length for individual arrows in math mode in
+\minaw@, and the minimum length for arrows in a commutative diagram
+in \minCDaw@.
+
+\minaw@ is made 11.11128\ex@ (i.e., 11.11128pt). I can't remember
+where I got this from! Probably the dimension of some symbol.
+\minCDaw is made 2.5pc.
+
+
+\minCDarrowwidth allows user to change the minimum length, provided
+we are in a displayed formula.
+
+
+\CD and \endCD are similar to \matrix and \endmatrix. Of course,
+there are no category code changes, nor any extra space (and so no
+\null), and we make the baselineskip bigger. But we also want to
+\let\ampersand@=&, so that the arrow macros will produce the &'s.  As
+with \Let@, we have to hide this within \iffalse{\fi...\iffalse}\fi.
+We also set a flag, \ifCD@, to tell the arrow macros they are in a
+\CD (and hence should have longer length).
+
+
+\endCD just supplies the necessary \cr and }'s.
+
+
+\newdimen\bigaw@
+----------------
+Now we are ready for the arrows themselves.  We store the actual
+length that an arrow will be in \bigaw@.  Since the arrows are of the
+form @>>>, etc., we use \atdef@ to define them.
+
+
+@>#1>#2>#3>
+-----------
+
+%1  Arrow starts with & in a \CD.
+
+%2  \box0 has formula above the arrow, with suitable spacing around
+    it (\;\; at end to clear arrow head).
+
+%3  \box1 has formula below the arrow, with suitable spacing.
+
+%4  \box2 is just the part below, because we will do things
+    differently if there is no formula below.
+
+%5  If we are in a \CD, \bigaw@ is initially \minCDaw@, otherwise
+    \minaw@.
+
+%6  If formula above or below the arrow is bigger than \bigaw@,
+    change \bigaw@ to the maximum of these widths.
+
+%7  Extra space goes before the arrow in a \CD.
+
+%8  If there is something to go below the arrow, make an arrow of the
+    right length, with \rightarrowfill, make it a \mathop, so we can
+    use \limits to put the formulas above and below (the positioning
+    this provides isn't ideal, so it would probably be better to use
+    a more explicit construction here), and then make the resulting
+    arrow a \mathrel.
+
+%9  If nothing goes below, don't bother with the lower limit (so that
+    unnecessary space below isn't produced).
+
+%10 Extra space goes after the arrow in a \CD.
+
+%11 Arrow ends with & in a \CD.
+
+
+@<#1<#2<#3< is exactly analogous.
+
+
+@)#1)#2)#3), @(#1(#2(#3( are for foreign keyboards that don't have
+< and > available (because they are used for { and }, which are
+instead \AA and \aa).
+
+
+@A#1A#2A, @V#1V#2V
+------------------
+Vertical arrows don't need to bother with \ampersand@, since they are
+only used in \CD's.  Notice that the space after \atdef@ is necessary,
+although space after @ in @A... and @V... won't be necessary later!
+
+
+@= is special, and used only in a \CD.
+
+
+@| is also used only in a \CD.
+
+
+\atdef@@\vert
+-------------
+We have to allow @\vert as a synonym, but this needs \atdef@@ instead.
+
+
+\pretend...\haswidth... is just a lot of syntax for a simple
+construction.
+
+
+\pmb is basically as in TB, p. 386, except that in math mode we use
+\mathpalette\pmb@, so that the symbol will change size.  In addition,
+we want \pmb to keep binary relations and operators of the same type.
+We already have \binrel@, to start testing if something is of one of
+these two types, and we define \binrel@@ to complete things by making
+a \mathbin or \mathrel of the result.
+
+The final detail involves the amount to move the three copies that we
+are going to superimpose on each other.  We want to use mu's rather
+than points or ems.  Since 1em=18mu, we have .025em= .45mu, so we use
+-.45mu instead of .025em, and -.9mu instead of .05em.  And since
+.0544em =.7794mu, we set a box with this width, and raise by that
+width (we store the width in the dimen register \pmbraise@ to be sure
+that \box4 doesn't happen to get used somewhere in between).
+
+We use \box3 in the definition of \pmb@ because \binrel@, used later,
+involves \box0 and \box1.
+
+
+\documentstyle is similar to LaTeX.
+
+
+\font\dummyft@ ...
+------------------
+For syntax checking, we need the dummy font (TB, p. 401). Since the
+dummy.tfm's available don't seem to have all the \fontdimen's they
+need, we explicitly set them right.
+
+
+\def\fontlist@
+--------------
+We need a list of all the fonts that are used, in the form of TB,
+p. 378, so that we can set them all to \dummyft@.  First we list all
+the fonts already used.
+
+
+\font@ is to be used instead of \font, so that when new fonts are
+loaded in they will be added to the list.
+
+
+At this point we can add
+
+         \loadmsam
+         \loadmsbm
+         \loadeufm
+
+
+\dodummy@ sets all fonts to \dummyft@
+
+
+\def\nopages@
+-------------
+We will want to say \newtoks\output (TB, p. 401) within this control
+sequence.  Since \newtoks is \outer, we will simply use the code
+instead.
+
+
+\ifsyntax@ is used to record the fact that \syntax was used. This
+might be needed by AMSPPT.STY.
+
+
+\newcount\countxviii@, \def\syntax
+----------------------------------
+To get syntax checking we also have to set \textfont0=\dummyft@, etc.
+We have to do this for all families, and the number of families is
+stored in \count18.  The counter \countxviii@ is used to start with
+this value, and decrease in a \loop.
+
+%1 For syntax checking, we set \syntax@true, for use by AMSPPT.STY,
+   set all fonts to \dummyft@, with \dodummy@, set all \textfont's,
+   etc., to \dummyft@, using the \loop construction, and then do
+   everything else.
+
+
+\S@, \G@ and \P@ are used to check if S, G or P (or lowercase
+versions) were typed at the keyboard.
+
+
+\printoptions is a \loop that keeps insisting on an answer until S or
+s or G or g or P or p was typed at the keyboard.  S chooses \syntax,
+G chooses \galleys, P just processes things as usual.
+
+%1 This converts the answer to uppercase (TB, p. 331).
+
+
+\def\alloc@
+-----------
+We now change \alloc@, since there are no further allocations in the
+file (or in AMSPPT.STY) that might have to be kept out of the log
+file.  The new definition will write things in the log file only if
+\showallocations is used, so that \ifalloc@ is true.
+
+
+\document doesn't really do much in AmS-TeX---it was just put in to
+correspond to LaTeX.  But at this point we might as well clear out
+\alloclist@ and \fontlist@, since anything in them will have been
+acted on by now.
+
+
+\enddocument, similarly, is just \bye, though AMSPPT.STY will make it
+considerably more complicated.
+
+
+\plainproclaim, \plainfootnote store plain's \proclaim and \footnote,
+which have different syntax from \proclaim and \footnote in
+AMSPPT.STY.
+
+
+\proclaim and \footnote themselves are made undefined, until a style
+file, like AMSPPT.STY, defines them.
+
+
+\= is also made undefined, since \B has been provided, and goes
+better with \b [to correspond to \D and \d, where \d had to be added
+since \. was redefined].
+
+
+\cal, \mit and \oldstyle are made undefined also, since this method
+of changing fonts is not used in AmS-TeX.
+
+
+The last thing is to make @ active.
+
+
+**********************************************************************
+
+HERE IS A SUMMARY OF ALL PLACES WHERE SPECIFIC VALUES USED IN THIS FILE
+  MIGHT NEED TO BE REPLACED, BECAUSE OF DIFFERENT FONTS, STYLES, ETC.
+
+ \sdrd@, \drsr@, \sldl@, \dlsl@
+ \captionwidth@
+ \ex@
+ spacing for \:
+ \initic@, \negintic@, and possibly \intkern@
+ spacing for \varinjlim, \varprojlim, \varliminf
+ \baselineskip and \lineskip for \smallmatrix
+ possibly \dotsspace@
+ format for \cases
+ \strutbox@
+ \tagform@
+ value of \interdisplaylinepenalty set by \allowdisplaybreaks
+ \multlinegap@
+ \multlinetaggap@ (and perhaps rule for setting tag separately on a
+   \multline)
+ spacing for \bmod, \pmod, \pod, \mod
+ \kern's for \overrightarrow, etc.
+ \dotso, \dotsb, \dotsm, \dotsc
+ spacing in \dddot, etc.
+ \mathsurround within the definition of \text@@ (\text outside of math),
+   in case it is set to a non-zero value in general.
+ \textdef@@
+ \scriptfont\itfam, etc.
+ \minaw@ and \minCDaw@
+ \baselineskip, \lineskip, and \lineskiplimit in \CD
+ the positioning of labels above and below arrows
+ the size of the symbols given by @= and @|
+ activation of \loadmsam, etc.
+
+**********************************************************************

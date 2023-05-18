@@ -1,0 +1,22 @@
+
+      *File List*
+adhocfilelist.sh   2012/11/19  v0.71  command line -> \listfiles (UL)
+     herelist.sh   2012/10/15   --    customize adhocfilelist
+adhocfilelist.tex  2012/11/19   --    documenting adhocfilelist (UL)
+     makehtml.tex  2013/01/04   --    HTML driver
+     fdatechk.tex  2012/12/30   --    `filedate' checks
+     srcfiles.tex  2012/12/21   --    file infos -> SrcFILEs.txt
+  ----RELEASE.---   --  -- --   --     ---- 
+adhocfilelist.RLS  2013/01/04  r0.4c  doc. regen. w/ morehype r0.81
+HTML_packages.---   --  -- --   --     ---- 
+         blog.sty  2013/01/04  v0.81  simple fast HTML (UL)
+     blogexec.sty  2012/12/20  v0.21  assignments with blog.sty (UL)
+       domore.sty  2012/11/19  v0.3   dowith extended (UL)
+     fifinddo.sty  2012/11/17  v0.61  filtering TeX(t) files by TeX (UL)
+     texlinks.sty  2012/12/31  v0.81  TeX-related links (UL)
+      texblog.fdf  2013/01/04   --    extra blog settings
+      ***********
+
+ List made at 2013/01/04, 11:49
+ from script file srcfiles.tex
+

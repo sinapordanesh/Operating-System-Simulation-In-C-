@@ -1,0 +1,45 @@
+templates-fenn
+--------------
+
+Das Paket enth?lt eine Reihe von Vorlagen, die ich bereits auf meiner
+privaten Homepage ver?ffentlicht hatte. Die Vorlage f?r scrlttr2 hatte
+ich auch auf http://www.komascript.de/ bereitgestellt.
+
+Wenn mehr Anwender ihre Vorlagen ver?ffentlichen w?rden, w?re das
+sicherlich sehr hilfreich f?r alle, die gut und effizient teXen
+wollen. Falls Sie also eigene Vorlagen erfolgreich einsetzen,
+ver?ffentlichen Sie diese bitte, wenn Sie meinen, dass sie f?r andere
+Anwender hilfreich sein k?nnten.
+
+Falls Sie Fragen zu den Vorlagen haben, k?nnen Sie mir via
+http://www.juergenfenn.de/ erreichen.
+
+Das Paket besteht aus diesen kommentierten Vorlagen und weiteren
+Dateien:
+
+scrlttr2.tex: ein Brief mit scrlttr2.cls aus dem KOMA-Script-Bundle
+  von Markus Kohm.
+
+scrlttr2en.tex: die englische ?bersetzung der Briefvorlage hat Jan
+Beilicke besorgt.
+
+dinbrief.tex: ein Brief nach DIN-Norm mit dinbrief.cls.
+
+kbrief.tex: ein "Kurzbrief", der Anlagen begleitet auf der Grundlage
+  von dinbrief. 
+
+vermerk.tex: ein allgemeines Formular f?r Notizen ?ber Vorg?nge im
+  B?ro, das in einer Akte abgelegt werden kann; mit Lochmarken.
+
+diabetes.tex: ein Tagebuch f?r eine Basis-Bolus-Therapie mit Insulin
+  zur Behandlung von diabetes mellitus, erstellt auf Grundlage von
+  scrartcl.
+
+templates-fenn-de.txt: Diese Datei, die Sie gerade lesen.
+
+templates-fenn-en.txt: Die englische Fassung dieser Datei.
+
+Keep teXing! 8-)
+
+J?rgen Fenn
+25. August 2009

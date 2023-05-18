@@ -1,0 +1,1447 @@
+% AMSPPT.STY VERSION 2.0
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                          %%
+%% This is the documentation for AMSPPT.STY, the AmS-TeX `preprint style'.  %%
+%% It contains all the code for AMSPPT.STY, with additional comments.  All  %%
+%% such comments begin with %%, making it easy to recognize single % signs  %%
+%% that sometimes appear in AMSPPT.STY.                                     %%
+%%                                                                          %%
+%% Some explanations given earlier in the file will be required at later    %%
+%% points. Boxes like this are sometimes used for such explanations.        %%
+%%                                                                          %%
+%% Material from AMSTEX.DOC, the documentation file for AMSTEX.TEX may also %%
+%% be used.                                                                 %%
+%%                                                                          %%
+%% As in AMSTEX.DOC, TB refers to The Texbook.                              %%
+%%                                                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\catcode`\@=11
+
+%% We record the style name in \styname and the version in \styversion,
+!!!%% and then report them to the screen and log file.
+
+\def\styname{amsppt}
+\def\styversion{2.0}
+{\W@{}\W@{AMSPPT.STY - Version \styversion}\W@{}}
+
+%% It probably isn't necessary to prevent reading in amsppt.sty twice, but
+%% we do it anyway, just to save time if it happens to be called twice.
+ 
+\ifx\amspptloaded@\relax\catcode`\@=\active
+ \endinput\else\let\amspptloaded@\relax\fi
+
+%% First we set up some basic parameters, which are different than in
+%% plain.  The values are common to several AMS journals, including the
+%% Journal of the AMS.
+
+\parindent1pc \hsize30pc \vsize47.5pc \normallineskiplimit\p@
+
+%% As mentioned in AMSTEX.DOC, \captionwidth@ has to be reset for the new
+%% \hsize. 
+
+\def\setcaptionwidth@{\captionwidth@\hsize \advance\captionwidth@-6pc}
+\setcaptionwidth@
+
+!!%% Provide a way to change the page height and width; changing the page
+!!%% width automatically adjusts the caption width as well.  (\pagewidth
+!!%% in AMSTEX.TEX resets the caption width to a different value than is
+!!%% used in AMS journals.)
+!!
+!!\def\changepageheight#1{\vsize=#1}
+!!\def\changepagewidth#1{\hsize=#1\setcaptionwidth@}
+
+%% We need the cmcsc10 font.  Although \tensmc appears in AMSTEX.TEX, it
+%% never actually got declared.  Supply the cmcsc8 font too; it will be
+%% included in the AMSFonts collection.  We use \font@, not simply \font,
+%% as already explained in AMSTEX.DOC.
+
+\font@\tensmc=cmcsc10
+\font@\eightsmc=cmcsc8
+
+%% We have to load a lot of other fonts for the eight-point footnotes.  Note
+%% that cmti and cmsl in sizes 5, 6, 7 don't get loaded, since they may not
+%% exist (cmti7 is one of the standard 75 Computer Modern fonts, but cmti5
+!!%% and cmti6 aren't, nor are any of cmsl5, cmsl6, cmsl7).  Instructions for
+!!%% loading nine-point fonts are present, but commented out, as they are not
+!!%% required in the preprint style; however, if a user wishes to use nine-point
+!!%% fonts, the comment characters can be removed and \ninepoint defined on the
+!!%% model of \tenpoint and \eightpoint below.
+
+%\font@\ninerm=cmr9
+\font@\eightrm=cmr8
+\font@\sixrm=cmr6
+%\font@\ninei=cmmi9    \skewchar\ninei='177
+\font@\eighti=cmmi8   \skewchar\eighti='177
+\font@\sixi=cmmi6     \skewchar\sixi='177
+%\font@\ninesy=cmsy9   \skewchar\ninesy='60
+\font@\eightsy=cmsy8  \skewchar\eightsy='60
+\font@\sixsy=cmsy6    \skewchar\sixsy='60
+%\font@\ninebf=cmbx9
+\font@\eightbf=cmbx8
+\font@\sixbf=cmbx6
+%\font@\nineit=cmti9
+\font@\eightit=cmti8
+%\font@\ninesl=cmsl9
+\font@\eightsl=cmsl8
+
+%% We will load the basic sizes of the msam, msbm and eufm fonts as well
+%% as the names of all the symbols.  If these are really not needed, or
+%% space is a problem, a user can comment out these lines without making
+%% any other changes.
+
+\loadmsam
+\loadmsbm
+\loadeufm
+\UseAMSsymbols
+
+%% We will only load the additional point sizes for the msam, msbm, and
+%% eufm families if the flags \ifmsamloaded@, etc., are true (since
+%% presumably this was done by a user who has the proper families).
+%% As above, instructions for nine-point fonts are present but commented out.
+
+\ifmsamloaded@
+% \font@\ninemsa=msam9
+ \font@\eightmsa=msam8
+ \font@\sixmsa=msam6
+\fi
+ \ifmsbmloaded@
+% \font@\ninemsb=msbm9
+ \font@\eightmsb=msbm8
+ \font@\sixmsb=msbm6
+\fi
+
+\ifeufmloaded@
+% \font@\nineeufm=eufm9
+ \font@\eighteufm=eufm8
+ \font@\sixeufm=eufm6
+\fi
+
+%% In order to be able to load additional sizes of the Euler fonts that
+%% are not included automatically, we need to be able to test whether the
+%% basic sizes have been loaded, and if they haven't, create a new switch.
+%% Since this will be performed inside another macro, we need a \newif that
+%% isn't outer.  We repeat the definition of \@if from plain, for completeness.
+
+% from plain.tex; we need a \newif that isn't outer.
+\def\@newif#1{\count@\escapechar \escapechar\m@ne
+  \expandafter\expandafter\expandafter
+   \edef\@if#1{true}{\let\noexpand#1=\noexpand\iftrue}%
+  \expandafter\expandafter\expandafter
+   \edef\@if#1{false}{\let\noexpand#1=\noexpand\iffalse}%
+  \@if#1{false}\escapechar\count@} % the condition starts out false
+\def\@if#1#2{\csname\expandafter\if@\string#1#2\endcsname}
+
+%% We define a test that will determine whether or not a \cs is defined
+%% (TB, p. 308).
+
+\def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax }
+
+%% We define a routine to create a new \if... if a tested \if... name
+%% is not already defined, and apply it to all the Euler fonts that are
+%% not loaded automatically.
+
+\def\makeflag#1{\expandafter\@newif\csname if#1\endcsname
+  \csname #1false\endcsname}
+\ifundefined{ifeufbloaded@}\makeflag{eufbloaded@}\fi
+\ifundefined{ifeusmloaded@}\makeflag{eusmloaded@}\fi
+\ifundefined{ifeusbloaded@}\makeflag{eusbloaded@}\fi
+\ifundefined{ifeurmloaded@}\makeflag{eurmloaded@}\fi
+\ifundefined{ifeurbloaded@}\makeflag{eurbloaded@}\fi
+
+%% Now we define \tenpoint and \eightpoint for regular text and footnotes,
+%% similarly to TB, p. 414. We keep track of the point size in a control
+%% sequence \pointsize@, because a couple of constructions need to know the
+%% point size we are in (and other constructions added later, or in other
+%% styles, might need this).  We not only change the \baselineskip, but also
+%% change the glue above and below displayed formulas, in case the footnotes
+%% happen to have them.  We also need to set not only \strutbox, but also
+%% \strutbox@. And we will set \ex@ in each case (for \tenpoint it is
+%% supposed to be equivalent to 1pt, while for \eightpoint it will then
+%% presumably be equivalent to .8pt).
+
+%% When \ifsyntax@ is true, so that we are checking syntax, then we won't
+%% bother specifying fonts (since we would only change them all to \dummyft@
+%% anyway), and we simply let \big gobble up things with the proper syntax,
+%% instead of worrying about getting the right sizes.  In general, \big is
+%% \tenbig or \eightbig, which are defined immediately afterwards. 
+
+\def\tenpoint{\def\pointsize@{10}%
+ \normalbaselineskip12\p@
+ \abovedisplayskip12\p@ plus3\p@ minus9\p@
+ \belowdisplayskip12\p@ plus3\p@ minus9\p@
+ \abovedisplayshortskip\z@ plus3\p@
+ \belowdisplayshortskip7\p@ plus3\p@ minus4\p@
+ \textonlyfont@\rm\tenrm
+ \textonlyfont@\it\tenit
+ \textonlyfont@\sl\tensl
+ \textonlyfont@\bf\tenbf
+ \textonlyfont@\smc\tensmc
+ \ifsyntax@\def\big##1{{\hbox{$\left##1\right.$}}}\else
+  \let\big\tenbig@
+  \textfont\z@=\tenrm  \scriptfont\z@=\sevenrm  \scriptscriptfont\z@=\fiverm
+  \textfont\@ne=\teni  \scriptfont\@ne=\seveni  \scriptscriptfont\@ne=\fivei
+  \textfont\tw@=\tensy \scriptfont\tw@=\sevensy \scriptscriptfont\tw@=\fivesy
+  \textfont\thr@@=\tenex \scriptfont\thr@@=\tenex
+   \scriptscriptfont\thr@@=\tenex
+  \textfont\itfam=\tenit  %% \scriptfont and \scriptscriptfont for \itfam
+  %% are already set by AMSTEX.TEX, and there's no point trying to make
+  %% changes, since we probably don't have the right sizes.
+  \textfont\slfam=\tensl  %% Similarly for \slfam.
+  \textfont\bffam=\tenbf \scriptfont\bffam=\sevenbf
+   \scriptscriptfont\bffam=\fivebf
+  \ifmsamloaded@
+   \textfont\msafam=\tenmsa \scriptfont\msafam=\sevenmsa
+    \scriptscriptfont\msafam=\fivemsa
+  \fi
+  \ifmsbmloaded@
+   \textfont\msbfam=\tenmsb \scriptfont\msbfam=\sevenmsb
+    \scriptscriptfont\msbfam=\fivemsb
+  \fi
+  \ifeufmloaded@
+   \textfont\eufmfam=\teneufm \scriptfont\eufmfam=\seveneufm
+    \scriptscriptfont\eufmfam=\fiveeufm
+  \fi
+  \ifeufbloaded@
+   \textfont\eufbfam=\teneufb \scriptfont\eufbfam=\seveneufb
+    \scriptscriptfont\eufbfam=\fiveeufb
+  \fi
+  \ifeusmloaded@
+   \textfont\eusmfam=\teneusm \scriptfont\eusmfam=\seveneusm
+    \scriptscriptfont\eusmfam=\fiveeusm
+  \fi
+  \ifeusbloaded@
+   \textfont\eusbfam=\teneusb \scriptfont\eusbfam=\seveneusb
+    \scriptscriptfont\eusbfam=\fiveeusb
+  \fi
+  \ifeurmloaded@
+   \textfont\eurmfam=\teneurm \scriptfont\eurmfam=\seveneurm
+    \scriptscriptfont\eurmfam=\fiveeurm
+  \fi
+  \ifeurbloaded@
+   \textfont\eurbfam=\teneurb \scriptfont\eurbfam=\seveneurb
+    \scriptscriptfont\eurbfam=\fiveeurb
+  \fi
+  \ifcmmibloaded@
+   \textfont\cmmibfam=\tencmmib \scriptfont\cmmibfam=\sevencmmib
+    \scriptscriptfont\cmmibfam=\fivecmmib
+  \fi
+  \ifcmbsyloaded@
+   \textfont\cmbsyfam=\tencmbsy \scriptfont\cmbsyfam=\sevencmbsy
+    \scriptscriptfont\cmbsyfam=\fivecmbsy
+  \fi
+ \fi %% Matches \ifsyntax@.
+ \setbox\strutbox\hbox{\vrule height8.5\p@ depth3.5\p@ width\z@}%
+ \setbox\strutbox@\hbox{\vrule height8\p@ depth3\p@ width\z@}%
+ \normalbaselines\tenrm\ex@=.2326ex}
+
+%% For \eightpoint we don't change the assignments of \scriptscriptstyle,
+%% since these don't change from \tenpoint (and we call \tenpoint near the
+%% end). \textfont3 also doesn't change (an \eightex font will be included
+%% in the AMSFonts collection, and can be added by the user).
+
+\def\eightpoint{\def\pointsize@{8}%
+ \normalbaselineskip10\p@
+ \abovedisplayskip10\p@ plus2.4\p@ minus7.2\p@
+ \belowdisplayskip10\p@ plus2.4\p@ minus7.2\p@
+ \abovedisplayshortskip\z@ plus2.4\p@
+ \belowdisplayshortskip5.6\p@ plus2.4\p@ minus3.2\p@
+ \textonlyfont@\rm\eightrm
+ \textonlyfont@\it\eightit
+ \textonlyfont@\sl\eightsl
+ \textonlyfont@\bf\eightbf
+ \textonlyfont@\smc\eightsmc
+ \ifsyntax@\def\big##1{{\hbox{$\left##1\right.$}}}\else
+  \let\big\eightbig@
+  \textfont\z@=\eightrm \scriptfont\z@=\sixrm
+  \textfont\@ne=\eighti \scriptfont\@ne=\sixi
+  \textfont\tw@=\eightsy \scriptfont\tw@=\sixsy
+  %% Although we don't have smaller fonts for \itfam or \slfam, we reset
+  %% the \scriptfont and \scriptscriptfonts to the text size so that they
+  %% won't appear in ten-point if they are used.
+  \textfont\itfam=\eightit \scriptfont\itfam=\eightit
+   \scriptscriptfont\itfam=\eightit
+  \textfont\slfam=\eightsl \scriptfont\slfam=\eightsl
+   \scriptscriptfont\slfam=\eightsl
+  \textfont\bffam=\eightbf \scriptfont\bffam=\sixbf
+  \ifmsamloaded@
+   \textfont\msafam=\eightmsa \scriptfont\msafam=\sixmsa
+  \fi
+  \ifmsbmloaded@
+   \textfont\msbfam=\eightmsb \scriptfont\msbfam=\sixmsb
+  \fi
+  \ifeufmloaded@
+   \textfont\eufmfam=\eighteufm \scriptfont\eufmfam=\sixeufm
+  \fi
+ \fi
+ \setbox\strutbox\hbox{\vrule height7\p@ depth3\p@ width\z@}%
+ \setbox\strutbox@\hbox{\vrule height6.5\p@ depth2.5\p@ width\z@}%
+ \normalbaselines\eightrm\ex@.2326ex}
+
+%% Fix Plain's \bigl, \Bigl, etc. macros so that they try to scale with
+%% size changes.  This uses the fact that \tenpoint and \eightpoint
+%% set \ht\strutbox to be 70% of the normal unstretched baselineskip.
+%% from John Hobby
+
+\def\big#1{{\hbox{$\m@th
+  \left#1\vcenter to1.428\ht\strutbox{}\right.\n@space$}}}
+\def\Big#1{{\hbox{$\m@th
+  \left#1\vcenter to2.142\ht\strutbox{}\right.\n@space$}}}
+\def\bigg#1{{\hbox{$\m@th
+  \left#1\vcenter to2.857\ht\strutbox{}\right.\n@space$}}}
+\def\Bigg#1{{\hbox{$\m@th
+  \left#1\vcenter to3.571\ht\strutbox{}\right.\n@space$}}}
+
+%% Although the counter \footmarkcount@ is declared in AMSTEX.TEX, the rest
+%% of \footnote has to be done here.  \footmarkform@ tells how to treat a
+%% general type of footnote marker.  And \thefootnotemark is for the user,
+%% analogous to \thetag in AMSTEX.TEX.
+
+\def\footmarkform@#1{$\m@th^{#1}$}
+\let\thefootnotemark\footmarkform@
+
+%% \makefootnote@ takes care of the general problem of creating a footnote
+%% whose marker is #1 and whose text is #2, so that we can concentrate
+%% separately on the problem of how the marker is determined.  It is
+%% essentially \vfootnote from TB, p. 363, except that we don't do fancy
+%% things to worry about category code changes; our footnotes will begin
+%% unindented, and instead of adding a \strut at the end, we will just add
+%% the lower part of the strut. (And, of course, we will be in eight point 
+%% type.)
+
+\def\makefootnote@#1#2{\insert\footins
+ {\interlinepenalty\interfootnotelinepenalty
+ \eightpoint\splittopskip\ht\strutbox\splitmaxdepth\dp\strutbox
+ \floatingpenalty\@MM\leftskip\z@\rightskip\z@\spaceskip\z@\xspaceskip\z@
+ \noindent{#1}\footstrut\ignorespaces#2\unskip\lower\dp\strutbox
+ \vbox to\dp\strutbox{}}}
+
+%% We need a counter for footnotes; initialize it.
+
+\newcount\footmarkcount@
+\footmarkcount@\z@
+
+%% \footnotemark basically just advances \footmarkcount@ by 1 and then uses
+%% \footmarkform@{\number\footmarkcount@}---we still have to worry about the
+%% space factor as in the definition of \footnote in TB, p. 363.  However, we
+%% are allowing both an `optional' argument [#1], where we instead use
+%% \footmarkform@{#1}, and a `literal' argument "#1", where we instead use #1
+%% exactly as typed, so we need to use a \futurelet to look at the next
+%% symbol. Compressed format is used.
+
+\def\footnotemark{\let\@sf\empty\relaxnext@
+ \ifhmode\edef\@sf{\spacefactor\the\spacefactor}\/\fi
+ \DN@{\ifx[\next\let\next@\nextii@\else
+  \ifx"\next\let\next@\nextiii@\else
+  \let\next@\nextiv@\fi\fi\next@}%
+ \DNii@[##1]{\footmarkform@{##1}\@sf}%
+ \def\nextiii@"##1"{{##1}\@sf}%
+ \def\nextiv@{\global\advance\footmarkcount@\@ne
+  \footmarkform@{\number\footmarkcount@}\@sf}%
+ \FN@\next@}
+
+%% \footnotetext essentially applies \makefootnote@ to the next group, using
+%% \footmarkcount@ for the marker that goes before the footnote text.
+%% However, we once again allow optional and literal arguments.  Compressed
+%% format is used.
+
+\def\footnotetext{\relaxnext@
+ \DN@{\ifx[\next\let\next@\nextii@\else
+  \ifx"\next\let\next@\nextiii@\else
+  \let\next@\nextiv@\fi\fi\next@}%
+ \DNii@[##1]##2{\makefootnote@{\footmarkform@{##1}}{##2}}%
+ \def\nextiii@"##1"##2{\makefootnote@{##1}{##2}}%
+ \def\nextiv@##1{\makefootnote@{\footmarkform@{\number\footmarkcount@}}{##1}}%
+ \FN@\next@}
+
+%% Finally, \footnote is basically \footnotemark\footnote, but we can't write
+%% it directly that way because it, too, can take optional and literal
+%% arguments.  Compressed format again.
+
+\def\footnote{\let\@sf\empty\relaxnext@
+ \ifhmode\edef\@sf{\spacefactor\the\spacefactor}\/\fi
+ \DN@{\ifx[\next\let\next@\nextii@\else
+  \ifx"\next\let\next@\nextiii@\else
+  \let\next@\nextiv@\fi\fi\next@}%
+ \DNii@[##1]##2{\footnotemark[##1]\footnotetext[##1]{##2}}%
+ \def\nextiii@"##1"##2{\footnotemark"##1"\footnotetext"##1"{##2}}%
+ \def\nextiv@##1{\footnotemark\footnotetext{##1}}%
+ \FN@\next@}
+
+%% \adjustfootnotemark just allows the user to change \footmarkcount@.
+
+\def\adjustfootnotemark#1{\advance\footmarkcount@#1\relax}
+
+%% The \topmatter ... \endtopmatter syntax was created to go along with
+%% LaTeX, but \topmatter actually has no function.
+
+\let\topmatter\relax
+
+!!!!!!!!!!
+
+%% The constructions \title, \author, \affil and \heading use `\z@\filhss@'
+%% instead of \hfil or \hss glue explicitly, so that if they are followed by
+%% \overlong they can let \filhss@ be `plus1000pt minus1000pt' (so that a
+%% line longer than \hsize will just be centered outside the margins), but
+%% otherwise they let \filhss@ simply be `plus1000pt' (so that a line longer
+%% than \hsize will actually be reported as Overfull).  Like \vspace, etc.,
+%% in AMSTEX.TEX, this should give an error message when used incorrectly,
+%% and we abbreviate the proper definition. The definition involves \next@
+%% and \nextii@, because \overlong@ is always used in constructions with
+%% compressed format that end \futurelet\next\next@, use \overlong to define
+%% \next@, and then define \nextii@ appropriately.
+
+
+\Invalid@\overlong
+\def\overlong@{\DN@{\ifx\next\overlong
+  \def\filhss@{plus\@m\p@ minus\@m\p@}\DN@\overlong{\nextii@}%  
+   %% When \overlong appears [the new value of] \next@ must 
+   %% kill \overlong and then call \nextii@.
+ \else\def\filhss@{plus\@m\p@\relax}\let\next@\nextii@\fi
+ \next@}}
+
+%% We need a box to store the title.  We make it empty if no title appears,
+%% so that at least some space appears for the title (presumably the author
+%% simply hasn't decided on the title yet).
+
+\newbox\titlebox@
+\setbox\titlebox@\vbox{}
+
+%% Although we use the syntax \author ... \endauthor, we simply use
+%% \endauthor as a delimiter for the argument, as with \align, rather than
+%% doing \bgroup and \egroup tricks, as with \aligned. And we simply say
+%% \let\\=\cr, since we shouldn't have to worry about any of the problems
+%% that make \Let@ necessary.  But there is a particular reason, beyond
+%% convenience, for writing things this way.  If one wanted to have a \TITLE
+%% construction, that applied \uppercase to everything, then \TITLE would
+%% have to be written this way.  [\TITLE is a nice idea, because then the
+%% title can appear in upper- and lowercase in the input file (for automatic
+%% indexing, for example), but all uppercase in the paper.  However, there
+%% would actually be some horrible problems involved in writing TITLE
+%% correctly.  For example, math formulas might appear in a title, and we'd
+%% have to arrange not to uppercase them. Moreover, footnotes might appear,
+%% since some styles use footnotes on authors for the affiliation, etc., and
+%% then the footnotes mustn't be uppercased either!  Any one who wants this
+%% can do it Eirself.]
+
+\def\title{\relaxnext@
+ \DNii@##1\endtitle{{\let\\=\cr
+  \global\setbox\titlebox@\vbox{\tabskip\z@\filhss@
+  \halign to\hsize{\tenpoint\bf\hfil\ignorespaces####\unskip\hfil\cr##1\cr}}}}%
+ \overlong@
+ \futurelet\next\next@}
+
+%% \author@ is almost exactly the same, except that instead of having
+%% \authorbox@ empty when no \author appears, we have a flag to tell if it
+%% appears. 
+
+\newif\ifauthor@
+\newbox\authorbox@
+\def\author{\relaxnext@
+ \DNii@##1\endauthor{{\let\\=\cr
+  \global\setbox\authorbox@\vbox{\tabskip\z@\filhss@
+  \halign to\hsize{\tenpoint\smc\hfil\ignorespaces####\unskip\hfil\cr##1\cr
+ }}}}\overlong@\global\author@true
+ \futurelet\next\next@}
+
+%% \affil, on the other hand, is written in the \bgroup ... \egroup style,
+%% since one presumably wouldn't ever want to uppercase everything here.
+
+\newif\ifaffil@
+\newbox\affilbox@
+\def\affil{\relaxnext@
+ \DNii@{\bgroup\let\\=\cr
+  \global\setbox\affilbox@\vbox\bgroup\tabskip\z@\filhss@
+  \halign to\hsize\bgroup\tenpoint\hfil\ignorespaces####\unskip\hfil\cr}%
+ \overlong@
+ \global\affil@true
+ \futurelet\next\next@}
+
+\def\endaffil{\cr\egroup\egroup\egroup}
+
+%% Since \address can be used any number of times, we have to store the
+%% different addresses in control sequences that we manufacture as needed. We
+%% use \addresscount@ to store the number of times \address is used.
+
+\newcount\addresscount@
+\addresscount@\z@
+
+\def\address#1{\global\advance\addresscount@\@ne
+ \expandafter\gdef\csname address\number\addresscount@\endcsname
+  %% The first address is `\address1', the next is `\address2', etc.
+  {\noindent\eightpoint\ignorespaces#1\par}}
+
+%% We use flags to tell if \date and \thanks have been used, in which case
+%% \date@ and \thanks@, respectively, have been defined.
+
+\newif\ifdate@
+
+\def\date#1{\global\date@true\gdef\date@{\tenpoint\ignorespaces#1\unskip}}
+
+\newif\ifthanks@
+
+\def\thanks#1{\global\thanks@true
+ \gdef\thanks@{\eightpoint\ignorespaces#1\unskip}}
+
+%% \nofrills and \usualspace are subsidiary features that some constructions
+%% can have, but which should give error message if used otherwise.
+
+\Invalid@\nofrills
+\Invalid@\usualspace
+
+%% \nofrills@ is the control sequence that does the work of making \nofrills
+%% work correctly.  \nofrills@ will take two arguments; the first represents
+%% the text that should be typeset `without frills', while the second is just
+%% a convenient control sequence name, which we put at the beginning of the
+%% construction in question.  This control sequence will be defined to be the
+%% first argument of \nofrills@ if \nofrills follows the construction, but
+%% simply \relax otherwise. (We choose different control sequences for each
+%% construction in case one occurs within another.)
+
+%% Like \overlong, \nofrills@ is defined in terms of \next@ and \nextii@
+%% because it is used in constructions that end \futurelet\next\next@, use
+%% \nofrills@ to define \next@, and then define \nextii@ appropriately.
+%% \nofrills@ also sets a flag \ifnofrills@, for use with \usualspace@.
+
+\newif\ifnofrills@
+\def\nofrills@#1#2{\DN@{\ifx\next\nofrills\nofrills@true\let#2\relax
+  \DN@\nofrills{\nextii@}%
+ %% When \nofrills appears, the control sequence #2 is just relax, and
+ %% \next@ must kill off \nofrills before calling \nextii@.
+ \else\nofrills@false
+  \def#2{#1}%
+ %% When \nofrills doesn't appear, the control sequence #2 is #1.
+  \let\next@\nextii@\fi\next@}}
+
+%% \usualspace@ simply defines \usualspace when no frills have been specified
+%% (and otherwise does nothing).
+
+\def\usualspace@#1{\ifnofrills@\def\usualspace{#1}\fi}
+
+%% As an example of all this, consider \keywords, which creates
+%% \thekeywords@.  Normally \keywords makes \thekeywords@ begin with {\it
+%% Keywords.\enspace}.  But \keywords\nofrills{...} makes it begin with ...
+%% instead. Moreover, \usualspace will then be defined as {\it\enspace}.
+
+\def\thekeywords@{}
+\def\keywords{\relaxnext@
+ \nofrills@{{\it Keywords.\enspace}}\keywords@
+ \DNii@##1{\def\thekeywords@{\usualspace@{{\it\enspace}}\noindent
+ \eightpoint\keywords@\ignorespaces##1\par}}%
+ \futurelet\next\next@}
+
+%% \subjclass is exactly analogous.
+
+\def\thesubjclass@{}
+\def\subjclass{\relaxnext@
+ \nofrills@{{\rm1980 {\it Mathematics subject 
+   classifications\/}: }}\subjclass@
+ \DNii@##1{\def\thesubjclass@{\usualspace@
+  {{\rm\spacefactor2000 \space}}\noindent\eightpoint
+  \subjclass@\ignorespaces##1\par}}%
+ \futurelet\next\next@}
+
+%% \proclaim and \endproclaim have a special problem: We want them to be
+%% allowed within \abstract{...} but we want them to be \outer afterwards. So
+%% we will actually define \innerproclaim@ and \innerendproclaim@ (later) and
+%% temporarily use these for \proclaim and \endproclaim, until \endtopmatter
+%% (which naturally should appear after any \abstract), which will make them
+%% outer again.
+
+\def\proclaim{\innerproclaim@}
+\def\endproclaim{\innerendproclaim@}
+
+%% \abstract is similar to the constructions above, but we need a \long\def
+%% since an abstract can be more than one paragraph. 
+
+\newif\ifabstract@
+\def\abstract{\relaxnext@
+ \nofrills@{{Abstract.\enspace}}\abstract@
+ \long\DNii@##1{\long\gdef\theabstract@{\usualspace@
+  {{\eightpoint\enspace}}\eightpoint\abstract@\ignorespaces##1\par}}%
+ \global\abstract@true
+ \futurelet\next\next@}
+
+%% We create empty entries \pretitle, ..., \prepaper among the other parts of
+%% the \topmatter so that users can insert things between them if necessary.
+
+\let\pretitle\relax
+\let\preauthor\relax
+\let\preaffil\relax
+\let\predate\relax
+\let\preabstract\relax
+\let\prepaper\relax
+
+%% \endtopmatter now puts all of these things together on the page.
+
+\def\endtopmatter{\hrule height\z@\vskip-\topskip  %% Go to very top of page.
+ \pretitle   
+ \vskip24\p@ plus12\p@ minus12\p@
+ \unvbox\titlebox@ %% Title (or empty box).
+ \preauthor
+ \ifauthor@\vskip12\p@ plus6\p@ minus3\p@\unvbox\authorbox@\fi
+  %% Put in \author, and spacing, if specified.
+ \preaffil
+ \ifaffil@\vskip10\p@ plus5\p@ minus2\p@\unvbox\affilbox@\fi
+  %% Put in \affil, and spacing, if specified.
+ \predate
+ \ifdate@\vskip6\p@ plus2\p@ minus\p@\hbox to\hsize{\hfil\date@\hfil}\fi
+  %% Put in \date, and spacing, if specified.
+ \preabstract
+ \ifthanks@\makefootnote@{}{\thanks@}\fi
+  %% If \thanks given, treat it as a footnote text (with no footnote mark).
+ \ifabstract@\vskip15\p@ plus12\p@ minus12\p@
+  %% If \abstract given, put in spacing and then print \theabstract@ with
+  %% 24pt margins at each side.  In order for \tag's to come out at the
+  %% new margins, we have to have \displaywidth decreased by 48pt and
+  %% \displayindent set to 24pt (see the rules in TB, pp. 188--189). Since
+  %% \displaywidth and \displayindent are normally set at each $$, we
+  %% have to use \everydisplay to get the desired values.
+  {\leftskip24\p@\rightskip24\p@
+   \everydisplay{\advance\displaywidth-48\p@\displayindent20\p@}
+   \noindent\theabstract@}\fi
+ \prepaper
+  %% Now make \proclaim and \endproclaim \outer.
+ \outer\def\proclaim{\innerproclaim@}%
+ \outer\def\endproclaim{\innerendproclaim@}%
+ \vskip18\p@ plus12\p@ minus6\p@\tenpoint}
+
+%% The \address's get printed at the end of the paper, so we take care of this
+%% with \enddocument.  
+
+\outer\def\enddocument{\nobreak  %% No break between the References and 
+  %% the final matter.
+ \sfcode`\.=3000  %% Return space factor code of period (changed by \Refs).
+ \vskip12\p@ minus6\p@
+ \thekeywords@\thesubjclass@  %% Keywords and subject classifications, 
+  %% if they exist.
+ \nobreak\vskip12\p@ minus6\p@
+ \count@\z@
+ \loop\ifnum\count@<\addresscount@\advance\count@\@ne
+ \csname address\number\count@\endcsname\repeat
+  %% Print all the \address's.
+ \vfill\supereject\end}
+
+%% \heading ... \endheading is similar to \affil .. \endaffil, except that
+%% \bigbreak is added at the beginning, and \endheading actually prints the
+%% \headingbox@, followed by \nobreak\medskip.  We \unvbox the \headingbox@,
+%% so that a footnote within it will migrate properly.
+
+\newbox\headingbox@
+
+\outer\def\heading{\relaxnext@
+ \DNii@{\bigbreak\bgroup\let\\=\cr
+ \global\setbox\headingbox@\vbox\bgroup\tabskip\z@\filhss@
+ \halign to\hsize\bgroup\tenpoint\smc\hfil\ignorespaces####\unskip\hfil\cr}%
+ \overlong@
+ \futurelet\next\next@}
+
+\def\endheading{\cr\egroup\egroup\egroup\unvbox\headingbox@
+ \nobreak\medskip}
+
+%% \subheading is simpler, though it allows \nofrills.
+
+\def\subheading{\relaxnext@
+ \nofrills@{.\enspace}\subheading@
+ \DNii@##1{\medbreak\noindent{\usualspace@{{\bf\enspace}}%
+ \tenpoint\bf\ignorespaces##1\unskip\subheading@}\ignorespaces}%
+ \futurelet\next\next@}
+
+%% \innerproclaim@ (the guy behind \proclaim), sets a flag so that we can
+%% give an error message if a previous \proclaim has occurred without an
+%% \endproclaim (surely an error, since the \endproclaim would be needed to
+%% turn off the \sl font). If we are in eight point type (probably because we
+%% are in the abstract, rather than in a footnote), we replace the \smc font
+%% by \uppercase{\rm...} as the nearest substitute.  Instead of writing the
+%% test as \ifnum\pointsize@=8 we use a construction that will work even if
+%% \pointsize@ has other values (say, for fractional point sizes) in other
+%% formats.
+
+%% Note that in the error message we say \string\\proclaim instead of
+%% \string\proclaim.  That is because \proclaim will usually be \outer, so
+%% can't appear in \Err@, while \\ always can. We then have to \eat@ the
+%% first \ of the \\, requiring an \expandafter\eat@\string\\ construction.
+
+\newif\ifproclaim@
+
+\def\innerproclaim@{\relaxnext@
+ \nofrills@{.\enspace}\proclaim@
+ \DNii@##1{\medbreak\noindent
+  \DN@{8}\ifx\pointsize@\next@  %% If \pointsize@ is 8, 
+   \uppercase{\usualspace@{{\rm\enspace}}\rm\ignorespaces##1\unskip\proclaim@}%
+ %% use an \uppercase construction.
+  \else
+   \usualspace@{{\smc\enspace}}\smc\ignorespaces##1\unskip\proclaim@\fi
+ %% After printing the name of the theorem, switch to \sl.
+  \sl
+  \ifproclaim@\Err@{Previous \expandafter\eat@\string\\proclaim
+   has no matching \expandafter\eat@\string\\endproclaim}\else
+   \proclaim@true\fi\ignorespaces}%
+ \futurelet\next\next@}
+
+%% \innerendproclaim@ (the guy behind \endproclaim) resets the \ifproclaim@
+%% flag, ends the paragraph, switches back to \rm and adds spacing. (This
+%% means that if, for some strange reason, a whole section of text happens to
+%% be in italics, then the user must type \it again after each \endproclaim,
+%% but that hardly seems a problem worth worrying about.)
+
+\def\innerendproclaim@{\proclaim@false\par\rm
+ \ifdim\lastskip<\medskipamount\removelastskip\penalty55 \medskip\fi}
+
+%% \demo, like \innerproclaim@, replaces the \smc font by \uppercase{\rm...}
+%% (I didn't expect any one to use \demo in eight point type, but some one
+%% has already claimed that he did).  We also take the opportunity again to
+%% issue an error message if a previous \proclaim has no matching
+%% \endproclaim.
+
+\def\demo{\relaxnext@
+ \nofrills@{:\enspace}\demo@
+ \DNii@##1{\par\ifdim\lastskip<\smallskipamount\removelastskip
+  \smallskip\fi\noindent
+  \DN@{8}\ifx\pointsize@\next@
+   \uppercase{\usualspace@{{\rm\enspace}}\rm\ignorespaces##1\unskip\demo@}%
+  \else
+   \usualspace@{{\smc\enspace}}\smc\ignorespaces##1\unskip\demo@\fi
+  \rm
+  \ifproclaim@\Err@{Previous \expandafter\eat@\string\\proclaim
+   had no matching \expandafter\eat@\string\\endproclaim}\fi
+  \ignorespaces}%
+ \futurelet\next\next@}
+
+%% \enddemo is easy.
+
+\def\enddemo{\par\smallskip}
+
+%% \qed adjusts the spacing for use within a displayed formula (the proper
+%% usage when the displayed formula ends the \demo).  However, it looks as if
+%% the proper spacing won't be made when we use \qed as the last line of an
+%% \align, so something should probably be done about this.
+
+\def\qed{\ifhmode\unskip\nobreak\fi\ifmmode\ifinner\else\hskip5\p@\fi\fi
+ \hbox{\hskip5\p@\vrule width4\p@ height6\p@ depth1.5\p@\hskip\p@}}
+
+%% \cite has to see if a comma appears. 
+
+\def\cite#1{\DNii@##1,##2\end@{{\rm[{\bf##1}, ##2]}}%
+ \in@,{#1}\ifin@\DN@{\nextii@#1\end@}\else
+  \DN@{{\rm[{\bf#1}]}}\fi\next@}
+
+%% \roster uses \rostercount@ to store the \item number. The first item is
+%% treated specially, because of the extra space before it, so we need a flag
+%% \iffirstitem@ to identify it.
+
+\newcount\rostercount@
+\newif\iffirstitem@
+
+%% Since \item in \roster differs from in \plain, we store plain's \item in
+%% \plainitem@, so that we can restore the definition after the \roster is
+%% over.
+
+\let\plainitem@\item
+
+%% In order for our \roster's to work, we will also have to be sure that
+%% \everypar is {}.  Just in case \everypar already has a value, as it might
+%% in some format, we store those values in the token list \everypartoks@, so
+%% that we can restore them at the end.  \par@ does this storing, and sets
+%% \everypar{}.
+
+\newtoks\everypartoks@
+\def\par@{\everypartoks@=\expandafter{\the\everypar}\everypar{}}
+
+%% Compressed format is used for \roster, and even for one of the \def's made
+%% within the \def of \roster !
+
+\def\roster{\edef\leftskip@{\leftskip\the\leftskip}%
+  %% We also have to store the \leftskip, since it will be changed.
+ \relaxnext@
+ \rostercount@\z@  %% Initialize \rostercount@ to 0.
+ \def\item{\futurelet\next\rosteritem@}%  %% \item, now redefined,
+   %% has to look ahead for [ and ", since we allow optional and literal 
+   %% arguments. \rosteritem@ itself is defined below.
+   %% The following \next@ is the one called at the very end of this \def.
+ \DN@{\ifx\next\runinitem\let\next@\nextii@\else
+  \let\next@\nextiii@\fi\next@}%
+  %% First we look to see whether \roster is followed by \runinitem,
+  %% since this requires different processing.
+ \DNii@\runinitem  %% If \runinitem occurs, \nextii@ must kill it off.
+  {\unskip   %% This unskips any space before the original \roster. 
+    %% Our definition of \nextii@\runinitem itself uses compressed format
+    %% and a \futurelet\next\next@, because we still have to allow 
+    %% [ or " to come next.
+   \DN@{\ifx\next[\let\next@\nextii@\else
+    \ifx\next"\let\next@\nextiii@\else\let\next@\nextiv@\fi\fi\next@}%
+    %% The following \nextii@ is the one created by \nextii@\runinitem;
+    %% there is no conflict of names, since the first calls the second.
+   \DNii@[####1]{\rostercount@####1\relax
+    \enspace{\rm(\number\rostercount@)}~\ignorespaces}%
+    %% If [...] comes next, we use (...) but we explicitly do this by
+    %% setting \rostercount@ equal to ... so that succeeding \item's
+    %% will have the right numbers (use of something other than a
+    %% number will give an error message).
+   \def\nextiii@"####1"{\enspace{\rm####1}~\ignorespaces}%
+    %% If "..." comes next, we use ... exactly as typed.
+   \def\nextiv@{\enspace{\rm(1)}\rostercount@\@ne~}%
+    %% Otherwise just use (1).   
+   \par@\firstitem@false  %% Before doing any of this we still change
+     %% \everypar, if necessary, which is normally done elsewhere, and set
+     %% \firstitem@false, since this \runinitem counts as the first.
+   \futurelet\next\next@}%  %% End of definition of \nextii@\runinitem.
+   %% The following \nextiii@ will be used if we didn't have \runinitem.
+ \def\nextiii@{\par\par@  %% End the present paragraph, change \everypar
+    %% if necessary, prohibit a break, add a small skip, but add something
+    %% to offset any \parskip, if there is any, which would be contributed
+    %% when the next paragraph is begun by the next \item.
+  \penalty\@m\smallskip\vskip-\parskip
+  \firstitem@true}%  %% And set \firstitem@true for use with \item.
+ \futurelet\next\next@}
+
+%% Rember that \rosteritem@ is called by \futurelet\next\rosteritem@.
+
+\def\rosteritem@{\iffirstitem@\firstitem@false\else\par\vskip-\parskip\fi
+   %% Except at the first \item, we end the paragraph (consisting of the
+   %% previous \item), and subtract any space that might be added by the
+   %% next \item.
+ \leftskip3\parindent\noindent  %% Set the indentation.
+ \DNii@[##1]{\rostercount@##1\relax
+  \llap{\hbox to2.5\parindent{\hss\rm(\number\rostercount@)}%
+   \hskip.5\parindent}\ignorespaces}%
+   %% If [...] follows \item, we use ... as the number, again by setting
+   %% \rostercount@, so that succeeding \items will have the right number.
+ \def\nextiii@"##1"{%
+  \llap{\hbox to2.5\parindent{\hss\rm##1}\hskip.5\parindent}\ignorespaces}%
+   %% If "..." follows  \item, we use ... exactly as typed.
+ \def\nextiv@{\advance\rostercount@\@ne
+  \llap{\hbox to2.5\parindent{\hss\rm(\number\rostercount@)}%
+   \hskip.5\parindent}}%
+   %% Otherwise we print the \rostercount@ in parentheses.
+ \ifx\next[\let\next@\nextii@\else\ifx\next"\let\next@\nextiii@\else
+  \let\next@\nextiv@\fi\fi\next@}
+
+%% \therosteritem is just a convenience for the user.
+
+\def\therosteritem#1{{\rm(\ignorespaces#1\unskip)}}
+
+%% We want to save \Runinitem for last, but it is relevant even to the
+%% definition of \endroster, since we have to worry whether \endroster is
+%% followed by another \Runinitem.  We will use a flag \ifnextRunin@ to tell
+%% us.
+
+\newif\ifnextRunin@
+
+\def\endroster{\relaxnext@
+ \par\leftskip@  %% End the paragraph, and restore the \leftskip.
+ \penalty-50 \vskip-\parskip\smallskip  %% Add a good break and
+   %% subtract any space that will be started by next paragraph, 
+   %% but add a \smallskip.
+ \DN@{\ifx\next\Runinitem\let\next@\relax
+    %% Don't do anything else if \Runinitem comes next.
+  \else\nextRunin@false\let\item\plainitem@  %% Otherwise, set 
+    %% \nextRunin@false, and restore \item to its definition in plain;
+   \ifx\next\par %% moreover, if the \endroster is followed by a new paragraph,
+    \DN@\par{\everypar=\expandafter{\the\everypartoks@}}%
+   %% delete that instruction (since we've already put in a \par), and
+   %% restore \everypar,
+   \else  %% but if the \endroster isn't followed by a new paragraph,
+    \DN@{\noindent\everypar=\expandafter{\the\everypartoks@}}%
+   %% start the next paragraph unindented, and restore \everypar.
+  \fi\fi\next@}%
+ \futurelet\next\next@}
+
+%% Finally, for \Runinitem ... \roster\runinitem we have the usual junk for
+%% worrying about [ or " coming next, and then more interesting things:  We
+%% have to find out how many lines of text we had before the \roster; we
+%% will store this in \rosterhangafter@.
+
+\newcount\rosterhangafter@
+
+\def\Runinitem#1\roster\runinitem{\relaxnext@
+ \rostercount@\z@ %% Initialize \rostercount@ to 0.
+ \def\item{\futurelet\next\rosteritem@}%  %% Define \item as before.
+ \def\runinitem@{#1}%  %% Store everything up to the roster in \runinitem@.
+ \DN@{\ifx\next[\let\next\nextii@\else\ifx\next"\let\next\nextiii@
+  \else\let\next\nextiv@\fi\fi\next}%
+ \DNii@[##1]{\rostercount@##1\relax
+  \def\item@{{\rm(\number\rostercount@)}}\nextv@}%
+   %% If [...] follows \runinitem, we proceed as before, except we call
+   %% this first instance \item@, and we let \nextv@, defined below, take
+   %% care of everything.
+ \def\nextiii@"##1"{\def\item@{{\rm##1}}\nextv@}%
+   %% If "..." follows \runinitem, we define \item@ to use it.
+ \def\nextiv@{\advance\rostercount@\@ne
+  \def\item@{{\rm(\number\rostercount@)}}\nextv@}%
+   %% Otherwise, we use the proper \rostercount@.
+   %% Now comes \nextv@, which has to properly typeset things.
+ \def\nextv@{\setbox\z@\vbox  %% First store things in \box0 .
+  {\ifnextRunin@\noindent\fi  %% Start unindented if we have
+    %% \ifnextRunin@true.  This will happen only if we had 
+    %% \Runinitem...\endroster right before.
+  \runinitem@\unskip\enspace\item@~\par  %% Add the stored things in
+    %% \runinitem@, and then \item@.
+  \global\rosterhangafter@\prevgraf}% %% This sets \rosterhangafter@ 
+    %% to the number of lines in \box0 , i.e., of the material so far; see
+    %% TB, p. 103. We need to say \global since this is set within \box0 .   
+    %% Now we're done with \box0 !
+  \firstitem@false  %% Set \firstitem@false for future \item's.
+  \ifnextRunin@\else\par\fi  %% End previous paragraph unless
+    %% we had \Runinitem ...\endroster right before.
+    %%
+    %% Now comes the good part: we \hangindent3\parindent, as before,
+    %% but we do it for \rosterhangafter@ lines, the number that already
+    %% appeared in the material we set in \box0 .
+  \hangafter\rosterhangafter@\hangindent3\parindent
+  \ifnextRunin@\noindent\fi  %% Start unindented if we had a
+     %% \Runinitem ... \endroster right before.
+  \runinitem@\unskip\enspace %% Put in all the stored stuff \Runinitem@
+  \item@~\ifnextRunin@\else\par@\fi  %% and the \item@, and
+    %% end the paragraph, unless we had a \Runinitem ... \endroster before.
+  \nextRunin@true\ignorespaces}%  %% Here's where we set \nextRunin@true.
+ \futurelet\next\next@}
+
+%% \Refs is supposed to allow \nofrills to allow a different heading to be
+%% printed.  We use the same general scheme as before, but can't use
+%% \nofrills@ directly, since now we want one thing to appear when \nofrills
+%% isn't used, and something else when it is.
+ 
+%% Beyond that, \Refs will change to eight point type, in which all the
+%% references will be set, and change the space factor code of a period to
+%% 1000, so that normal interword spaces occur after periods.  In addition,
+%% \refskip@ will be defined as \hskip 1sp \hskip-1sp.  Recall that \refskip@
+%% appears in the definition of \nolinebreak in AMSTEX.TEX, although it
+%% simply has the value \relax there.  The exact reasons for redefining
+%% \refskip@ will appear later, but the main point is that it is easy to
+%% recognize, since presumably no user would actually use an \hskip-1sp.
+%% The change to eight point type is preceded by a \bgroup, which will be
+%% closed by an \egroup in \endRefs.
+
+\outer\def\Refs{\relaxnext@\def\refskip@{\hskip\@ne sp\hskip\m@ne sp}%
+ %% The next two lines are the substitute for \nofrills@.
+ \DN@{\ifx\next\nofrills\DN@\nofrills{\nextii@}\else
+  \DN@{\nextii@{References}}\fi\next@}%
+ \DNii@##1{\bigbreak\hbox to\hsize{\hfil\tenpoint
+  \smc\ignorespaces##1\unskip\hfil}\nobreak
+  \bigskip\bgroup\eightpoint\sfcode`.=\@m}%
+ \futurelet\next\next@}
+
+%% The following macros to set the references are perhaps more of a tour de
+%% force than anything else. Various people dislike them for various reasons,
+%% and some one will always be able find some special kind of reference
+%% formatting that isn't included here. However, one can always simply type
+%% out a reference as one wants it to appear as a last resort.  The value of
+%% these macros is that they at least do allow the various parts of the
+%% reference to be specified without having to worry about the particular way
+%% the style file will format them, and thus they can easily be modified for
+%% other style files.
+
+%% The real TeXnical finesse was to allow the various parts of the reference
+%% to be specified in an arbitrary order.
+
+%% We begin by allocating boxes to hold the various possible bits of
+%% information. A few of these can be used by different constructions:
+%% \bybox@ holds the author, whether called by \by or by \manyby; \bookbox@
+%% holds the book title, whether called by \book, or by \inbook; \pagesbox@
+%% holds the pages, whether called by \pages or by \page.
+
+\newbox\nobox@
+\newbox\keybox@
+\newbox\bybox@
+\newbox\paperbox@
+\newbox\paperinfobox@
+\newbox\jourbox@
+\newbox\volbox@
+\newbox\issuebox@
+\newbox\yrbox@
+\newbox\pagesbox@
+\newbox\bookbox@
+\newbox\bookinfobox@
+\newbox\publbox@
+\newbox\publaddrbox@
+\newbox\finalinfobox@
+
+%% We also need a box to store the author's name for later use when
+%% it has been called by \bymany.
+
+\newbox\bysamebox@
+
+%% Next we define flags to tell if various bits of information have been
+%% specified.
+
+\newif\ifno@
+\newif\ifkey@
+\newif\ifby@
+\newif\ifmanyby@
+\newif\ifbysame@
+\newif\ifpaper@
+\newif\ifpaperinfo@
+\newif\ifjour@
+\newif\ifvol@
+\newif\ifissue@
+\newif\ifyr@
+\newif\iftoappear@
+\newif\ifpages@
+\newif\ifpage@
+\newif\ifbook@
+\newif\ifinbook@
+\newif\ifbookinfo@
+\newif\ifpubl@
+\newif\ifpubladdr@
+\newif\iffinalinfo@
+
+%% In addition, certain other flags will be needed to get the processing
+%% right.
+
+%% \ifafterbook@ is needed to tell if we've just finished typesetting a book
+%% title, so that right double quotes '' should go after it; we can't put in
+%% the '' immediately, because we will need either a period or comma,
+%% depending on whether any other information follows.  (Of course, things
+%% would be much easier if we used `logical' punctuation and typed things
+%% like:
+%%             ``Title of Book'', pg. 367. Publisher.  
+%% But most journals prefer having the punctuation inside the right quotes,
+%% and since this is the harder case we might as well do it, to show how it's
+%% done.
+
+\newif\ifafterbook@
+
+%% Other flags are needed because of the \moreref construction, which
+%% requires subsequent parts of the \ref to be treated somewhat differently.
+
+\newif\iffirstref@
+\newif\iflastref@
+\newif\ifprevjour@
+\newif\ifprevbook@
+\newif\ifprevinbook@
+\newif\ifnojourinfo@
+
+%% When \bysame is used, the author's name will be replaced by a rule having
+%% the same width as the author's name that was specified by the previous
+%% \manyby.  However, we want to put a maximum limit on this size, which we 
+%% store in \maxbysamerule@.
+
+\newdimen\maxbysamerule@
+\maxbysamerule@1in
+
+%% Each \ref has to initialize various things; we abbreviate all these by
+%% \ref@, which will also add a \bgroup, whose role we will see later.
+
+\def\ref@{\global\no@false \global\key@false \global\by@false
+ \global\bysame@false \global\paper@false \global\paperinfo@false
+ \global\jour@false \global\vol@false \global\issue@false
+ \global\yr@false \global\toappear@false \global\pages@false \global\page@false
+ \global\book@false \global\inbook@false
+ \global\bookinfo@false \global\publ@false \global\publaddr@false
+ \global\finalinfo@false
+ \bgroup\ignorespaces}
+
+%% \moreref should have a meaning only if used properly within a \ref.
+
+\Invalid@\moreref
+
+%% Each \ref will be \outer.  We start with \begingroup, just to be on the
+%% safe side, and make things easy; begin a nonindented paragraph; initialize
+%% \iffirstref@ and \iflastref@, which are special, and aren't handled by
+%% \ref@, but specially by \moreref and \endref; and then do the
+%% initializations of \ref@ --- remember that this adds \bgroup\ignorespaces.
+
+\outer\def\ref{\begingroup
+ \noindent\hangindent20\p@\hangafter\@ne\firstref@true
+ \lastref@false\def\moreref{\egroup\endref@\global\firstref@false\ref@}\ref@}
+
+%% Note that \moreref is practically the same as \endref, defined below,
+%% followed by \ref again, except that certain flags are set differently, and
+%% we don't start another group or a new noindented paragraph.
+
+%% The basic idea behind all the following constructions is the following.
+%% If we type \no 3 \anothercontrolsequence, then this must somehow set
+%% \ifno@ true and set \nobox@ to be \hbox{3}.  (The \endref will then take
+%% all these various boxes, and unbox them, in the proper order.)  To get the
+%% box set, we let \no end with \setbox\nobox@\bgroup, and let
+%% \anothercontrolsequence contribute the closing \egroup. (The important
+%% point here is that a construction like \hbox\bgroup ... \egroup is allowed
+%% [even though something like \toks0=\bgroup ... \egroup isn't]. That is
+%% because \hbox\bgroup causes tokens to be expanded, since the material
+%% actually has to be typeset, so the \egroup can be noticed when it occurs.)
+%% Of course, \no itself must therefore begin by contributing an \egroup.
+%% That is why \ref@ starts with \bgroup\ignorespaces, so that the first of
+%% the control sequences called simply creates an empty group.
+
+%% Instead of typing lots of definitions that all look almost exactly alike,
+%% we have a general construction \refdef@ which can be applied to most. The
+%% first argument of \refdef@ will be a control sequence, like \no, \key,
+%% etc., and it will have to set \no@true, \key@true and boxes \nobox@,
+%% \keybox@, etc. So we have to use plenty of \csname's to define \refdef@.
+%% The second argument of \refdef@ will be either \relax or a font change,
+%% like \it, for those cases where this new font is to be used for the
+%% element in question.
+
+\def\refdef@#1#2{\def#1{\egroup
+ \csname\expandafter\eat@\string#1@true\endcsname
+ \expandafter\setbox
+ \csname\expandafter\eat@\string#1box@\endcsname\hbox\bgroup#2}}
+
+%% \no and \key are defined immediately by \refdef@.
+
+\refdef@\no\relax
+\refdef@\key\relax
+
+%% \by, \manyby and \bysame are all a little different.  In order to get them
+%% to work together, they each have to set certain other flags. 
+
+%% In \manyby, the \by@true isn't made \global, since it is needed only by
+%% the current \ref, but the \manyby@true is needed by the succeeding \ref's,
+%% so it must be \global.
+
+\def\manyby{\egroup\global\manyby@true\by@true\setbox\bybox@\hbox\bgroup}
+
+%% Similarly, in \by, the \bysame@false is needed by the current \ref, while
+%% the \global \manyby@false is needed by the succeeding \ref's.
+
+\def\by{\egroup\by@true\bysame@false\global\manyby@false
+ \setbox\bybox@\hbox\bgroup}
+
+%% All \bysame has to do is set \bysame@true for the current \ref.
+
+\def\bysame{\egroup\bysame@true\bgroup}
+
+%% \paper and \paperinfo are straightforward \refdef@'s.
+
+\refdef@\paper\it
+\refdef@\paperinfo\relax
+
+%% \jour is a little more complicated because it has to set \prevjour@true
+%% (this is used for \moreref, for a succeeding paper in the same journal).
+
+\def\jour{\egroup\jour@true\prevjour@true\setbox
+ \jourbox@\hbox\bgroup}
+
+%% \vol, \issue, \yr are straightforward.
+
+\refdef@\vol\bf
+\refdef@\issue\relax
+\refdef@\yr\relax
+
+%% \toappear doesn't set a box, but only sets \toappear@true.
+
+\def\toappear{\egroup\toappear@true\bgroup}
+
+%% \pages is straightforward.
+
+\refdef@\pages\relax
+
+%% \page, for just a single-page reference, uses the same box \pagesbox@, as
+%% \pages, but sets a different flag.
+
+\def\page{\egroup\page@true\setbox\pagesbox@\hbox\bgroup}
+
+%% \book is straightforward.
+
+\refdef@\book\relax
+
+%% \inbook uses the same box, \bookbox@, but has to set an extra flag.
+
+\def\inbook{\egroup\inbook@true\previnbook@true\setbox
+ \bookbox@\hbox\bgroup}
+
+%% \bookinfo, \publ, \publaddr, \finalinfo are all straightforward.
+
+\refdef@\bookinfo\relax
+\refdef@\publ\relax
+\refdef@\publaddr\relax
+\refdef@\finalinfo\relax
+
+%% The worst problems are caused by the commas that come after various bits
+%% of information, since the comma mustn't be supplied if something happens to
+%% be the last element. We elect instead to supply the commas that come
+%% BEFORE things.  To do this, instead of simply \unbox'ing the relevant
+%% \box's (and then \unskip'ing, in case extra spaces crept in), we will
+%% usually `\ppunbox@' them (prepunctuate and then \unbox and \unskip).
+
+\def\ppunbox@#1{\prepunct@\unhbox#1\unskip}
+
+%% Here \prepunct@ will be \relax when we have just typeset elements that
+%% shouldn't have commas after them, and will then be changed when we get to
+%% other elements. The construction that changes them will be called
+%% \setpunct@, which is defined below.
+
+%% There are two special problems in having \setpunct@ define \prepunct@
+%% correctly. The first involves the penalties \linebreak and \nolinebreak,
+%% which the user might want to type at certain points.  These \penalty's
+%% will of course generally be absorbed into various boxes, but since these
+%% boxes get unboxed, they will appear again in the proper places. However,
+%% if a line break is specified after an element that gets a comma after it,
+%% we'd better be sure that the comma gets put in before the penalty!  The
+%% second problem involves book titles, as previously mentioned.
+
+\def\setpunct@{\def\prepunct@{\ifnum\lastpenalty<\z@
+  %% If \linebreak, and hence a negative penalty appears,
+  \edef\penalty@{\penalty\the\lastpenalty}%
+  %% first save the penalty in \penalty@,
+  \unpenalty,%  %% then delete the penalty and add the comma.
+  \ifafterbook@''\fi  %% If we've just finished a book title, add the quotes.
+  \penalty@\relax\space  %% Finally, put back the penalty, and then a space;
+   %% \relax added after \penalty@ since \the\lastpenalty is just a number.
+  \else  %% If a negative penalty doesn't appear, we still want to check
+    %% for \nolinebreak. If it was typed, it has contributed 
+    %% \penalty10000 \hskip1sp\hskip-1sp. However, the \hskip-1sp has
+    %% been removed by the previous \unskip (in \ppunbox@ or \unbox\unskip),
+    %% so \lastskip is 1sp.
+   \ifdim\lastskip=\@ne sp\unskip\unskip
+    %% In this case, \unskip the \hskip-1sp also, and then any previous space.
+    \edef\penalty@{\penalty\the\lastpenalty}\unpenalty,\ifafterbook@''\fi
+    \penalty@\relax\space
+    %% Then proceed as before.
+    \else,\ifafterbook@''\fi\space  %% Otherwise just add the comma 
+    %% (and quotes) and a space.
+   \fi\fi\afterbook@false}} %% And reset \ifafterbook@.
+
+%% Now all \endref has to do is add the final \egroup, globally set
+%% \lastref@true again, for succeeding \ref's, call \endref@, to put things
+%% together, reset certain flags used by \moreref, end the paragraph, and
+%% then the group.
+
+\def\endref{\egroup\global\lastref@true\endref@ \global\prevjour@false
+ \global\previnbook@false\par\endgroup}
+
+%% Here is how \endref@ puts things together.
+
+\def\endref@{\let\prepunct@\relax  %% No commas added to begin with.
+ \iffirstref@  %% (I) First assume we're not doing a \moreref.
+  \ifno@\hbox to20\p@{\hss\unhbox\nobox@\unskip. }\else\hbox to10\p@{}\fi
+   %% A \no gets put into a box of width 20pt. Otherwise add 10pts of space.
+  \ifkey@\unhbox\keybox@\unskip\ \fi
+   %% Add the key, if any, followed by a space.
+  \ifmanyby@ %% (1) Suppose this is one of the papers governed by \manyby.
+   \ifby@  %% (1a) Suppose we're at the first one.
+    \hbox{\unhcopy\bybox@\unskip}%
+   %% Then we add a box with the author's name (we keep the author's name 
+   %% in a box so that the glue can't stretch or shrink, so that the 
+   %% subsequent rules will be exactly the right length),
+    \global\setbox\bysamebox@\hbox{\unhcopy\bybox@\unskip}%
+   %% and we set \bysamebox@ to this box,
+    \setpunct@  %% and we \setpunct@, since commas will subsequently be needed.
+    \else  %% This \else goes with \ifby@, giving the alternative for (1a).
+        %%  Suppose instead we're at a subsequent instance of a \bymany.
+    \ifbysame@  %% (1ai) If we still have \bysame,
+     \ifdim\wd\bysamebox@>\maxbysamerule@
+      \hbox to\maxbysamerule@{\leaders\hrule\hfill}\else
+      \hbox to \wd\bysamebox@{\leaders\hrule\hfill}\fi
+   %% we add a rule the length of \bysamebox@, unless this is too long,
+   %% in which case we use \maxbysamerule@ as the length.
+     \setpunct@ %% and we \setpunct@
+    \fi %% This \fi matches \ifbysame@, finishing (1ai).
+   \fi %% This \fi matches the \ifby@, finishing (1a).
+  \else %% This \else goes with \ifmanyby@, giving the alternative for (1).
+        %% Suppose instead this paper isn't governed by \manyby.
+   \ifby@  %% Suppose, however, that there is a \by.
+    \unhcopy\bybox@\unskip\setpunct@  %% Then just use \bybox@ and \setpunct@.
+   \fi %% This \fi matches \ifby@.
+  \fi  %% This \fi matches  \ifmanyby@, finishing (1).
+ \fi   %% This \fi [which could also be written \else\fi] 
+       %% matches \iffirstref@, and finishes (I).
+       %% [None of this is done for \moreref's.]
+ %% Having done the first stuff, involving the author, we can now get to
+ %% the paper.
+ \ifpaper@\ppunbox@\paperbox@\setpunct@\fi
+  %% If there's a \paper, put it in, with proper punctuation before it, and 
+  %% get set up for commas on next element.
+ \ifpaperinfo@\ppunbox@\paperinfobox@\setpunct@\fi
+  %% Similarly for \paperinfo.
+ %% The journal is a little more complicated.
+ \ifjour@   %% (2) Suppose there's a \jour.
+   \ppunbox@\jourbox@\setpunct@  %% Put in journal name.
+   \ifvol@\ \unhbox\volbox@\unskip\setpunct@\fi  %% Then volume, if given.
+   \ifissue@\ \unhbox\issuebox@\unskip\setpunct@\fi %% Then issue, if given.
+   \ifyr@\ (\unhbox\yrbox@\unskip)\setpunct@\fi %% Then year, if given, but
+     %% don't put comma before it.
+   \iftoappear@\ (to appear)\setpunct@\fi  %% If \toappear was given instead,
+     %% typeset `(to appear)'.
+   \ifpages@\ppunbox@\pagesbox@\setpunct@\fi  %% Then \pages, if given.
+   \ifpage@\prepunct@ p.~\unhbox\pagesbox@\unskip\setpunct@\fi
+    %% If \page given instead, type p.~ before it.
+ \else  %% This \else goes with \ifjour@, giving the alternative to (2).
+        %%  Suppose instead there's no \jour.
+  \ifprevjour@  %% (2a) But suppose there's a \prevjour@ (because
+   %% this part comes from \moreref).
+   \unskip\nojourinfo@false  %% Begin by assuming there is
+    %% additional journal information to be set (\nojourinfo@false).
+   \ifvol@\else\ifissue@\else\ifyr@\else\nojourinfo@true\fi\fi\fi
+    %% If \vol, \issue or \yr was specified in this \moreref, nothing 
+    %% changes (hence \nojourinfo@false). But if none were specified, there
+    %% is no additional journal information to be set (\nojourinfo@true).
+   \ifnojourinfo@\else,\fi
+    %% If there is additional journal information to be set, first put
+    %% in the comma.
+    %% Then put in volume, issue, etc., as before.
+   \ifvol@\ \unhbox\volbox@\unskip\setpunct@\fi
+   \ifissue@\ \unhbox\issuebox@\unskip\setpunct@\fi
+   \ifyr@\ (\unhbox\yrbox@\unskip)\setpunct@\fi
+   \iftoappear@\ (to appear)\setpunct@\fi
+   \ifpages@\ppunbox@\pagesbox@\setpunct@\fi
+   \ifpage@\prepunct@ p.~\unhbox\pagesbox@\unskip\setpunct@\fi
+  \fi  %% This \fi [which could also be written \else\fi]
+       %% matches \ifprevjour@, and finishes (2a).
+ \fi  %% This \fi mathces \ifjour@, and finishes (2).
+  %% Having finished worrying about journals, we tackle books.
+ \ifbook@\prepunct@``\unhbox\bookbox@\unskip\afterbook@true\setpunct@\fi
+  %% If there was a \book, set it with `` at the beginning, 
+  %% and preceded by punctuation and penalties as already determined; also
+  %% set \afterbook@true, so we'll know that we've just typeset a book title.
+  \ifinbook@\prepunct@\unskip\ in ``\unhbox\bookbox@\unskip\afterbook@true
+  \setpunct@\global\book@true\fi
+  %% If \inbook, (which will initially have \ifbook@false), set the book
+  %% title preceded by  in ``; also set \book@true so that subsequent 
+  %% information will be printed.  (It's \global, since it might be needed 
+  %% later for a \moreref.)
+ \ifbookinfo@\ppunbox@\bookinfobox@\setpunct@\fi
+  %% Put in any \bookinfo.
+ \ifpubl@\ppunbox@\publbox@\setpunct@\fi
+  %% Put in \publ.
+ \ifpubladdr@\ppunbox@\publaddrbox@\setpunct@\fi
+  %% Put in \publaddr.
+ \ifbook@ %% (3) Moreover, if there was a book, we also add other things.
+  \ifyr@\prepunct@\unhbox\yrbox@\unskip\setpunct@\fi
+   %% Add the \yr, if any.
+  \iftoappear@\ifafterbook@''\fi\ (to appear)\afterbook@false
+   \setpunct@\fi
+   %% If \toappear appears, and we haven't typeset anything after the
+   %% title, so that \ifafterbook@ is still true, add the '' and then 
+   %% `(to appear)'.
+  \ifpages@\prepunct@ pp.~\unhbox\pagesbox@\unskip\setpunct@\fi
+   %% If there is \pages, add pp.~and the pages.
+  \ifpage@\prepunct@ p.~\unhbox\pagesbox@\unskip\setpunct@\fi
+   %% If there is \page, add only p.~ before it.
+ \else  %% This \else goes with \ifbook@, giving the alternative to (3).
+        %% Even if there wasn't a \book, we might want to add things.
+  \ifprevinbook@  %% (3a) Suppose we have \previnbook@true.
+   \unskip  %% Then we still have to add all this information.
+   \ifyr@\prepunct@\unhbox\yrbox@\unskip\setpunct@\fi
+   \iftoappear@\ (to appear)\setpunct@\fi
+   \ifpages@\prepunct@ pp.~\unhbox\pagesbox@\unskip\setpunct@\fi
+   \ifpage@\prepunct@ p.~\unhbox\pagesbox@\unskip\setpunct@\fi
+  \fi %% This \fi matches \ifprevinbook, and finishes (3a).
+ \fi  %% This \fi matches \ifbook@ and finishes (3).
+ %% Now we add the finishing touches.
+ \iffinalinfo@.\ifafterbook@''\fi\afterbook@false
+  \spacefactor3000\relax\space\unhbox\finalinfobox@
+  %% (4) If there is \finalinfo, add a period, and quotes if still setting 
+  %% the title, and then add a space and the final info, first setting 
+  %% \spacefactor to 3000, so that the space before the final info will be 
+  %% an intersentence space. (However, if the final info has more than one
+  %% sentence, it will still be necessary to use @. instead of . at ends
+  %% of sentences for proper spacing.)
+ \else  %%  This \else goes with \iffinalinfo@, giving alternative to (4).
+  \iflastref@.\ifafterbook@''\fi\afterbook@false
+   %% (4a) If we're at the last ref (i.e., there isn't a \moreref), 
+   %% add a period, and quotes if still setting the title.
+  \else;\ifafterbook@''\fi\afterbook@false\space
+   %% but if we're not at the last ref (i.e., there's a \moreref), 
+   %% add a semicolon, and quotes if necessary, and a space.
+  \fi %% This \fi matches \iflastref@ and finishes (4a)
+ \fi} %% This \fi matches \iffinalinfo@ and finishes (4).
+
+%% The Refs are ended with an \egroup, in case some ordinary text follows them.
+
+\def\endRefs{\egroup}
+
+%% We use \iflogo@ as a flag to tell if the user has typed \nolog.
+
+\newif\iflogo@
+\def\nologo{\logo@false}
+\logo@true
+
+%% Finally, we are ready for the \output routine. It is hardly different from
+%% the \plainoutput routine, except that the first page normally has the
+%% `Typeset by AmS-TeX' logo attached.
+
+\output={\output@}
+
+\def\output@{%
+ \ifnum\pageno=\@ne\shipout\vbox{\makeheadline\vbox to\vsize
+  {\boxmaxdepth\maxdepth\pagecontents}\baselineskip2pc
+  \iflogo@\hbox to\hsize{\hfil\eightpoint Typeset by \AmSTeX}\fi
+  \makefootline}%
+ \else
+  \shipout\vbox{\makeheadline\pagebody\makefootline}%
+ \fi
+ \advancepageno
+ \ifnum\outputpenalty>-\@MM\else\dosupereject\fi}
+
+%% We begin with ten point type.
+
+\tenpoint
+
+%% Now we make @ active once again.
+
+\catcode`\@=\active
+
+%% And that's it.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                          %%
+%% HERE IS A SUMMARY OF ALL PLACES WHERE SPECIFIC VALUES USED IN THIS FILE  %%
+%%   MIGHT NEED TO BE REPLACED, BECAUSE OF DIFFERENT FONTS, STYLES, ETC.    %%
+%%                                                                          %%
+%% \parindent                                                               %%
+%% \hsize                                                                   %%
+%% \vsize                                                                   %%
+%% \normalbaselineskip, \normallineskip, \normallineskiplimit               %%
+%% \abovedisplayskip, \belowdisplayskip, \abovedisplayshortskip ,           %%
+%%   \belowdisplayshortskip (for different point sizes)                     %%
+%% \big (for different point sizes)                                         %%
+%% \strutbox, \strutbox@ (for different point sizes)                        %%
+%% \ex@ (for different point sizes)                                         %%
+%% \footmarkfrom@                                                           %%
+%% \makefootnote format                                                     %%
+%% \title, \author, \affil, \address, \date, \thanks,                       %%
+%% \keywords, \subjclass, \innerproclaim@, \innerendproclaim@, \abstract    %%
+%%   (including the \nofrills and \usualspace for these)                    %%
+%% spacing, and order, in \endtopmatter                                     %%
+%% \leftskip, \rightskip  (and then the \everydisplay) for \abstract        %%
+%% spacing, and order, in \enddocument                                      %%
+%% \heading (including the \nofrills and \usualspace)                       %%
+%% \subheading                                                              %%
+%% \demo (including the \nofrills and \usualspace)                          %%
+%% \enddemo                                                                 %%
+%% \qed                                                                     %%
+%% \cite                                                                    %%
+%% spacing and formatting of the \items in \roster                          %%
+%% \Refs (including the default heading)                                    %%
+%% order and formatting of elements in each \ref                            %%
+%% \logo (probably eliminated)                                              %%
+%% \output routine                                                          %%
+%%                                                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                          %%
+%% Finally, style files meant for journals, etc., rather than for           %%
+%% preprints, probably ought to disable some of the constructions from      %%
+%% AMSTEX.TEX that allow style changes.  For example, one might             %%
+%%                                                                          %%
+%%   \def\taboo@#1{\errmessage                                              %%
+%%    {Sorry, \string#1 can't be used in this style}}                       %%
+%%   \def\default@#1{\immediate\write\sixt@@n                               %%
+%%    {\string#1\space is unnecessary; it is the default for this style.}}  %%
+%%                                                                          %%
+%% and then type things like                                                %%
+%%                                                                          %%
+%%   \taboo@\pageheight                                                     %%
+%%   \taboo@\TagsOnRight                                                    %%
+%%   \default@\TagsOnLeft                                                   %%
+%%                                                                          %%
+%% The constructions in question are                                        %%
+%%                                                                          %%
+%%   \pageheight, \pagewidth                                                %%
+%%   \hcorrection, \vcorrection                                             %%
+%%   \LimitsOnSums, \NoLimitsOnSums                                         %%
+%%   \LimitsOnInts, \NoLimitsOnInts                                         %%
+%%   \LimitsOnNames, \NoLimitsOnNames                                       %%
+%%   \ChangeBuffer, \ResetBuffer                                            %%
+%%   \TagsOnLeft, \TagsOnRight                                              %%
+%%   \CenteredTagsOnSplits, \TopOrBottomTagsOnSplits                        %%
+%%   \MultlineGap                                                           %%
+%%                                                                          %%
+%%   \TagAsMath and \TagsAsText probably should be allowed, because they    %%
+%%   don't change the style, only the input.                                %%
+%%                                                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,2598 @@
+.. comment: -*- fill-column: 72; mode: rst; -*-
+
+===============================
+ Package polexpr documentation
+===============================
+
+0.7.5 (2020/01/31)
+==================
+
+.. contents::
+
+Basic syntax
+------------
+
+The syntax is::
+
+    \poldef polname(x):= expression in variable x;
+
+where:
+
+-  in place of ``x`` an arbitrary *dummy variable* is authorized,
+   i.e. per default any of ``[a-z|A-Z]`` (more letters can be declared
+   under Unicode engines.)
+
+- ``polname`` consists of letters, digits, and the ``_`` and
+  ``'`` characters. It must start with a letter.
+
+.. attention::
+
+   The ``'`` is authorized since ``0.5.1``. As a result some constructs
+   recognized by the ``\xintexpr`` parser, such as ``var1 'and' var2``
+   will get misinterpreted and cause errors. However these constructs
+   are unlikely to be frequently needed in polynomial expressions, and
+   the ``\xintexpr`` syntax offers alternatives, so it was deemed a
+   small evil. Of course the ``\xintexpr`` parser is modified only
+   temporarily during execution of ``\poldef``.
+
+One can also issue::
+
+    \PolDef{polname}{expression in variable x}
+
+which admits an optional first argument to modify the variable letter
+from its default ``x``.
+
+``\poldef f(x):= 1-x+x^2;``
+    defines polynomial ``f``. Polynomial names must start with a
+    letter and may contain letters, digits, underscores and the right
+    tick character. The
+    variable must be a single letter. The colon character is optional.
+    The semi-colon at end of expression is mandatory.
+
+``\PolDef{f}{1-x+x^2}``
+    does the same as ``\poldef f(x):= 1-x+x^2;`` To use another letter
+    than ``x`` in the expression, one must pass it as an extra optional
+    argument to ``\PolDef``. Useful if the semi-colon has been assigned
+    some non-standard catcode by some package.
+
+``\PolLet{g}={f}``
+    saves a copy of ``f`` under name ``g``. Also usable without ``=``.
+
+``\poldef f(z):= f(z)^2;``
+    redefines ``f`` in terms of itself.
+
+``\poldef f(T):= f(f(T));``
+    again redefines ``f`` in terms of its (new) self.
+
+``\poldef k(z):= f(z)-g(g(z)^2)^2;``
+    should now define the zero polynomial... Let's check:
+    ``\[ k(z) = \PolTypeset[z]{k} \]``
+
+``\PolDiff{f}{f'}``
+    sets ``f'`` to the derivative of ``f``. The name doesn't have to be
+    ``f'`` (in fact the ``'`` is licit only since ``0.5.1``).
+
+.. important::
+
+   This is not done automatically. If some new definition needs to use
+   the derivative of some available polynomial, that derivative
+   polynomial must have been defined via ``\PolDiff``: something like
+   ``T'(x)^2`` will not work without a prior ``\PolDiff{T}{T'}``.
+
+``\PolDiff{f'}{f''}``
+    obtains second derivative.
+
+``\PolDiff[3]{f}{f'''}``
+    computes the third derivative.
+
+::
+
+  $f(z)   = \PolTypeset[z]{f}    $\newline
+  $f'(z)  = \PolTypeset[z]{f'}   $\newline
+  $f''(z) = \PolTypeset[z]{f''}  $\newline
+  $f'''(z)= \PolTypeset[z]{f'''} $\par
+
+.. important::
+
+   The package does not currently know rational functions: ``/`` in
+   a parsed polynomial expression does the Euclidean quotient::
+
+     (1-x^2)/(1-x)
+
+   does give ``1+x`` but ::
+
+     (1/(1-x))*(1-x^2)
+
+   evaluates to zero. This will work as expected::
+
+     \poldef k(x):= (x-1)(x-2)(x-3)(x-4)/(x^2-5x+4);
+
+.. _warningtacit:
+
+.. attention::
+
+   ``1/2 x^2`` skips the space and is treated like ``1/(2*x^2)`` because
+   of the tacit multiplication rules of \xintexpr. But this means it
+   gives zero! Thus one must use ``(1/2)x^2`` or ``1/2*x^2`` or
+   ``(1/2)*x^2`` for disambiguation: ``x - 1/2*x^2 + 1/3*x^3...``. It is
+   even simpler to move the denominator to the right: ``x - x^2/2 +
+   x^3/3 - ...``.
+
+   It is worth noting that ``1/2(x-1)(x-2)`` suffers the same issue:
+   xint_ tacit multiplication always "ties more", hence this gets
+   interpreted as ``1/(2*(x-1)*(x-2))`` which gives zero by polynomial
+   division. Thus, use one of ``(1/2)(x-1)(x-2)``, ``1/2*(x-1)(x-2)`` or
+   ``(x-1)(x-2)/2``.
+
+After::
+
+  \poldef f_1(x):= 25(x-1)(x^2-2)(x-3)(x-4)(x-5);%
+  \poldef f_2(x):= 37(x-1)(x^2-2)(x-6)(x-7)(x-8);%
+
+the macro call ``\PolGCD{f_1}{f_2}{k}`` sets ``k`` to the (unitary) GCD of
+``f_1`` and ``f_2`` (hence to the expansion of ``(x-1)(x^2-2)``.)
+
+``\PolToExpr{k}``
+    will (expandably) give in this case ``x^3-x^2-2*x+2``. This is
+    useful for console or file output (the syntax is Maple- and
+    PSTricks-compatible; the letter used in output can be
+    (non-expandably) changed via a redefinition of `\\PolToExprVar`_.)
+
+``\PolToExpr*{k}``
+    gives ascending powers: ``2-2*x-x^2+x^3``.
+
+Examples of localization of roots
+---------------------------------
+
+- To make printed decimal numbers more enjoyable than via
+  ``\xintSignedFrac``::
+
+    \renewcommand\PolTypesetOne[1]{\PolDecToString{\xintREZ{#1}}}%
+
+  ``\PolDecToString`` will use decimal notation to incorporate the power
+  of ten part; and the ``\xintREZ`` will have the effect to suppress
+  trailing zeros if present in raw numerator (if those digits end up
+  after decimal mark.) Notice that the above are expandable macros and
+  that one can also do::
+
+    \renewcommand\PolToExprCmd[1]{\PolDecToString{\xintREZ{#1}}}%
+
+  to modify output of `\\PolToExpr{polname}`_.
+
+- For extra info in log file use ``\xintverbosetrue``.
+
+- Only for some of these examples is the output included here.
+
+
+A typical example
+~~~~~~~~~~~~~~~~~
+
+In this example the polynomial is square-free.
+
+::
+
+  \poldef f(x) := x^7 - x^6 - 2x + 1;
+
+  \PolToSturm{f}{f}
+  \PolSturmIsolateZeros{f}
+  The \PolTypeset{f} polynomial has \PolSturmNbOfIsolatedZeros{f} distinct real
+  roots which are located in the following intervals:
+  \PolPrintIntervals{f}
+  Here is the second root with ten more decimal digits:
+  \PolRefineInterval[10]{f}{2}
+  \[\PolSturmIsolatedZeroLeft{f}{2}<Z_2<\PolSturmIsolatedZeroRight{f}{2}\]
+  And here is the first root with twenty digits after decimal mark:
+  \PolEnsureIntervalLength{f}{1}{-20}
+  \[\PolSturmIsolatedZeroLeft{f}{1}<Z_1<\PolSturmIsolatedZeroRight{f}{1}\]
+  The first element of the Sturm chain has degree $\PolDegree{f_0}$. As
+  this is the original degreee $\PolDegree{f}$ we know that $f$ is square free.
+  Its derivative is up to a constant \PolTypeset{f_1} (in this example
+  it is identical with it).
+  \PolToSturm{f_1}{f_1}\PolSturmIsolateZeros{f_1}%
+  The derivative has \PolSturmNbOfIsolatedZeros{f_1} distinct real
+  roots:
+  \PolPrintIntervals[W]{f_1}
+  \PolEnsureIntervalLengths{f_1}{-10}%
+  Here they are with ten digits after decimal mark:
+  \PolPrintIntervals[W]{f_1}
+  \PolDiff{f_1}{f''}
+  \PolToSturm{f''}{f''}
+  \PolSturmIsolateZeros{f''}
+  The second derivative is \PolTypeset{f''}.
+  It has \PolSturmNbOfIsolatedZeros{f''} distinct real
+  roots:
+  \PolPrintIntervals[X]{f''}
+  Here is the positive one with 20 digits after decimal mark:
+  \PolEnsureIntervalLength{f''}{2}{-20}%
+  \[X_2 = \PolSturmIsolatedZeroLeft{f''}{2}\dots\]
+  The more mathematically advanced among our dear readers will be able
+  to give the exact value for $X_2$!
+
+A degree four polynomial with nearby roots
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Notice that this example is a bit outdated as ``0.7`` release has
+added ``\PolSturmIsolateZeros**{sturmname}`` which would find exactly
+the roots. The steps here retain their interest when one is interested
+in finding isolating intervals for example to prepare some demonstration
+of dichotomy method.
+
+
+::
+
+  \PolDef{Q}{(x-1.050001)(x-1.105001)(x-1.110501)(x-1.111051)}
+  \PolTypeset{Q}
+  \PolToSturm{Q}{Q} % it is allowed to use same prefix for Sturm chain
+  \PolSturmIsolateZeros{Q}
+  \PolPrintIntervals{Q}
+  % reports 1.0 < Z_1 < 1.1, 1.10 < Z_2 < 1.11, 1.110 < Z_3 < 1.111, and 1.111 < Z_4 < 1.112
+  % but the above bounds do not allow minimizing separation between roots
+  % so we refine:
+  \PolRefineInterval*{Q}{1}
+  \PolRefineInterval*{Q}{2}
+  \PolRefineInterval*{Q}{3}
+  \PolRefineInterval*{Q}{4}
+  \PolPrintIntervals{Q}
+  % reports 1.05 < Z_1 < 1.06, 1.105 < Z_2 < 1.106, 1.1105 < Z_3 < 1.1106,
+  % and 1.11105 < Z_4 < 1.11106.
+  \PolEnsureIntervalLengths{Q}{-6}
+  \PolPrintIntervals{Q}
+  % of course finds here all roots exactly
+
+
+The degree nine polynomial with 0.99, 0.999, 0.9999 as triple roots
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  % define a user command (xinttools is loaded automatically by polexpr)
+  \newcommand\showmultiplicities[1]{% #1 = "sturmname"
+  \xintFor* ##1 in {\xintSeq{1}{\PolSturmNbOfIsolatedZeros{#1}}}\do{%
+      The multiplicity is \PolSturmIsolatedZeroMultiplicity{#1}{##1}
+      \PolSturmIfZeroExactlyKnown{#1}{##1}%
+      {at the root $x=\PolSturmIsolatedZeroLeft{#1}{##1}$}
+      {for the root such that
+      $\PolSturmIsolatedZeroLeft{#1}{##1}<x<\PolSturmIsolatedZeroRight{#1}{##1}$}
+      \par
+  }}%
+  \PolDef{f}{(x-0.99)^3(x-0.999)^3(x-0.9999)^3}
+  \renewcommand\PolTypesetOne[1]{\PolDecToString{\xintREZ{#1}}}
+  \PolTypeset{f}\par
+  \PolToSturm{f}{f}% it is allowed to use "polname" as "sturmname" too
+  \PolSturmIsolateZerosAndGetMultiplicities{f}% use the "sturmname" here
+  % or \PolSturmIsolateZeros*{f} which is exactly the same, but shorter..
+
+  \showmultiplicities{f}
+
+In this example, the output will look like this (but using math mode)::
+
+  x^9 - 8.9667x^8 + 35.73400293x^7 - 83.070418400109x^6 + 124.143648875193123x^5
+  - 123.683070924326075877x^4 + 82.149260397553075617891x^3 
+  - 35.07602992699900159127007x^2 + 8.7364078733314648368671733x
+  - 0.967100824643585986488103299
+
+  The multiplicity is 3 at the root x = 0.99
+  The multiplicity is 3 at the root x = 0.999
+  The multiplicity is 3 at the root x = 0.9999
+
+On first pass, these rational roots were found (due to their relative
+magnitudes, using ``\PolSturmIsolateZeros**`` was not needed here). But
+multiplicity computation works also with (decimal) roots not yet
+identified or with non-decimal or irrational roots.
+
+It is fun to modify only a tiny bit the polynomial and see if polexpr
+survives::
+
+  \PolDef{g}{f(x)+1e-27}
+  \PolTypeset{g}\par
+  \PolToSturm{g}{g}
+  \PolSturmIsolateZeros*{g}
+
+  \showmultiplicities{g}
+
+This produces::
+
+  x^9 - 8.9667x^8 + 35.73400293x^7 - 83.070418400109x^6 + 124.143648875193123x^5
+  - 123.683070924326075877x^4 + 82.149260397553075617891x^3 
+  - 35.07602992699900159127007x^2 + 8.7364078733314648368671733x
+  - 0.967100824643585986488103298
+
+  The multiplicity is 1 for the root such that 0.98 < x < 0.99
+  The multiplicity is 1 for the root such that 0.9991 < x < 0.9992
+  The multiplicity is 1 for the root such that 0.9997 < x < 0.9998
+
+Which means that the multiplicity-3 roots each became a real and a pair of
+complex ones. Let's see them better::
+
+  \PolEnsureIntervalLengths{g}{-10}
+
+  \showmultiplicities{g}
+
+which produces::
+
+  The multiplicity is 1 for the root such that 0.9899888032 < x < 0.9899888033
+  The multiplicity is 1 for the root such that 0.9991447980 < x < 0.9991447981
+  The multiplicity is 1 for the root such that 0.9997663986 < x < 0.9997663987
+
+A degree five polynomial with three rational roots
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  \poldef Q(x) :=  1581755751184441 x^5
+                 -14907697165025339 x^4
+                 +48415668972339336 x^3
+                 -63952057791306264 x^2
+                 +46833913221154895 x
+                 -49044360626280925;
+
+  \PolToSturm{Q}{Q}
+  %\begin{flushleft}
+    \renewcommand\PolTypesetCmdPrefix[1]{\allowbreak\xintiiifSgn{#1}{}{+}{+}}%
+    $Q_0(x) = \PolTypeset{Q_0}$
+  %\end{flushleft}
+  \PolSturmIsolateZeros**{Q}
+  \PolPrintIntervals{Q}
+
+  $Q_{norr}(x) = \PolTypeset{Q_norr}$
+
+Here, all real roots are rational::
+
+  Z_1 = 833719/265381
+  Z_2 = 165707065/52746197
+  Z_3 = 355/113
+
+  Q_norr(x) = x^2 + 1
+
+And let's get their decimal expansion too::
+
+  % print decimal expansion of the found roots
+  \renewcommand\PolPrintIntervalsPrintExactZero
+              {\xintTrunc{20}{\PolPrintIntervalsTheLeftEndPoint}\dots}
+  \PolPrintIntervals{Q}
+
+  Z_1 = 3.14159265358107777120...
+  Z_2 = 3.14159265358979340254...
+  Z_3 = 3.14159292035398230088...
+
+
+A Mignotte type polynomial
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  \PolDef{P}{x^10 - (10x-1)^2}%
+  \PolTypeset{P}              % prints it in expanded form
+  \PolToSturm{P}{P}           % we can use same prefix for Sturm chain
+  \PolSturmIsolateZeros{P}    % finds 4 real roots
+  This polynomial has \PolSturmNbOfIsolatedZeros{P} distinct real roots:
+  \PolPrintIntervals{P}%
+  % reports  -2 < Z_1 < -1, 0.09 < Z_2 < 0.10, 0.1 < Z_3 < 0.2, 1 < Z_4 < 2
+  Let us refine the second and third intervals to separate the corresponding
+  roots:
+  \PolRefineInterval*{P}{2}% will refine to 0.0999990 < Z_2 < 0.0999991
+  \PolRefineInterval*{P}{3}% will refine to 0.100001 < Z_3 < 0.100002
+  \PolPrintIntervals{P}%
+  Let us now get to know all roots with 10 digits after decimal mark:
+  \PolEnsureIntervalLengths{P}{-10}%
+  \PolPrintIntervals{P}% now all roots are known 10 decimal digits after mark
+  Finally, we display 20 digits of the second root:
+  \PolEnsureIntervalLength{P}{2}{-20}% makes Z_2 known with 20 digits after mark
+  \[\PolSturmIsolatedZeroLeft{P}{2}<Z_2<\PolSturmIsolatedZeroRight{P}{2}\]
+
+The last line produces::
+
+  0.09999900004999650028 < Z_2 < 0.09999900004999650029
+
+
+The Wilkinson polynomial
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+See `Wilkinson polynomial`_.
+
+::
+
+  \documentclass{article}
+  \usepackage{polexpr}
+  \begin{document}
+  %\xintverbosetrue % for the curious...
+
+  \poldef f(x) := mul((x - i), i = 1..20);
+
+  \renewcommand\PolTypesetCmdPrefix[1]{\allowbreak\xintiiifSgn{#1}{}{+}{+}}%
+  \renewcommand\PolTypesetOne[1]{\xintDecToString{#1}}%
+
+  \noindent\PolTypeset{f}
+
+  \PolToSturm{f}{f}
+  \PolSturmIsolateZeros{f}
+  \PolPrintIntervals{f}
+
+  \clearpage
+
+  \poldef g(x) := f(x) - 2**{-23} x**19;
+
+  % be patient!
+  \PolToSturm{g}{g}
+  \noindent\PolTypeset{g_0}% integer coefficient primitive polynomial
+
+  \PolSturmIsolateZeros{g}
+  \PolEnsureIntervalLengths{g}{-10}
+
+  \renewcommand\PolPrintIntervalsPrintMultiplicity{}
+  \PolPrintIntervals*{g}
+
+  \end{document}
+
+
+The first polynomial::
+
+  f(x) = x**20
+  - 210 x**19
+  + 20615 x**18
+  - 1256850 x**17
+  + 53327946 x**16
+  - 1672280820 x**15
+  + 40171771630 x**14
+  - 756111184500 x**13
+  + 11310276995381 x**12
+  - 135585182899530 x**11
+  + 1307535010540395 x**10
+  - 10142299865511450 x**9
+  + 63030812099294896 x**8
+  - 311333643161390640 x**7
+  + 1206647803780373360 x**6
+  - 3599979517947607200 x**5
+  + 8037811822645051776 x**4
+  - 12870931245150988800 x**3
+  + 13803759753640704000 x**2
+  - 8752948036761600000 x
+  + 2432902008176640000
+
+is handled fast enough (a few seconds), but the modified one ``f(x) -
+2**-23 x**19`` takes about 20x longer (the Sturm chain polynomials
+have integer coefficients with up to 321 digits, whereas (surprisingly
+perhaps) those of the Sturm chain polynomials derived from ``f`` never
+have more than 21 digits ...).
+
+Once the Sturm chain is computed and the zeros isolated, obtaining their
+decimal digits is relatively faster. Here is for the ten real roots of
+``f(x) - 2**-23 x**19`` as computed by the code above::
+
+  Z_1 = 0.9999999999...
+  Z_2 = 2.0000000000...
+  Z_3 = 2.9999999999...
+  Z_4 = 4.0000000002...
+  Z_5 = 4.9999999275...
+  Z_6 = 6.0000069439...
+  Z_7 = 6.9996972339...
+  Z_8 = 8.0072676034...
+  Z_9 = 8.9172502485...
+  Z_10 = 20.8469081014...
+
+The second Wilkinson polynomial
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  \documentclass{article}
+  \usepackage{polexpr}
+  \begin{document}
+  \poldef f(x) := mul(x - 2^-i, i = 1..20);
+
+  %\PolTypeset{f}
+
+  \PolToSturm{f}{f}
+  \PolSturmIsolateZeros**{f}
+  \PolPrintIntervals{f}
+  \end{document}
+
+This takes more time than the polynomial with 1, 2, .., 20 as roots but
+less than the latter modified by the ``2**-23`` change in one
+coefficient.
+
+Here is the output (with release 0.7.2)::
+
+  Z_1  = 0.00000095367431640625
+  Z_2  = 0.0000019073486328125
+  Z_3  = 0.000003814697265625
+  Z_4  = 0.00000762939453125
+  Z_5  = 0.0000152587890625
+  Z_6  = 0.000030517578125
+  Z_7  = 0.00006103515625
+  Z_8  = 0.0001220703125
+  Z_9  = 1/4096
+  Z_10 = 1/2048
+  Z_11 = 1/1024
+  Z_12 = 1/512
+  Z_13 = 1/256
+  Z_14 = 1/128
+  Z_15 = 0.015625
+  Z_16 = 0.03125
+  Z_17 = 0.0625
+  Z_18 = 0.125
+  Z_19 = 0.25
+  Z_20 = 0.5
+
+There is some incoherence in output format which has its source in the
+fact that some roots are found in branches which can only find decimal
+roots, whereas some are found in branches which could find general
+fractions and they use ``\xintIrr`` before storage of the found root.
+This may evolve in future.
+
+
+The degree 41 polynomial with -2, -1.9, -1.8, ..., 0, 0.1, ..., 1.9, 2 as roots
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  \PolDef{P}{mul((x-i*1e-1), i=-20..20)}% i/10 is same but less efficient
+
+In the defining expression we could have used ``i/10`` but this gives
+less efficient internal form for the coefficients (the ``10``'s end up
+in denominators). Using ``\PolToExpr{P}`` after having done
+
+::
+
+  \renewcommand\PolToExprCmd[1]{\PolDecToString{\xintREZ{#1}}}
+
+we get this expanded form::
+
+  x^41
+  -28.7*x^39
+  +375.7117*x^37
+  -2975.11006*x^35
+  +15935.28150578*x^33
+  -61167.527674162*x^31
+  +173944.259366417394*x^29
+  -373686.963560544648*x^27
+  +613012.0665016658846445*x^25
+  -771182.31133138163125495*x^23
+  +743263.86672885754888959569*x^21
+  -545609.076599482896371978698*x^19
+  +301748.325708943677229642930528*x^17
+  -123655.8987669450434698869844544*x^15
+  +36666.1782054884005855608205864192*x^13
+  -7607.85821367459445649518380016128*x^11
+  +1053.15135918687298508885950223794176*x^9
+  -90.6380005918141132650786081964032*x^7
+  +4.33701563847327366842552218288128*x^5
+  -0.0944770968420804735498178265088*x^3
+  +0.00059190121813899276854174416896*x
+
+which shows coefficients with up to 36 significant digits...
+
+Stress test: not a hard challenge to ``xint + polexpr``, but be a bit patient!
+
+::
+
+  \PolDef{P}{mul((x-i*1e-1), i=-20..20)}%
+  \PolToSturm{P}{S}           % dutifully computes S_0, ..., S_{41}
+  % the [1] optional argument limits the search to interval (-10,10)
+  \PolSturmIsolateZeros[1]{S} % finds *exactly* (but a bit slowly) all 41 roots!
+  \PolPrintIntervals{S}       % nice, isn't it?
+
+.. note::
+
+   Release ``0.5`` has *experimental* addition of optional argument
+   ``E`` to ``\PolSturmIsolateZeros``. It instructs to search roots only
+   in interval ``(-10^E, 10^E)``. Important: the extremities are
+   *assumed to not be roots*. In this example, the ``[1]`` in
+   ``\PolSturmIsolateZeros[1]{S}`` gives some speed gain; without it, it
+   turns out in this case that ``polexpr`` would have started with
+   ``(-10^6, 10^6)`` interval.
+
+   Please note that this will probably get replaced in future by the
+   specification of a general interval. Do not rely on meaning of this
+   optional argument keeping the same.
+
+Roots of Chebyshev polynomials
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  \newcount\mycount
+  \poldef T_0(x) := 1;
+  \poldef T_1(x) := x;
+  \mycount 2
+  \xintloop
+    \poldef T_\the\mycount(x) :=
+            2x*T_\the\numexpr\mycount-1(x)
+             - T_\the\numexpr\mycount-2(x);
+  \ifnum\mycount<15
+  \advance\mycount 1
+  \repeat
+
+  \[T_{15} = \PolTypeset[X]{T_15}\]
+  \PolToSturm{T_15}{T_15}
+  \PolSturmIsolateZeros{T_15}
+  \PolEnsureIntervalLengths{T_15}{-10}
+  \PolPrintIntervals{T_15}
+
+
+Non-expandable macros
+---------------------
+
+.. _poldef;:
+
+``\poldef polname(letter):= expression in letter;``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This evaluates the *polynomial expression* and stores the coefficients
+    in a private structure accessible later via other package macros,
+    under the user-chosen ``polname``. Of course the *expression* can
+    use other previously defined polynomials. Names must start with a
+    letter and are constituted of letters, digits, underscores and
+    (since ``0.5.1``) the right tick ``'``.
+    The whole xintexpr_ syntax is authorized::
+
+       \poldef sin(z) := add((-1)^i z^(2i+1)/(2i+1)!, i = 0..10);
+
+    With fractional coefficients, beware the `tacit multiplication issue
+    <warningtacit_>`_.
+
+    As a side effect the function ``polname()`` is recognized as a
+    genuine ``\xintexpr...\relax`` function for (exact) numerical
+    evaluation (or within an ``\xintdefvar`` assignment.) It computes
+    values not according to the original expression but via the Horner
+    scheme corresponding to the polynomial coefficients.
+
+    .. attention::
+
+       Release ``0.3`` also did the necessary set-up to let the
+       polynomial be known to the ``\xintfloatexpr`` (or
+       ``\xintdeffloatvar``) parser.
+
+       Since ``0.4`` this isn't done automatically. Even more, a
+       previously existing floating point variant of the same name will
+       be let undefined again, to avoid hard to debug mismatches between
+       exact and floating point polynomials. This also applies when the
+       polynomial is produced not via ``\poldef`` or ``\PolDef`` but as
+       a product of the other package macros.
+
+       See `\\PolGenFloatVariant{polname}`_.
+
+    The original expression is lost after parsing, and in particular
+    the package provides no way to typeset it. This has to be done
+    manually, if needed.
+
+.. _PolDef:
+
+``\PolDef[letter]{polname}{expression in letter}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Does the same as `\\poldef <poldef;>`_ in an undelimited macro
+    format (thus avoiding potential problems with the catcode of the
+    semi-colon in presence of some packages.) In absence of the
+    ``[letter]`` optional argument, the variable is assumed to be ``x``.
+
+.. _PolGenFloatVariant:
+
+``\PolGenFloatVariant{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Makes the polynomial also usable in the ``\xintfloatexpr`` parser.
+    It will therein evaluates via an Horner scheme with coefficients
+    already pre-rounded to the float precision.
+
+    See also `\\PolToFloatExpr{polname}`_.
+
+    .. attention::
+
+       Release ``0.3`` did this automatically on ``\PolDef`` and
+       ``\poldef`` but this was removed at ``0.4`` for optimization.
+
+       Any operation, for example generating the derivative polynomial,
+       or dividing two polynomials or using the ``\PolLet``, **must** be
+       followed by explicit usage of ``\PolGenFloatVariant{polname}`` if
+       the new polynomial is to be used in ``\xintfloatexpr`` or alike
+       context.
+
+.. _PolLet:
+
+``\PolLet{polname_2}={polname_1}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Makes a copy of the already defined polynomial ``polname_1`` to a
+    new one ``polname_2``. Same effect as
+    ``\PolDef{polname_2}{polname_1(x)}`` but with less overhead. The
+    ``=`` is optional.
+
+.. _PolGlobalLet:
+
+``\PolGlobalLet{polname_2}={polname_1}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Acts globally.
+
+.. _PolAssign:
+
+``\PolAssign{polname}\toarray\macro``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Defines a one-argument expandable macro ``\macro{#1}`` which expands
+    to the (raw) #1th polynomial coefficient.
+
+    - Attention, coefficients here are indexed starting at 1.
+
+    - With #1=-1, -2, ..., ``\macro{#1}`` returns leading coefficients.
+
+    - With #1=0, returns the number of coefficients, i.e. ``1 + deg f``
+      for non-zero polynomials.
+
+    - Out-of-range #1's return ``0/1[0]``.
+
+    See also `\\PolNthCoeff{polname}{number}`_. The main difference is that
+    with ``\PolAssign``, ``\macro`` is made a prefix to ``1 + deg f``
+    already defined (hidden to user) macros holding individually the
+    coefficients but `\\PolNthCoeff{polname}{number}`_ does each time the job
+    to expandably recover the ``Nth`` coefficient, and due to
+    expandability can not store it in a macro for future usage (of course,
+    it can be an argument in an ``\edef``.) The other difference
+    is the shift by one in indexing, mentioned above (negative
+    indices act the same in both.)
+
+.. _PolGet:
+
+``\PolGet{polname}\fromarray\macro``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Does the converse operation to
+    ``\PolAssign{polname}\toarray\macro``. Each individual
+    ``\macro{number}`` gets expanded in an ``\edef`` and then normalized
+    via xintfrac_\ 's macro ``\xintRaw``.
+
+    The leading zeros are removed from the polynomial.
+
+    (contrived) Example::
+
+      \xintAssignArray{1}{-2}{5}{-3}\to\foo
+      \PolGet{f}\fromarray\foo
+
+    This will define ``f`` as would have ``\poldef f(x):=1-2x+5x^2-3x^3;``.
+
+    .. note::
+
+       Prior to ``0.5``, coefficients were not normalized via
+       ``\xintRaw`` for internal storage.
+
+.. _PolFromCSV:
+
+``\PolFromCSV{polname}{<csv>}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Defines a polynomial directly from the comma separated list of values
+    (or a macro expanding to such a list) of its coefficients, the *first
+    item* gives the constant term, the *last item* gives the leading
+    coefficient, except if zero, then it is dropped (iteratively). List
+    items are each expanded in an ``\edef`` and then put into normalized
+    form via xintfrac_\ 's macro ``\xintRaw``.
+
+    As leading zero coefficients are removed::
+
+      \PolFromCSV{f}{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+    defines the zero polynomial, which holds only one coefficient.
+
+    See also expandable macro `\\PolToCSV <\\PolToCSV{polname}_>`_.
+
+    .. note::
+
+       Prior to ``0.5``, coefficients were not normalized via
+       ``\xintRaw`` for internal storage.
+
+.. _PolTypeset:
+
+``\PolTypeset{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Typesets in descending powers in math mode. It uses letter ``x`` but
+    this can be changed via an optional argument::
+
+      \PolTypeset[z]{polname}
+
+    By default zero coefficients are skipped (issue ``\poltypesetalltrue``
+    to get all of them in output).
+
+    These commands (whose meanings will be found in the package code)
+    can be re-defined for customization. Their default definitions are
+    expandable, but this is not a requirement.
+
+.. _PolTypesetCmd:
+
+``\PolTypesetCmd{raw_coeff}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Checks if the coefficient is ``1`` or ``-1`` and then skips printing
+    the ``1``, except for the constant term. Also it sets conditional
+    `\\PolIfCoeffIsPlusOrMinusOne{A}{B}`_.
+
+    The actual printing of the coefficients, when not equal to plus or
+    minus one is handled by `\\PolTypesetOne{raw_coeff}`_.
+
+.. _PolTypesetOne:
+
+``\PolTypesetOne{raw_coeff}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The default is ``\xintSignedFrac`` but this macro is annoying as it
+    insists to use a power of ten, and not decimal notation.
+
+    One can do things such as for example: [#]_
+
+    ::
+
+      \renewcommand\PolTypesetOne[1]{\num{\xintPFloat[5]{#1}}}
+      \renewcommand\PolTypesetOne[1]{\num{\xintRound{4}{#1}}}
+
+    where e.g. we used the ``\num`` macro of ``siunitx`` as it
+    understands floating point notation.
+
+    .. [#] the difference in the syntaxes of ``\xintPFloat`` and
+           ``\xintRound`` is explained from the fact that
+           ``\xintPFloat`` by default uses the prevailing precision
+           hence the extra argument like here ``5`` is an optional one.
+
+    One can also give a try to using `\\PolDecToString{decimal number}`_
+    which uses decimal notation (at least for the numerator part).
+
+.. _PolTypesetMonomialCmd:
+
+``\PolTypesetMonomialCmd``
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    This decides how a monomial (in variable ``\PolVar`` and with
+    exponent ``\PolIndex``) is to be printed. The default does nothing
+    for the constant term, ``\PolVar`` for the first degree and
+    ``\PolVar^{\PolIndex}`` for higher degrees monomials. Beware that
+    ``\PolIndex`` expands to digit tokens and needs termination in
+    ``\ifnum`` tests.
+
+.. _PolTypesetCmdPrefix:
+
+``\PolTypesetCmdPrefix{raw_coeff}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to a ``+`` if the ``raw_coeff`` is zero or positive, and to
+    nothing if ``raw_coeff`` is negative, as in latter case the
+    ``\xintSignedFrac`` used by `\\PolTypesetCmd{raw_coeff}`_ will put
+    the ``-`` sign in front of the fraction (if it is a fraction) and
+    this will thus serve as separator in the typeset formula. Not used
+    for the first term.
+
+.. _PolTypeset*:
+
+``\PolTypeset*{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Typesets in ascending powers. Use e.g. ``[h]`` optional argument
+    (after the ``*``) to use letter ``h`` rather than ``x``.
+
+.. _PolDiff:
+
+``\PolDiff{polname_1}{polname_2}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_2`` to the first derivative of ``polname_1``. It
+    is allowed to issue ``\PolDiff{f}{f}``, effectively replacing ``f``
+    by ``f'``.
+
+    Coefficients of the result ``polname_2`` are irreducible fractions
+    (see `Technicalities`_ for the whole story.)
+
+.. _PolDiff[N]:
+
+``\PolDiff[N]{polname_1}{polname_2}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_2`` to the ``N``-th derivative of ``polname_1``.
+    Identical arguments is allowed. With ``N=0``, same effect as
+    ``\PolLet{polname_2}={polname_1}``. With negative ``N``, switches to
+    using ``\PolAntiDiff``.
+
+.. _PolAntiDiff:
+
+``\PolAntiDiff{polname_1}{polname_2}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_2`` to the primitive of ``polname_1`` vanishing
+    at zero.
+
+    Coefficients of the result ``polname_2`` are irreducible fractions
+    (see `Technicalities`_ for the whole story.)
+
+.. _PolAntiDiff[N]:
+
+``\PolAntiDiff[N]{polname_1}{polname_2}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_2`` to the result of ``N`` successive integrations on
+    ``polname_1``. With negative ``N``, it switches to using ``\PolDiff``.
+
+.. _PolDivide:
+
+``\PolDivide{polname_1}{polname_2}{polname_Q}{polname_R}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_Q`` and ``polname_R`` to be the quotient and
+    remainder in the Euclidean division of ``polname_1`` by
+    ``polname_2``.
+
+.. _PolQuo:
+
+``\PolQuo{polname_1}{polname_2}{polname_Q}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_Q`` to be the quotient in the Euclidean division
+    of ``polname_1`` by ``polname_2``.
+
+.. _PolRem:
+
+``\PolRem{polname_1}{polname_2}{polname_R}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_R`` to be the remainder in the Euclidean division
+    of ``polname_1`` by ``polname_2``.
+
+.. _PolGCD:
+
+``\PolGCD{polname_1}{polname_2}{polname_GCD}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This sets ``polname_GCD`` to be the (monic) GCD of the two first
+    polynomials. It is a unitary polynomial except if both ``polname_1``
+    and ``polname_2`` vanish, then ``polname_GCD`` is the zero
+    polynomial.
+
+.. ``\PolIGCD{polname_1}{polname_2}{polname_iGCD}``
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    **NOT YET**
+
+    This **assumes** that the two polynomials have integer coefficients.
+    It then computes the greatest common divisor in the integer
+    polynomial ring, normalized to have a positive leading coefficient
+    (if the inputs are not both zero).
+
+   ``\PolIContent{polname}``
+   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    **NOT YET**
+
+    This computes a positive rational number such that dividing the
+    polynomial with it returns an integer coefficients polynomial with
+    no common factor among the coefficients.
+
+.. _PolToSturm:
+
+``\PolToSturm{polname}{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    With ``polname`` being for example  ``P``, the macro starts by
+    computing polynomials ``P`` and ``P'``, then computes the (opposite
+    of the) remainder in euclidean division, iteratively.
+
+    The last non-zero remainder ``P_N_`` (where ``N`` is obtainable as
+    `\\PolSturmChainLength{sturmname}`_) is up to a factor
+    the GCD of ``P`` and ``P'`` hence it is a constant if and only if
+    ``P`` is square-free.
+
+    .. note::
+
+       - Since ``0.5`` all these polynomials are divided by their rational
+         content, so they have integer coefficients with no common factor,
+         and the last one if a constant is either ``1`` or ``-1``.
+
+       - After this normalization to primitive polynomials, they are
+         stored internally as ``sturmname_k_``, ``k=0,1, ...``.
+
+       - These polynomials are used internally only. To keep them as
+         genuine declared polynomials also after the macro call, use the
+         starred variant `PolToSturm*`_.
+
+    .. note::
+
+       It is perfectly allowed to use the polynomial name as Sturm chain name:
+       ``\PolToSturm{f}(f}``.
+
+    The macro then declares ``sturmname_0``, ``sturmname_1``, ..., which are
+    the (non-declared) ``sturmname_k_`` divided by the last one. Division is
+    not done if this last one is the constant ``1`` or ``-1``, i.e. if the
+    original polynomial was square-free. These polynomials are primitive
+    polynomials too, i.e. with integer coefficients having no common factor.
+
+    Thus ``sturmname_0`` has exactly the same real and complex roots as
+    polynomial ``polname``, but with each root now of multiplicity one:
+    i.e. it is the "square-free part" of original polynomial ``polname``.
+
+    Notice that ``sturmname_1`` isn't necessarily the derivative of
+    ``sturmname_0`` due to the various normalizations.
+
+    The polynomials ``sturmname_k`` main utility is for the execution of
+    `\\PolSturmIsolateZeros{sturmname}`_. Be careful not to use these
+    names ``sturmname_0``, ``sturmname_1``, etc... for defining other
+    polynomials after having done ``\PolToSturm{polname}{sturmname}`` and
+    before executing ``\PolSturmIsolateZeros{sturmname}`` else the
+    latter will behave erroneously.
+
+    `\\PolSturmChainLength{sturmname}`_ gives the index of the last
+    element of the Sturm chain.
+
+.. _PolToSturm*:
+
+``\PolToSturm*{polname}{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Does the same as `un-starred version <PolToSturm_>`_ and additionally it
+    keeps for user usage the memory of the *un-normalized* Sturm chain
+    polynomials ``sturmname_k_``, ``k=0,1, ..., N``, with
+    ``N`` being `\\PolSturmChainLength{sturmname}`_.
+
+    .. note::
+
+       This behaviour was modified at  ``0.6``, anyhow the macro was
+       broken at ``0.5``.
+
+    .. hint::
+
+       The square-free part of ``polname`` is ``sturmname_0``, and their
+       quotient is the polynomial with name
+       ``sturname_\PolSturmChainLength{sturmname}_``. It thus easy to
+       set-up a loop iteratively computing the latter until the last one
+       is a constant, thus obtaining the decomposition of an ``f`` as
+       a product ``c f_1 f_2 f_3 ...`` of a constant and square-free (primitive)
+       polynomials, where each ``f_i`` divides its predecessor.       
+
+.. _PolSetToSturmChainSignChangesAt:
+
+``\PolSetToSturmChainSignChangesAt{\macro}{sturmname}{fraction}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Sets macro ``\macro`` to the number of sign changes in the Sturm
+    chain with name prefix ``sturmname``, at location ``fraction``
+    (which must be in format as acceptable by the xintfrac_ macros.)
+
+    .. note::
+
+       The author was lazy and did not provide rather an expandable
+       variant, where one would do ``\edef\macro{\PolNbOf...}``.
+
+       This will presumably get added in a future release.
+
+       After some hesitation it was decided the macro would by default
+       act globally. To make the scope of its macro definition local,
+       use ``[\empty]`` as extra optional argument.
+
+.. _PolSetToNbOfZerosWithin:
+
+``\PolSetToNbOfZerosWithin{\macro}{sturmname}{value_a}{value_b}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Applies the `Sturm Theorem`_ to set ``\macro`` to the exact number
+    of **distinct** roots of ``sturmname_0`` in the interval ``(value_a,
+    value_b]`` (the macro first re-orders the value for ``value_a <=
+    value_b`` to hold).
+
+    .. note::
+
+       The author was lazy and did not provide rather an expandable
+       variant, where one would do ``\edef\macro{\PolNbOf...}``.
+
+       This will presumably get added in future.
+
+       After some hesitation it was decided the macro would by default
+       act globally. To make the scope of its macro definition local,
+       use ``[\empty]`` as extra optional argument.
+
+    See also the expandable
+    `\\PolSturmNbOfRootsOf{sturmname}\\LessThanOrEqualTo{value}`_, from
+    which it is immediate (with ``\numexpr``) to create an expandable
+    variant of this macro. However the difference is that this macro
+    requires only `\\PolToSturm <PolToSturm_>`_ to have been executed,
+    whereas the expandable variant requires prior execution of
+    `\\PolSturmIsolateZeros <PolSturmIsolateZeros_>`_.
+
+    See also the expandable
+    `\\PolSturmNbWithMultOfRootsOf{sturmname}\\LessThanOrEqualTo{value}`_
+    which requires prior execution of
+    `\\PolSturmIsolateZeros* <PolSturmIsolateZeros*_>`_.
+
+
+.. _PolSturmIsolateZeros:
+
+``\PolSturmIsolateZeros{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The macros locates, using `Sturm theorem`_, as many disjoint
+    intervals as there are (real) roots.
+
+    .. important::
+
+       The Sturm chain must have been produced by an earlier
+       `\\PolToSturm{polname}{sturmname}`_.
+
+       Why does this macro ask for argument the name of Sturm chain,
+       rather than the name of a polynomial? well this is mainly for
+       legacy reason, and because it is accompanied by other macros for
+       which it is simpler to assume the argument will be the name of an
+       already computed Sturm chain.
+
+       Notice that ``\PolToSturm{f}{f}`` is perfectly legal (the
+       ``sturmname`` can be same as the ``polname``): it defines
+       polynomials ``f_0``, ``f_1``, ... having ``f`` has name prefix.
+
+       Such a prior call
+       to ``\PolToSturm`` must have been made at any rate for
+       ``\PolSturmIsolateZeros`` to be usable.
+       
+    After its execution they are two types of such intervals (stored in
+    memory and accessible via macros or xintexpr_ variables, see below):
+
+    - singleton ``{a}``: then ``a`` is a root, (necessarily a decimal
+      number, but not all such decimal numbers are exactly identified yet).
+
+    - open intervals ``(a,b)``: then there is exactly one root ``z``
+      such that ``a < z < b``, and the end points are guaranteed to not
+      be roots.
+
+    The interval boundaries are decimal numbers, originating
+    in iterated decimal subdivision from initial intervals
+    ``(-10^E, 0)`` and ``(0, 10^E)`` with ``E`` chosen initially large
+    enough so that all roots are enclosed; if zero is a root it is always
+    identified as such. The non-singleton intervals are of the
+    type ``(a/10^f, (a+1)/10^f)`` with ``a`` an integer, which is
+    neither ``0`` nor ``-1``. Hence either ``a`` and ``a+1`` are both positive
+    or they are both negative.
+
+    One does not *a priori* know what will be the lengths of these
+    intervals (except that they are always powers of ten), they
+    vary depending on how many digits two successive roots have in
+    common in their respective decimal expansions.
+
+    .. important::
+
+       If some two consecutive intervals share an end-point, no
+       information is yet gained about the separation between the two
+       roots which could at this stage be arbitrarily small.
+
+       See `\\PolRefineInterval*{sturmname}{index}`_ which addresses
+       this issue.
+
+    .. This procedure is covariant
+       with the independent variable ``x`` becoming ``-x``.
+       Hmm, pas s??r et trop fatigu??
+
+    The interval boundaries (and exactly found roots) are made available
+    for future computations in ``\xintexpr``-essions or polynomial
+    definitions as variables ``<sturmname>L_1``,
+    ``<sturmname>L_2``, etc..., for the left end-points and
+    ``<sturmname>R_1``, ``<sturmname>R_2``, ..., for the right
+    end-points.
+
+    Thus for example, if ``sturmname`` is ``f``, one can use the
+    xintexpr_ variables ``fL_1``, ``fL_2``, ... to refer in expressions
+    to the left end-points (or to the exact root, if left and right end
+    points coincide). Additionally, xintexpr_ variable ``fZ_1_isknown``
+    will have value ``1`` if the root in the first interval is known,
+    and ``0`` otherwise. And similarly for the other intervals.
+
+    Also, macros `\\PolSturmIsolatedZeroLeft{sturmname}{index}`_ and
+    `\\PolSturmIsolatedZeroRight{sturmname}{index}`_ are provided which
+    expand to these same values, written in decimal notation (i.e.
+    pre-processed by `\\PolDecToString <PolDecToString_>`_.) And there
+    is also `\\PolSturmIfZeroExactlyKnown{sturmname}{index}{A}{B}`_.
+
+    .. important::
+
+       Trailing zeroes in the stored decimal numbers accessible via the
+       macros are significant: they are also present in the decimal
+       expansion of the exact root.
+
+    These variables and macros are automatically updated when one next
+    uses macros such as `\\PolRefineInterval*{sturmname}{index}`_.
+
+    The start of decimal expansion of a positive ``k``-th root is given
+    by `\\PolSturmIsolatedZeroLeft{sturmname}{k}
+    <PolSturmIsolatedZeroLeft_>`_, and for a negative root it is given
+    by `\PolSturmIsolatedZeroRight{sturmname}{k}
+    <PolSturmIsolatedZeroRight_>`_. These two decimal
+    numbers are either both zero or both of the same sign.
+
+    The number of distinct roots is obtainable expandably as
+    `\\PolSturmNbOfIsolatedZeros{sturmname}`_.
+
+    Furthermore
+    `\\PolSturmNbOfRootsOf{sturmname}\\LessThanOrEqualTo{value}`_ and
+    `\\PolSturmNbOfRootsOf{sturmname}\\LessThanOrEqualToExpr{expression}`_.
+    will expandably compute respectively the number of real roots at
+    most equal to ``value`` or ``expression``, and the same but with
+    multiplicities.
+
+    .. note::
+
+       In the current implementation the xintexpr_ variables
+       and xinttools_ arrays are globally defined. On the
+       other hand the Sturm sequence polynomials obey the current scope.
+
+    .. note::
+
+       As all computations are done *exactly* there can be no errors...
+       apart those due to bad coding by author. The results are exact
+       bounds for the mathematically exact real roots.
+
+       Future releases will perhaps also provide macros based on Newton
+       or Regula Falsi methods. Exact computations with such methods
+       lead however quickly to very big fractions, and this forces usage
+       of some rounding scheme for the abscissas if computation times
+       are to remain reasonable. This raises issues of its own, which
+       are studied in numerical mathematics.
+
+.. _PolSturmIsolateZeros*:
+
+``\PolSturmIsolateZeros*{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The macro does the same as `\\PolSturmIsolateZeros{sturmname}`_ and
+    then in addition it does the extra work to determine all
+    multiplicities (of the real roots):
+    after executing this macro,
+    `\\PolSturmIsolatedZeroMultiplicity{sturmname}{index}`_ will expand
+    to the multiplicity of the root located in the ``index``\ -th
+    interval (intervals are enumerated from left to right, with index
+    starting at ``1``).
+
+    Furthermore, if for example the ``sturmname`` is ``f``, xintexpr_
+    variables ``fM_1``, ``fM_2``... hold the multiplicities thus
+    computed.
+
+    .. note::
+
+       It is **not** necessary to have executed the `PolToSturm*`_ starred
+       variant, as the non-starred variant keeps internally the memory of the
+       original GCD (and even of the full non-normalized original Sturm
+       chain), even though it does not make the declarations as *user-level*
+       genuine polynomials.
+
+    See `The degree nine polynomial with 0.99, 0.999, 0.9999 as triple
+    roots`_ for an example.
+
+.. _PolSturmIsolateZeros**:
+
+``\PolSturmIsolateZeros**{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The macro does the same as `\\PolSturmIsolateZeros*{sturmname}`_ and
+    in addition it does the extra work to determine all the *rational*
+    roots.
+
+    .. note::
+
+       After execution of this macro, a root is "known" if and only if
+       it is rational.
+
+    Furthermore, primitive polynomial ``sturmname_sqf_norr`` is created
+    to match the (square-free) ``sturmname_0`` from which all rational
+    roots have been removed (see `\\polexprsetup`_ for customizing this
+    name). The number of distinct rational roots is thus the difference
+    between the degrees of these two polynomials (see also
+    `\\PolSturmNbOfRationalRoots{sturmname}`_).
+
+    And ``sturmname_norr`` is ``sturmname_0_`` from which all rational
+    roots have been removed (see `\\polexprsetup`_), i.e. it contains
+    the irrational roots of the original polynomial, with the same
+    multiplicities.
+
+    See `A degree five polynomial with three rational
+    roots`_ for an example.
+
+.. _PolSturmIsolateZerosAndGetMultiplicities:
+
+``\PolSturmIsolateZerosAndGetMultiplicities{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This is another name for `\\PolSturmIsolateZeros*{sturmname}`_.
+
+.. _PolSturmIsolateZerosGetMultiplicitiesAndRationalRoots:
+
+``\PolSturmIsolateZerosGetMultiplicitiesAndRationalRoots{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This is another name for `\\PolSturmIsolateZeros**{sturmname}`_.
+
+
+``\PolSturmIsolateZerosAndFindRationalRoots{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This works exactly like `\\PolSturmIsolateZeros**{sturmname}`_
+    (inclusive of declaring the polynomials ``sturmname_sqf_norr`` and
+    ``sturmname_norr`` with no rational roots) except that it does *not*
+    compute the multiplicities of the *non-rational* roots.
+
+    .. note::
+
+       There is no macro to find the rational roots but not compute
+       their multiplicities at the same time.
+
+    .. attention::
+
+       This macro does *not* define xintexpr_ variables
+       ``sturmnameM_1``, ``sturmnameM_2``, ... holding the
+       multiplicities and it leaves the multiplicity array (whose accessor
+       is `\\PolSturmIsolatedZeroMultiplicity{sturmname}{index}`_) into
+       a broken state, as all non-rational roots will supposedly have
+       multiplicity one. This means that the output of
+       `\\PolPrintIntervals* <PolPrintIntervals*_>`_ for example will be
+       erroneous for the intervals with irrational roots.
+
+       I decided to document it because finding multiplicities of the
+       non rational roots is somewhat costly, and one may be interested
+       only into finding the rational roots (of course random
+       polynomials with integer coefficients will not have *any*
+       rational root anyhow).
+
+
+.. _PolRefineInterval*:
+
+``\PolRefineInterval*{sturmname}{index}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The ``index``\ -th interval (starting indexing at one) is further
+    subdivided as many times as is necessary in order for the newer
+    interval to have both its end-points distinct from the end-points of
+    the original interval. This means that the ``k``\ th root is then
+    strictly separated from the other roots.
+
+.. _PolRefineInterval[N]:
+
+``\PolRefineInterval[N]{sturmname}{index}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The ``index``\ -th interval (starting count at one) is further
+    subdivided once, reducing its length by a factor of 10. This is done
+    ``N`` times if the optional argument ``[N]`` is present.
+
+.. _PolEnsureIntervalLength:
+
+``\PolEnsureIntervalLength{sturmname}{index}{E}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The ``index``\ -th interval is subdivided until its length becomes at
+    most ``10^E``. This means (for ``E<0``) that the first ``-E`` digits
+    after decimal mark of the ``k``\ th root will then be known exactly.
+
+.. _PolEnsureIntervalLengths:
+
+``\PolEnsureIntervalLengths{sturmname}{E}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The intervals as obtained from ``\PolSturmIsolateZeros`` are (if
+    necessary) subdivided further by (base 10) dichotomy in order for
+    each of them to have length at most ``10^E`` (length will be shorter
+    than ``10^E`` in output only if it did not change or became zero.)
+
+    This means that decimal expansions of all roots will be known with
+    ``-E`` digits (for ``E<0``) after decimal mark.
+
+.. _PolPrintIntervals:
+
+``\PolPrintIntervals[varname]{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This is a convenience macro which prints the bounds for the roots
+    ``Z_1``, ``Z_2``, ... (the optional argument ``varname`` allows to
+    specify a replacement for the default ``Z``). This will be done (by
+    default) in a
+    math mode ``array``, one interval per row, and pattern ``rcccl``,
+    where the second and fourth column hold the ``<`` sign, except when
+    the interval reduces to a singleton, which means the root is known
+    exactly.
+
+    .. attention::
+
+       This macro was refactored at 0.7, its default output remained
+       identical but the ways to customize it got completely
+       modified.
+
+    See next macros which govern its output.
+
+``\PolPrintIntervalsNoRealRoots``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Executed in place of an ``array`` environment, when there are no
+    real roots. Default definition::
+
+      \newcommand\PolPrintIntervalsNoRealRoots{}
+
+``\PolPrintIntervalsBeginEnv``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Default definition::
+
+      \newcommand\PolPrintIntervalsBeginEnv{\[\begin{array}{rcccl}}
+
+``\PolPrintIntervalsEndEnv``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Default definition::
+
+      \newcommand\PolPrintIntervalsEndEnv{\end{array}\]}
+
+``\PolPrintIntervalsKnownRoot``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Default definition::
+
+      \newcommand\PolPrintIntervalsKnownRoot{%
+        &&\PolPrintIntervalsTheVar_{\PolPrintIntervalsTheIndex}%
+        &=&\PolPrintIntervalsPrintExactZero
+      }
+
+``\PolPrintIntervalsUnknownRoot``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Default definition::
+
+      \newcommand\PolPrintIntervalsUnknownRoot{%
+        \PolPrintIntervalsPrintLeftEndPoint&<&%
+        \PolPrintIntervalsTheVar_{\PolPrintIntervalsTheIndex}&<&%
+        \PolPrintIntervalsPrintRightEndPoint
+      }
+
+
+.. _PolPrintIntervalsPrintExactZero:
+
+``\PolPrintIntervalsPrintExactZero``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Default definition::
+
+      \newcommand\PolPrintIntervalsPrintExactZero{\PolPrintIntervalsTheLeftEndPoint}
+
+
+.. _PolPrintIntervalsPrintLeftEndPoint:
+
+``\PolPrintIntervalsPrintLeftEndPoint``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Default definition::
+
+      \newcommand\PolPrintIntervalsPrintLeftEndPoint{\PolPrintIntervalsTheLeftEndPoint}
+
+.. _PolPrintIntervalsPrintRightEndPoint:
+
+``\PolPrintIntervalsPrintRightEndPoint``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Default definition is::
+
+      \newcommand\PolPrintIntervalsPrintRightEndPoint{\PolPrintIntervalsTheRightEndPoint}
+
+.. _PolPrintIntervals*:
+
+``\PolPrintIntervals*[varname]{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This starred variant produces an alternative output (which
+    displays the root multiplicity), and is provided as an
+    example of customization.
+
+    As replacement for `\\PolPrintIntervalsKnownRoot`_,
+    `\\PolPrintIntervalsPrintExactZero`_,
+    `\\PolPrintIntervalsUnknownRoot`_ it uses its own
+    ``\POL@@PrintIntervals...`` macros. We only reproduce here one
+    definition::
+
+      \newcommand\POL@@PrintIntervalsPrintExactZero{%
+         \displaystyle
+         \xintSignedFrac{\PolPrintIntervalsTheLeftEndPoint}%
+      }%
+    
+    Multiplicities are printed using this auxiliary macro:
+
+``\PolPrintIntervalsPrintMultiplicity``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    whose default definition is::
+
+      \newcommand\PolPrintIntervalsPrintMultiplicity{(\mbox{mult. }\PolPrintIntervalsTheMultiplicity)}
+
+
+.. _PolMapCoeffs:
+
+``\PolMapCoeffs{\macro}{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    It modifies ('in-place': original coefficients get lost) each
+    coefficient of the defined polynomial via the *expandable* macro
+    ``\macro``. The degree is adjusted as necessary if some leading
+    coefficients vanish after the operation. In replacement text of
+    ``\macro``, ``\index`` expands to the coefficient index (which is
+    defined to be zero for the constant term).
+
+    Notice that ``\macro`` will have to handle inputs of the shape
+    ``A/B[N]`` (xintfrac_ internal notation). This means that it probably
+    will have to be expressed in terms of macros from xintfrac_ package.
+
+    Example::
+
+      \def\foo#1{\xintMul{#1}{\the\numexpr\index*\index\relax}}
+
+    (or with ``\xintSqr{\index}``) to replace ``n``-th coefficient
+    ``f_n`` by ``f_n*n^2``.
+
+.. _PolReduceCoeffs:
+
+``\PolReduceCoeffs{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    About the same as ``\PolMapCoeffs{\xintIrr}{polname}`` (but
+    maintaining a ``[0]`` postfix for speedier xintfrac_ parsing when
+    polynomial function is used for computations.) This is a
+    one-argument macro, working 'in-place'.
+
+.. _PolReduceCoeffs*:
+
+``\PolReduceCoeffs*{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This starred variant leaves un-touched the decimal exponent in the
+    internal representation of the fractional coefficients, i.e. if a
+    coefficient is internally ``A/B[N]``, then ``A/B`` is reduced to
+    smallest terms, but the ``10^N`` part is kept as is. Note: if the
+    polynomial is freshly defined directly via `\\PolFromCSV
+    <PolFromCSV_>`_ its coefficients might still be internally in some
+    format like ``1.5e7``; the macro will anyhow always first do the
+    needed conversion to strict format ``A/B[N]``.
+
+    Evaluations with polynomials treated by this can be much faster than
+    with those handled by the non-starred variant
+    `\\PolReduceCoeffs{polname}`_: as the numerators and denominators
+    remain smaller, this proves very beneficial in favorable cases
+    (especially when the coefficients are decimal numbers) to the
+    expansion speed of the xintfrac_ macros used internally by
+    `\\PolEval <PolEvalAt_>`_.
+
+.. _PolMakeMonic:
+
+``\PolMakeMonic{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Divides by the leading coefficient. It is recommended to execute
+    `\\PolReduceCoeffs*{polname}`_ immediately afterwards. This is not
+    done automatically, due to the case the original polynomial had integer
+    coefficients and we want to keep the leading one as common
+    denominator.
+
+.. _PolMakePrimitive:
+
+``\PolMakePrimitive{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Divides by the integer content see (`\\PolIContent
+    <PolIContent_>`_). This thus produces a polynomial with integer
+    coefficients having no common factor. The sign of the leading
+    coefficient is not modified.
+
+Expandable macros
+-----------------
+
+All these macros expand completely in two steps except ``\PolToExpr``
+and ``\PolToFloatExpr`` (and their auxiliaries) which need a
+``\write``, ``\edef`` or a ``\csname...\endcsname`` context.
+
+.. _PolEvalAtExpr:
+
+``\PolEval{polname}\AtExpr{numerical expression}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    It boils down to
+    ``\xinttheexpr polname(numerical expression)\relax``.
+
+.. _PolEvalAt:
+
+``\PolEval{polname}\At{fraction}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Evaluates the polynomial at value ``fraction`` which must be in (or
+    expand to) a format acceptable to the xintfrac_ macros.
+
+.. _PolEvalReducedAtExpr:
+
+``\PolEvalReduced{polname}\AtExpr{numerical expression}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Boils down to ``\xinttheexpr reduce(polname(numerical expression))\relax``.
+
+.. _PolEvalReducedAt:
+
+``\PolEvalReduced{polname}\At{fraction}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Evaluates the polynomial at value ``fraction`` which must be in (or
+    expand to) a format acceptable to the xintfrac_ macros, and produce
+    an irreducible fraction.
+
+.. _PolFloatEvalAtExpr:
+
+``\PolFloatEval{polname}\AtExpr{numerical expression}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Boils down to ``\xintthefloatexpr polname(numerical expression)\relax``.
+
+    This is done via a Horner Scheme (see `\\poldef <poldef;_>`_ and
+    `\\PolGenFloatVariant{polname}`_), with already rounded
+    coefficients. [#]_ To use the *exact coefficients* with *exactly
+    executed* additions and multiplications, just insert it in the float
+    expression as in this example: [#]_
+
+    ::
+
+        \xintthefloatexpr 3.27*\xintexpr f(2.53)\relax^2\relax
+
+    The ``f(2.53)`` is exactly computed then rounded at the time of
+    getting raised to the power ``2``. Moving the ``^2`` inside, that
+    operation would also be treated exactly.
+
+
+    .. [#] Anyway each floating point operation starts by rounding its
+           operands to the floating point precision.
+
+    .. [#] The ``\xintexpr`` here could be ``\xinttheexpr`` but that
+           would be less efficient. Cf. xintexpr_ documentation about
+           nested expressions.
+
+.. _PolFloatEvalAt:
+
+``\PolFloatEval{polname}\At{fraction}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Evaluates the polynomial at value ``fraction`` which must be in (or
+    expand to) a format acceptable to the xintfrac_ macros, and produces
+    a floating point number.
+
+.. _PolIfCoeffIsPlusOrMinusOne:
+
+``\PolIfCoeffIsPlusOrMinusOne{A}{B}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This macro is a priori undefined.
+
+    It is defined via the default `\\PolTypesetCmd{raw_coeff}`_ to be
+    used if needed in the execution of `\\PolTypesetMonomialCmd`_,
+    e.g. to insert a ``\cdot`` in front of ``\PolVar^{\PolIndex}`` if
+    the coefficient is not plus or minus one.
+
+    The macro will execute ``A`` if the coefficient has been found to be
+    plus or minus one, and ``B`` if not.
+
+.. _PolLeadingCoeff:
+
+``\PolLeadingCoeff{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the leading coefficient.
+
+.. _PolNthCoeff:
+
+``\PolNthCoeff{polname}{number}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    It expands to the raw ``N``-th coefficient (``0/1[0]`` if the index
+    number is out of range). With ``N=-1``, ``-2``, ... expands to the
+    leading coefficients.
+
+.. _PolDegree:
+
+``\PolDegree{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+    It expands to the degree. This is ``-1`` if zero polynomial but this
+    may change in future. Should it then expand to ``-\infty`` ?
+
+.. _PolIContent:
+
+``\PolIContent{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    It expands to the contents of the polynomial, i.e. to the positive
+    fraction such that dividing by this fraction produces a polynomial
+    with integer coefficients having no common prime divisor.
+
+    See `\\PolMakePrimitive <PolMakePrimitive_>`_.
+
+.. _PolToExpr:
+
+``\PolToExpr{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands [#]_ to ``coeff_N*x^N+...`` (descending powers.)
+
+    .. [#] in a ``\write``, ``\edef``, or ``\csname...\endcsname``, but
+           not under ``\romannumeral-`0``.
+
+    By default zero coefficients are skipped (issue ``\poltoexpralltrue`` to
+    get all of them in output).
+
+    By default, no ``+`` sign before negative coefficients, for
+    compliance with Maple input format (but see
+    `\\PolToExprTermPrefix{raw_coeff}`_.) Also, like the default
+    behaviour of `\\PolTypeset{polname}`_, does not print (for the non
+    constant terms) coefficients equal to plus or minus one. The degree
+    one monomial is output as ``x``, not ``x^1``. Complete customization is
+    possible, see next macros.
+
+    Of course ``\PolToExpr{f}`` can be inserted in a ``\poldef``, as the
+    latter expands token by token, hence will force complete expansion
+    of ``\PolToExpr{f}``, but a simple ``f(x)`` is more efficient for
+    the identical result.
+
+.. _PolToExprOneTerm:
+
+``\PolToExprOneTerm{raw_coeff}{number}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    This two argument expandable command takes care of the monomial and
+    its coefficient. The default definition is done in order for
+    coefficients of absolute value ``1`` not be printed explicitely
+    (except of course for the constant term). Also by default, the
+    monomial of degree one is ``x`` not ``x^1``, and ``x^0`` is skipped.
+
+    For compatibility with Maple input requirements, by default a ``*``
+    always precedes the ``x^number``, except if the coefficient is a one
+    or a minus one. See `\\PolToExprTimes`_.
+
+.. _PolToExprOneTermStyleA:
+
+``\PolToExprOneTermStyleA{raw_coeff}{number}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Holds the default package meaning of
+    `\\PolToExprOneTerm{raw_coeff}{number}`_.
+
+.. _PolToExprOneTermStyleB:
+
+``\PolToExprOneTermStyleB{raw_coeff}{number}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    For output in this style::
+
+      2*x^11/3+3*x^8/7-x^5-x^4/4-x^3-x^2/2-2*x+1
+
+    issue ``\let\PolToExprOneTerm\PolToExprOneTermStyleB`` before usage of
+    ``\PolToExpr``. Note that then ``\PolToExprCmd`` isn't used at all.
+    To revert to package default, issue
+    ``\let\PolToExprOneTerm\PolToExprOneTermStyleA``.
+
+    To suppress the ``*``'s, cf. `\\PolToExprTimes`_.
+
+.. _PolToExprCmd:
+
+``\PolToExprCmd{raw_coeff}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    It is the one-argument macro used by the package definition of
+    ``\PolToExprOneTerm`` for the coefficients themselves (when not
+    equal to plus or minus one), and it defaults to
+    ``\xintPRaw{\xintRawWithZeros{#1}}``. One will have to redefine it
+    to ``\xintIrr{#1}`` or to ``\xintPRaw{\xintIrr{#1}}`` to obtain in the
+    output forcefully reduced coefficients.
+
+.. _PolToExprTermPrefix:
+
+``\PolToExprTermPrefix{raw_coeff}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Defined identically as `\\PolTypesetCmdPrefix{raw_coeff}`_. It
+    prefixes with a plus sign for non-negative coefficients, because
+    they don't carry one by themselves.
+
+.. _PolToExprVar:
+
+``\PolToExprVar``
+^^^^^^^^^^^^^^^^^
+
+    This expands to the variable to use in output (it does not have to
+    be a single letter, may be an expandable macro.) Initial definition
+    is ``x``.
+
+.. _PolToExprTimes:
+
+``\PolToExprTimes``
+^^^^^^^^^^^^^^^^^^^
+
+    This expands to the symbol used for multiplication of an
+    ``x^{number}`` by the corresponding coefficient. The default is
+    ``*``. Redefine the macro to expand to nothing to get rid of it (but
+    this will give output incompatible with some professional computer
+    algebra software).
+
+.. _PolToExpr*:
+
+``\PolToExpr*{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to ``coeff_0+coeff_1*x+coeff_2*x^2+...`` (ascending powers).
+    Customizable like `\\PolToExpr{polname}`_ via the same macros.
+
+.. _PolToFloatExpr:
+
+``\PolToFloatExpr{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Similar to `\\PolToExpr{polname}`_ but uses `\\PolToFloatExprCmd
+    <\\PolToFloatExprCmd{raw_coeff}>`_
+    which by default rounds and converts the coefficients to floating
+    point format.
+
+    .. note::
+
+       It is not necessary to have issued
+       `\\PolGenFloatVariant{polname}`_. The rounded coefficients are
+       not easily recoverable from the ``\xintfloatexpr`` polynomial
+       function hence ``\PolToFloatExprCmd`` operates from the *exact*
+       coefficients anew.
+
+       Attention that both macros obey the prevailing float precision.
+       If it is changed between those macro calls, then a mismatch
+       exists between the coefficients as used in ``\xintfloatexpr`` and
+       those output by ``\PolToFloatExpr{polname}``.
+
+.. _PolToFloatExprOneTerm:
+
+``\PolToFloatExprOneTerm{raw_coeff}{number}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Similar to `\\PolToExprOneTerm
+    <\\PolToExprOneTerm{raw_coeff}{number}>`_. But does not treat
+    especially coefficients equal to plus or minus one.
+
+.. _PolToFloatExprCmd:
+
+``\PolToFloatExprCmd{raw_coeff}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    It is the one-argument macro used by ``\PolToFloatExprOneTerm``.
+    Its package definition is ``\xintFloat{#1}``.
+
+    .. caution::
+
+       Currently (xint_ ``1.3c``) ``\xintFloat{0}`` outputs ``0.e0``
+       which is perfectly acceptable input for Python, but not for
+       Maple. Thus, one should better leave the `\\poltoexprallfalse`_
+       toggle to its default ``\iffalse`` state, if one intends to use
+       the output in a Maple worksheet.
+
+       But even then the zero polynomial will cause a problem. Workaround::
+
+         \renewcommand\PolToFloatExprCmd[1]{\xintiiifZero{#1}{0.0}{\xintFloat{#1}}}
+
+       Usage of ``\xintiiifZero`` and not ``\xintifZero`` is only for
+       optimization (I can't help it) because ``#1`` is known to be
+       in ``xintfrac`` raw format.
+
+.. _PolToFloatExpr*:
+
+``\PolToFloatExpr*{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Typesets in ascending powers.
+
+.. _PolToList:
+
+``\PolToList{polname}``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to ``{coeff_0}{coeff_1}...{coeff_N}`` with ``N`` = degree, and
+    ``coeff_N`` the leading coefficient
+    (the zero polynomial does give ``{0/1[0]}`` and not an
+    empty output.)
+
+.. _PolToCSV:
+
+``\PolToCSV{polname}``
+~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to ``coeff_0, coeff_1, coeff_2, ....., coeff_N``, starting
+    with constant term and ending with leading coefficient. Converse
+    to `\\PolFromCSV <\\PolFromCSV{polname}{\<csv\>}_>`_.
+
+.. _PolSturmChainLength:
+
+``\PolSturmChainLength{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Returns the integer ``N`` such that ``sturmname_N`` is the last one
+    in the Sturm chain ``sturmname_0``, ``sturmname_1``, ...
+
+    See `\\PolToSturm{polname}{sturmname}`_.
+
+.. _PolSturmIfZeroExactlyKnown:
+
+``\PolSturmIfZeroExactlyKnown{sturmname}{index}{A}{B}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Executes ``A`` if the ``index``\ -th interval reduces to a singleton,
+    i.e. the root is known exactly, else ``B``.
+
+    .. note::
+
+       ``index`` is allowed to be something like ``1+2*3`` as it is fed
+       to ``\the\numexpr...\relax``.
+
+.. _PolSturmIsolatedZeroLeft:
+
+``\PolSturmIsolatedZeroLeft{sturmname}{index}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the left end-point for the ``index``\ -th interval, as
+    computed by some earlier `\\PolSturmIsolateZeros{sturmname}`_.
+
+    .. note::
+
+       Of course, this is kept updated by macros such as
+       `\\PolRefineInterval{sturmname}{index} <PolRefineInterval[N]_>`_.
+
+    The value is pre-formatted using `\\PolDecTostring
+    <PolDecToString_>`_.
+
+.. _PolSturmIsolatedZeroRight:
+
+``\PolSturmIsolatedZeroRight{sturmname}{index}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the right end-point for the ``index``\ -th interval as
+    computed by some earlier `\\PolSturmIsolateZeros{sturmname}`_ and
+    possibly refined afterwards.
+
+    The value is pre-formatted using `\\PolDecTostring
+    <PolDecToString_>`_.
+
+.. _PolSturmIsolatedZeroMultiplicity:
+
+``\PolSturmIsolatedZeroMultiplicity{sturmname}{index}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the multiplicity of the unique root contained in the
+    ``index``\ -th interval.
+
+    .. attention::
+
+       A prior execution of `\\PolSturmIsolateZeros*{sturmname}`_ is mandatory.
+
+    See `The degree nine polynomial with 0.99, 0.999, 0.9999 as triple
+    roots`_ for an example of use.
+
+.. _PolSturmNbOfIsolatedZeros:
+
+``\PolSturmNbOfIsolatedZeros{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the number of real roots of the polynomial
+    ``<sturmname>_0``, i.e. the number of distinct real roots of the
+    polynomial originally used to create the Sturm chain via
+    `\\PolToSturm{polname}{sturmname}`_.
+
+.. warning::
+
+   The next few macros counting roots, with or without multiplicities,
+   less than or equal to some value, are under evaluation and may be
+   removed from the package if their utility is judged to be not high
+   enough. They can be re-coded at user level on the basis of the other
+   documented package macros anyway.
+
+``\PolSturmNbOfRootsOf{sturmname}\LessThanOrEqualTo{value}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to the number of distinct roots (of the polynomial used to
+    create the Sturm chain) less than or equal to the ``value`` (i.e. a
+    number of fraction recognizable by the xintfrac_ macros).
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros{sturmname}`_ must have been executed
+       beforehand.
+
+       And the argument is a ``sturmname``, not a ``polname`` (this is
+       why the macro contains Sturm in its name), simply to be reminded
+       of the above constraint.
+
+``\PolSturmNbOfRootsOf{sturmname}\LessThanOrEqualToExpr{expression}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to the number of distinct roots (of the polynomial 
+    used to create the Sturm chain) which are less than or equal to the
+    given ``expression``.
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros{sturmname}`_ must have been executed
+       beforehand.
+
+``\PolSturmNbWithMultOfRootsOf{sturmname}\LessThanOrEqualTo{value}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to the number counted with multiplicities of the roots (of
+    the polynomial used to create the Sturm chain) which are less than
+    or equal to the given ``value``.
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros*{sturmname}`_ (or the double starred
+       variant) must have been executed beforehand.
+
+``\PolSturmNbWithMultOfRootsOf{sturmname}\LessThanOrEqualToExpr{expression}``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to the total number of roots (counted with multiplicities)
+    which are less than or equal to the given ``expression``.
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros*{sturmname}`_ (or the double starred
+       variant) must have been executed beforehand.
+
+``\PolSturmNbOfRationalRoots{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the number of rational roots (without multiplicities).
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros**{sturmname}`_ must have been executed
+       beforehand.
+
+``\PolSturmNbOfRationalRootsWithMultiplicities{sturmname}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the number of rational roots (counted with multiplicities).
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros**{sturmname}`_ must have been executed
+       beforehand.
+
+``\PolSturmRationalRoot{sturmname}{k}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the ``k``\ th rational root (they are ordered and indexed
+    starting at 1 for the most negative).
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros**{sturmname}`_ must have been executed
+       beforehand.
+
+``\PolSturmRationalRootIndex{sturmname}{k}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to ``index`` of the ``k``\ th rational root as part of the
+    ordered real roots (without multiplicities). I.e., above macro
+    `\\PolSturmRationalRoot{sturmname}{k}`_ is equivalent to this
+    nested call::
+
+      \PolSturmIsolatedZeroLeft{sturmname}{\PolSturmRationalRootIndex{sturmname}{k}}
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros**{sturmname}`_ must have been executed
+       beforehand.
+
+``\PolSturmRationalRootMultiplicity{sturmname}{k}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Expands to the multiplicity of the ``k``\ th rational root.
+
+    .. attention::
+
+       `\\PolSturmIsolateZeros**{sturmname}`_ must have been executed
+       beforehand.
+
+.. _PolIntervalWidth:
+
+``\PolIntervalWidth{sturmname}{index}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    The ``10^E`` width of the current ``index``\ -th root localization
+    interval. Output is in xintfrac_ raw ``1/1[E]`` format (if not zero).
+
+Expandable macros for use within execution of ``\PolPrintIntervals``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+These macros are for usage within custom user redefinitions of
+`\\PolPrintIntervalsKnownRoot`_, `\\PolPrintIntervalsUnknownRoot`_, or
+in redefinitions of `\PolPrintIntervalsPrintExactZero`_ (used in the
+default for the former) and of `\\PolPrintIntervalsPrintLeftEndPoint`_,
+`\\PolPrintIntervalsPrintRightEndPoint`_ (used in the default for the
+latter).
+
+.. attention::
+
+   Some macros formerly mentioned here got removed at 0.7:
+   ``\PolPrintIntervalsTheEndPoint``,
+   ``\PolIfEndPointIsPositive{A}{B}``,
+   ``\PolIfEndPointIsNegative{A}{B}``,
+   ``\PolIfEndPointIsZero{A}{B}``.
+
+``\PolPrintIntervalsTheVar``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to the name (default ``Z``) used for representing the roots,
+    which was passed as optional argument ``varname`` to
+    `\\PolPrintIntervals[varname]{sturmname}`_.
+
+``\PolPrintIntervalsTheIndex``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to the index of the considered interval (indexing starting
+    at 1 for the leftmost interval).
+
+``\PolPrintIntervalsTheSturmName``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Expands to the argument which was passed as ``sturmname`` to
+    `\\PolPrintIntervals[varname]{sturmname}`_.
+
+``\PolPrintIntervalsTheLeftEndPoint``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The left end point of the interval, as would be produced by
+    `\\PolSturmIsolatedZeroLeft <PolSturmIsolatedZeroLeft_>`_ if it was
+    used with arguments the Sturm chain name and interval index returned
+    by `\\PolPrintIntervalsTheSturmName`_ and
+    `\\PolPrintIntervalsTheIndex`_.
+
+``\PolPrintIntervalsTheRightEndPoint``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The right end point of the interval, as would be produced by
+    `\\\PolSturmIsolatedZeroRight <PolSturmIsolatedZeroRight_>`_ for
+    this Sturm chain name and index.
+
+``\PolPrintIntervalsTheMultiplicity``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The multiplicity of the unique root within the interval of index
+    `\\PolPrintIntervalsTheIndex`_. Makes sense only if the starred (or
+    double-starred) variant of `\\PolSturmIsolateZeros
+    <PolSturmIsolateZeros_>`_ was used earlier.
+
+.. _PolDecToString:
+
+``\PolDecToString{decimal number}``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    This is a utility macro to print decimal numbers. It has been
+    backported to xintfrac_ (release ``1.3`` of ``2018/03/01``) under
+    the name ``\xintDecToString``, and the ``polexpr`` macro is simply
+    now an alias to it.
+
+    For example
+    ``\PolDecToString{123.456e-8}`` will expand to ``0.00000123456``
+    and ``\PolDecToString{123.450e-8}`` to ``0.00000123450`` which
+    illustrates that trailing zeros are not trimmed. To trim trailing
+    zeroes, one can use ``\PolDecToString{\xintREZ{#1}}``.
+
+    The precise behaviour of this macro may evolve in future releases of
+    xint_.
+
+Booleans (with default setting as indicated)
+--------------------------------------------
+
+``\xintverbosefalse``
+~~~~~~~~~~~~~~~~~~~~~
+
+    This is actually an xintexpr_ configuration. Setting it to
+    ``true`` triggers the writing of information to the log when new
+    polynomials are defined.
+
+    .. caution::
+
+       The macro meanings as written to the log are to be considered
+       unstable and undocumented internal structures.
+
+``\poltypesetallfalse``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+    If ``true``, `\\PolTypeset{polname}`_ will also typeset the vanishing
+    coefficients.
+
+
+``\poltoexprallfalse``
+~~~~~~~~~~~~~~~~~~~~~~
+
+    If ``true``, `\\PolToExpr{polname}`_ and `\\PolToFloatExpr{polname}`_ will
+    also include the vanishing coefficients in their outputs.
+
+``\polexprsetup``
+-----------------
+
+    Serves to customize the package. Currently only two keys are
+    recognized:
+
+    - ``norr``: the postfix that `\\PolSturmIsolateZeros**{sturmname}`_
+      should append to ``sturmname`` to declare the primitive polynomial
+      obtained from original one after removal of all rational roots.
+      The default value is ``_norr`` (standing for ???no rational roots???).
+
+    - ``sqfnorr``: the postfix that `\\PolSturmIsolateZeros**{sturmname}`_
+      should append to ``sturmname`` to declare the primitive polynomial
+      obtained from original one after removal of all rational roots and
+      suppression of all multiplicities.
+      The default value is ``_sqf_norr`` (standing for ???square-free with
+      no rational roots???).
+
+    The package executes ``\polexprsetup{norr=_norr,
+    sqfnorr=_sqf_norr}`` as default.
+
+Technicalities
+--------------
+
+- The catcode of the semi-colon is reset temporarily by `\\poldef
+  <poldef;_>`_ macro in case some other package (for example the French
+  babel module) may have made it active. This will fail though if the
+  whole thing was already part of a macro argument, in such cases one
+  can use `\\PolDef{f}{P(x)} <PolDef_>`_
+  rather. The colon in ``:=`` may be active with no consequences.
+
+- As a consequence of xintfrac_ addition and subtraction always using
+  least common multiples for the denominators [#]_, user-chosen common
+  denominators survive additions and multiplications. For example, this::
+
+    \poldef P(x):= 1/2 + 2/2*x + 3/2*x^3 + 4/2*x^4;
+    \poldef Q(x):= 1/3 + (2/3)x + (3/3)x^3 + (4/3)x^4;
+    \poldef PQ(x):= P(x)Q(x);
+
+  gives internally the polynomial::
+
+    1/6+4/6*x^1+4/6*x^2+6/6*x^3+20/6*x^4+16/6*x^5+9/6*x^6+24/6*x^7+16/6*x^8
+
+  where all coefficients have the same denominator 6. Notice though that
+  ``\PolToExpr{PQ}`` outputs the ``6/6*x^3`` as ``x^3`` because (by
+  default) it recognizes and filters out coefficients equal to one or
+  minus one (since release ``0.3``). One can use for example
+  ``\PolToCSV{PQ}`` to see the internally stored coefficients.
+
+  .. [#] prior to ``0.4.1``, ``polexpr`` used to temporarily patch
+         during the parsing of polynomials the xintfrac_ macros. This
+         patch was backported to xint_ at release ``1.3``.
+
+- `\\PolDiff{polname_1}{polname_2}`_ always applies ``\xintIrr`` to the
+  resulting coefficients, except that the *power of ten* part ``[N]``
+  (for example an input in scientific notation such as ``1.23e5`` gives
+  ``123/1[3]`` internally in xintfrac) is not taken into account in the
+  reduction of the fraction. This is tentative and may change.
+
+  Same remark for `\\PolAntiDiff{polname_1}{polname_2}`_.
+
+- Currently, the package stores all coefficients from index ``0`` to
+  index equal to the polynomial degree inside a single macro, as a list.
+  This data structure is obviously very inefficient for polynomials of
+  high degree and few coefficients (as an example with ``\poldef
+  f(x):=x^1000 + x^500;`` the subsequent definition ``\poldef g(x):=
+  f(x)^2;`` will do of the order of 1,000,000 multiplications and
+  additions involvings only zeroes... which does take time). This
+  may change in the future.
+
+- As is to be expected internal structures of the package are barely
+  documented and unstable. Don't use them.
+
+
+CHANGE LOG
+----------
+
+- v0.1 (2018/01/11): initial release. Features:
+
+  * The `\\poldef <poldef;_>`_ parser itself,
+  * Differentiation and anti-differentiation,
+  * Euclidean division and GCDs,
+  * Various utilities such as `\\PolFromCSV <PolFromCSV_>`_,
+    `\\PolMapCoeffs <PolMapCoeffs_>`_,
+    `\\PolToCSV <PolToCSV_>`_, `\\PolToExpr <PolToExpr_>`_, ...
+
+  Only one-variable polynomials so far.
+
+- v0.2 (2018/01/14)
+
+  * Fix: ``"README thinks \numexpr recognizes ^ operator"``.
+  * Convert README to reStructuredText markup.
+  * Move main documentation from README to separate ``polexpr.txt`` file.
+  * Provide ``polexpr.html`` as obtained via DocUtils_ ``rst2html.py``.
+  * Convert README to (CTAN compatible) Markdown markup.
+
+  Due to lack of available time the test suite might not be extensive
+  enough. Bug reports are very welcome!
+
+- v0.3 (2018/01/17)
+
+  * bug fixes:
+
+    - the ``0.1`` `\\PolEval <PolEvalAt_>`_ accepted expressions for its second
+      argument, but this was removed by mistake at ``0.2``. Restored.
+
+      **Attention**: at ``0.4`` this has been reverted again, and
+      `\\PolEval{P}\\AtExpr{foo} <PolEvalAtExpr_>`_ syntax is needed for
+      using expressions in the second argument.
+  * incompatible or breaking changes:
+
+    - `\\PolToExpr <PolToExpr_>`_ now by default uses *descending*
+      powers (it also treats differently coefficients equal to 1 or -1.)
+      Use `\\PolToExpr* <PolToExpr*_>`_ for *ascending* powers.
+    - `\\PolEval <PolEvalAt_>`_ reduced the output to smallest terms,
+      but as this is costly with big fractions and not needed if e.g.
+      wrapped in an ``\xintRound`` or ``\xintFloat``, this step has been
+      removed; the former meaning is available as `\\PolEvalReduced
+      <PolEvalReducedAt_>`_.
+  * new (or newly documented) macros:
+
+    - `\\PolTypesetCmd <PolTypesetCmd_>`_
+    - `\\PolTypesetCmdPrefix <PolTypesetCmdPrefix_>`_
+    - `\\PolTypesetMonomialCmd <PolTypesetMonomialCmd_>`_
+    - `\\PolEvalReducedAt <PolEvalReducedAt_>`_
+    - `\\PolToFloatExpr <PolToFloatExpr_>`_
+    - `\\PolToExprOneTerm <PolToExprOneTerm_>`_
+    - `\\PolToFloatExprOneTerm <PolToFloatExprOneTerm_>`_
+    - `\\PolToExprCmd <PolToExprCmd_>`_
+    - `\\PolToFloatExprCmd <PolToFloatExprCmd_>`_
+    - `\\PolToExprTermPrefix <PolToExprTermPrefix_>`_
+    - `\\PolToExprVar <PolToExprVar_>`_
+    - `\\PolToExprTimes <PolToExprTimes_>`_
+  * improvements:
+
+    - documentation has a table of contents, internal hyperlinks,
+      standardized signature notations and added explanations.
+    - one can do ``\PolLet{g}={f}`` or ``\PolLet{g}{f}``.
+    - ``\PolToExpr{f}`` is highly customizable.
+    - `\\poldef <poldef;_>`_ and other defining macros prepare the polynomial
+      functions for usage within ``\xintthefloatexpr`` (or
+      ``\xintdeffloatvar``). Coefficients are pre-rounded to the
+      floating point precision. Indispensible for numerical algorithms,
+      as exact fractions, even reduced, quickly become very big. See the
+      documentation about how to use the exact polynomials also in
+      floating point context.
+
+      **Attention**: this has been reverted at ``0.4``. The macro
+      `\\PolGenFloatVariant <PolGenFloatVariant_>`_ must be used for
+      generation floating point polynomial functions.
+
+- v0.3.1 (2018/01/18)
+
+  Fixes two typos in example code included in the documentation.
+
+- v0.4 (2018/02/16)
+
+  * bug fixes:
+
+    - when Euclidean division gave a zero remainder, the internal
+      representation of this zero polynomial could be faulty; this
+      could cause mysterious bugs in conjunction with other package
+      macros such as `\\PolMapCoeffs <PolMapCoeffs_>`_.
+    - `\\PolGCD <PolGCD_>`_ was buggy in case of first polynomial being
+      of lesser degree than the second one.
+  * breaking changes:
+
+    - formerly `\\PolEval{P}\\At{foo} <PolEvalAt_>`_ allowed ``foo`` to
+      be an expression, which was transparently handled via
+      ``\xinttheexpr``. Now, ``foo`` must be a fraction (or a macro
+      expanding to such) in the format acceptable by ``xintfrac.sty``
+      macros. Use `\\PolEval{P}\\AtExpr{foo} <PolEvalAtExpr_>`_ for more
+      general arguments using expression syntax. E.g., if ``foo`` is the
+      name of a variable known to ``\xintexpr``.
+
+      The same holds for `\\PolEvalReduced <PolEvalReducedAt_>`_
+      and `\\PolFloatEval <PolFloatEvalAt_>`_.
+    - the ``3.0`` automatic generation of floating point variants has
+      been reverted. Not only do *not* the package macros automatically
+      generate floating point variants of newly created polynomials,
+      they actually make pre-existing such variant undefined.
+
+      See `\\PolGenFloatVariant <PolGenFloatVariant_>`_.
+  * new non-expandable macros:
+
+    - `\\PolGenFloatVariant <PolGenFloatVariant_>`_
+    - `\\PolGlobalLet <PolGlobalLet_>`_
+    - `\\PolTypesetOne <PolTypesetOne_>`_
+    - `\\PolQuo <PolQuo_>`_
+    - `\\PolRem <PolRem_>`_
+    - `\\PolToSturm <PolToSturm_>`_
+    - `\\PolToSturm\* <PolToSturm*_>`_
+    - `\\PolSetToSturmChainSignChangesAt <PolSetToSturmChainSignChangesAt_>`_
+    - `\\PolSetToNbOfZerosWithin <PolSetToNbOfZerosWithin_>`_
+    - `\\PolSturmIsolateZeros <PolSturmIsolateZeros_>`_
+    - `\\PolRefineInterval* <PolRefineInterval*_>`_
+    - `\\PolRefineInterval[N] <PolRefineInterval[N]_>`_
+    - `\\PolEnsureIntervalLength <PolEnsureIntervalLength_>`_
+    - `\\PolEnsureIntervalLengths <PolEnsureIntervalLengths_>`_
+    - `\\PolPrintIntervals <PolPrintIntervals_>`_
+    - `\\PolPrintIntervalsPrintExactZero <PolPrintIntervalsPrintExactZero_>`_
+    - `\\PolPrintIntervalsPrintLeftEndPoint <PolPrintIntervalsPrintLeftEndPoint_>`_
+    - `\\PolPrintIntervalsPrintRightEndPoint <PolPrintIntervalsPrintRightEndPoint_>`_
+    - `\\PolReduceCoeffs* <PolReduceCoeffs*_>`_
+    - `\\PolMakeMonic <PolMakeMonic_>`_
+  * new expandable macros:
+
+    - `\\PolToExprOneTermStyleA <PolToExprOneTermStyleA_>`_
+    - `\\PolIfCoeffIsPlusOrMinusOne <PolIfCoeffIsPlusOrMinusOne_>`_
+    - `\\PolLeadingCoeff <PolLeadingCoeff_>`_
+    - `\\PolSturmChainLength <PolSturmChainLength_>`_
+    - `\\PolSturmNbOfIsolatedZeros <PolSturmNbOfIsolatedZeros_>`_
+    - `\\PolSturmIfZeroExactlyKnown <PolSturmIfZeroExactlyKnown_>`_
+    - `\\PolSturmIsolatedZeroLeft <PolSturmIsolatedZeroLeft_>`_
+    - `\\PolSturmIsolatedZeroRight <PolSturmIsolatedZeroRight_>`_
+    - ``\PolPrintIntervalsTheEndPoint`` (removed at 0.7)
+    - `\\PolPrintIntervalsTheIndex`_
+    - ``\PolIfEndPointIsPositive`` (removed at 0.7)
+    - ``\PolIfEndPointIsNegative`` (removed at 0.7)
+    - ``\PolIfEndPointIsZero`` (removed at 0.7)
+    - `\\PolIntervalWidth <PolIntervalWidth_>`_
+    - `\\PolDecToString <PolDecToString_>`_
+  * improvements:
+
+    The main new feature is implementation of the `Sturm algorithm`_
+    for localization of the real roots of polynomials.
+
+- v0.4.1 (2018/03/01)
+
+  Synced with xint 1.3.
+
+- v0.4.2 (2018/03/03)
+
+  Documentation fix.
+
+- v0.5 (2018/04/08)
+
+  * bug fixes:
+
+    - `\\PolGet{polname}\\fromarray\\macro`_ crashed when ``\macro`` was
+      an xinttools_ array macro with no items. It now produces the zero
+      polynomial.
+  * breaking changes:
+
+    - `\\PolToSturm`_ creates primitive integer coefficients polynomials.
+      This speeds up localization of roots via
+      `\\PolSturmIsolateZeros`_. In case of user protests the author
+      will make available again the code producing the bona fide Sturm
+      polynomials as used formerly.
+    - polynomials created from `\\PolFromCSV`_ or `\\PolGet <PolGet_>`_
+      get their coefficients normalized via xintfrac_\ 's ``\xintRaw``.
+  * experimental change:
+
+    - optional argument to `\\PolSturmIsolateZeros`_ (see `The
+      degree 41 polynomial with -2, -1.9, -1.8, ..., 0, 0.1, ..., 1.9, 2
+      as roots`_ for usage). It will presumably be replaced in future by
+      an interval specification.
+  * new non-expandable macro:
+
+    - `\\PolMakePrimitive`_
+  * new expandable macro:
+
+    - `\\PolIContent`_
+      
+- v0.5.1 (2018/04/22)
+
+  * new feature:
+
+    - the character ``'`` can be used in polynomial names.
+
+- v0.6 (2018/11/20)
+
+  * bugfix:
+
+    - the starred variant `\\PolToSturm*{polname}{sturmname}`_ was
+      broken. On the occasion of the fix, its meaning has been modified,
+      see its documentation.
+
+    - using `\\PolToSturm <PolToSturm_>`_ with a constant polynomial
+      caused a division by zero error.
+
+  * new macro:
+
+    - `\\PolSturmIsolateZeros* <PolSturmIsolateZeros*_>`_
+      acts like the `non-starred variant
+      <PolSturmIsolateZeros_>`_ then computes all the multiplicities.
+
+  * new expandable macros:
+
+    - `\\PolSturmIsolatedZeroMultiplicity{sturmname}{index}`_
+    - `\\PolSturmNbOfRootsOf{sturmname}\\LessThanOrEqualTo{value}`_
+    - `\\PolSturmNbOfRootsOf{sturmname}\\LessThanOrEqualToExpr{expression}`_
+    - `\\PolSturmNbWithMultOfRootsOf{sturmname}\\LessThanOrEqualTo{value}`_
+    - `\\PolSturmNbWithMultOfRootsOf{sturmname}\\LessThanOrEqualToExpr{expression}`_
+
+- v0.7 (2018/12/08), v0.7.1 (bugfix), v0.7.2 (2nd bugfix) (2018/12/09)
+
+  * breaking changes:
+
+    - although `\\PolPrintIntervals[varname]{sturmname}`_ default output
+      remains the same, some auxiliary macros for user-customization
+      have been removed: ``\PolPrintIntervalsTheEndPoint``,
+      ``\PolIfEndPointIsPositive{A}{B}``,
+      ``\PolIfEndPointIsNegative{A}{B}``, and
+      ``\PolIfEndPointIsZero{A}{B}``.
+
+  * bugfix:
+
+    - it could happen that, contrarily to documentation, an interval
+      computed by `\\PolSturmIsolateZeros{sturmname}`_ had zero as an
+      endpoint,
+    - `\\PolEnsureIntervalLength{sturmname}{index}{E}`_ could under
+      certain circumstances erroneously replace a non-zero root by
+      zero,
+    - `\\PolEnsureIntervalLengths{sturmname}{E}`_ crashed when used with
+      a polynomial with no real roots, hence for which no isolation intervals
+      existed (thanks to Thomas S??ll for report).
+
+  * new macros:
+
+    - `\\PolSturmIsolateZeros**{sturmname}`_
+    - `\\PolSturmIsolateZerosGetMultiplicitiesAndRationalRoots{sturmname}`_
+    - `\\PolSturmIsolateZerosAndFindRationalRoots{sturmname}`_
+    - `\\polexprsetup`_
+    - `\\PolPrintIntervals* <PolPrintIntervals*_>`_
+    - `\\PolPrintIntervalsNoRealRoots`_
+    - `\\PolPrintIntervalsBeginEnv`_
+    - `\\PolPrintIntervalsEndEnv`_
+    - `\\PolPrintIntervalsKnownRoot`_
+    - `\\PolPrintIntervalsUnknownRoot`_
+    - `\\PolPrintIntervalsPrintMultiplicity`_
+
+  * new expandable macros:
+
+    - `\\PolSturmNbOfRationalRoots{sturmname}`_
+    - `\\PolSturmNbOfRationalRootsWithMultiplicities{sturmname}`_
+    - `\\PolSturmRationalRoot{sturmname}{k}`_
+    - `\\PolSturmRationalRootIndex{sturmname}{k}`_
+    - `\\PolSturmRationalRootMultiplicity{sturmname}{k}`_
+    - `\\PolPrintIntervalsTheVar`_
+    - `\\PolPrintIntervalsTheSturmName`_
+    - `\\PolPrintIntervalsTheMultiplicity`_
+
+- v0.7.3 (2019/02/04)
+
+  * bugfix:
+
+    - Debugging information not destined to user showed in log if root
+      finding was done under ``\xintverbosetrue`` regime.
+    - `\\PolPrintIntervalsTheVar`_ remained defined after
+      `\\PolPrintIntervals`_ but was left undefined after
+      `\\PolPrintIntervals*`_ (reported by J??rgen Gilg). Now remains
+      defined in both cases, and `\\PolPrintIntervalsTheSturmName`_
+      also.
+    - Polynomial names ending in digits caused errors (reported by Thomas
+      S??ll).
+
+- v0.7.4 (2019/02/12)
+
+  * bugfix:
+
+    - 20000000000 is too big for ``\numexpr``, shouldn't I know that?
+      Thanks to J??rgen Gilg for report.
+
+- v0.7.5 (2020/01/31)
+
+  Synced with xint 1.4. Requires it.
+
+
+Acknowledgments
+---------------
+
+Thanks to J??rgen Gilg whose question about xint_ usage for
+differentiating polynomials was the initial trigger leading to this
+package, and to J??rgen Gilg and Thomas S??ll for testing it on some
+concrete problems.
+
+Renewed thanks to them on occasion of the ``0.6`` and ``0.7`` releases for their
+continued interest.
+
+See README.md for the License.
+
+.. _xinttools:
+.. _xintfrac:
+.. _xintexpr:
+.. _xint: http://www.ctan.org/pkg/xint
+
+.. _Wilkinson polynomial: https://en.wikipedia.org/wiki/Wilkinson%27s_polynomial
+
+.. _Sturm algorithm:
+.. _Sturm Theorem: https://en.wikipedia.org/wiki/Sturm%27s_theorem
+
+.. _DocUtils: http://docutils.sourceforge.net/docs/index.html

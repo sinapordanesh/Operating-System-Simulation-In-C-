@@ -1,0 +1,44 @@
+templates-fenn
+--------------
+
+This package contains a series of templates I had previously published
+on my personal website. I had already published the template for
+scrlttr2 earlier at http://www.komascript.de/ . I had written these
+templates for my personal use only, that's why they are all in
+German. It should, however, be easy to adapt them to other
+languages. Jan Beilicke has provided an English version of my scrlttr2
+letter template. If you need help for this, please send me an
+email. You can reach me at http://www.juergenfenn.de/ .
+
+Please don't hesitate to upload your own templates to CTAN. The more
+files we gather together here, the better for (La)TeX users seeking
+help and advice on how to use (La)TeX properly and efficiently.
+
+The package contains these commented templates:
+
+scrlttr2.tex: a letter to be written with scrlttr2.cls from the
+  KOMA-Script bundle by Markus Kohm.
+
+scrlttr2en.tex: English translation of scrlttr2.tex by Jan Beilicke.
+
+dinbrief.tex: a letter according to the German DIN standards to be
+  written with dinbrief.cls.
+
+kbrief.tex: a brief memo ("Kurzbrief") to accompany enclosures, as
+  used in German offices, based on dinbrief.
+
+vermerk.tex: a general form for taking down notes on events in the
+  office.
+
+diabetes.tex: a diary for the basis-bolus insulin therapy of diabetes
+  mellitus, based on scrartcl.
+
+templates-fenn-en.txt: This file you are about to read, giving an
+  overview of the package in English.
+
+templates-fenn-de.txt: The German version of this file.
+
+Keep teXing! 8-)
+
+Juergen Fenn
+25 August 2009

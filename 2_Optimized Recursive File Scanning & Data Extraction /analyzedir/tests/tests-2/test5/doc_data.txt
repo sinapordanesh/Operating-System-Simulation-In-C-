@@ -1,0 +1,68 @@
+InfoBegin
+InfoKey: ModDate
+InfoValue: D:20160315090920+01'00'
+InfoBegin
+InfoKey: PTEX.Fullbanner
+InfoValue: This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)
+InfoBegin
+InfoKey: CreationDate
+InfoValue: D:20160315090920+01'00'
+InfoBegin
+InfoKey: Creator
+InfoValue: TeX
+InfoBegin
+InfoKey: Producer
+InfoValue: LuaTeX-0.80.0
+PdfID0: 4471ffa526cd35052da9e470870a25d1
+PdfID1: 4471ffa526cd35052da9e470870a25d1
+NumberOfPages: 10
+PageMediaBegin
+PageMediaNumber: 1
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 2
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 3
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 4
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 5
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 6
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 7
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 8
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 9
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276
+PageMediaBegin
+PageMediaNumber: 10
+PageMediaRotation: 0
+PageMediaRect: 0 0 419.528 595.276
+PageMediaDimensions: 419.528 595.276

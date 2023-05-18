@@ -1,0 +1,10 @@
+INFO - Looking for bibtex format file 'data/endnote-mit-keys.bib' for section 0
+INFO - Decoding LaTeX character macros into UTF-8
+INFO - Found BibTeX data source 'data/endnote-mit-keys.bib'
+WARN - Entry GotoWatanabe2012 does not parse correctly   ==> #
+WARN - ISBN 'ASIN: B00APOWOXC' in entry 'Pepperberg2009' is invalid - run biber with '--validate_datamodel' for details.
+WARN - ISBN '08JUL03' in entry 'Greenhall1982' is invalid - run biber with '--validate_datamodel' for details.
+WARN - ISBN '9780199738182 0199738181' in entry 'VonkShackelford2012' is invalid - run biber with '--validate_datamodel' for details.
+WARN - ISBN '0945-6082 978-3-540-85896-6' in entry 'ClaytonEmery2009' is invalid - run biber with '--validate_datamodel' for details.
+ERROR - BibTeX subsystem: /tmp/HZH7o_g7at/endnote-mit-keys.bib_16751.utf8, line 274, syntax error: found "and", expected end of entry ("}" or ")") (skipping to next "@")
+INFO - WARNINGS: 5

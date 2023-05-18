@@ -1,0 +1,184 @@
+Zmeny v nabizenych souborech CSTeXu v dobe verejneho provozu
+
+Datum     Soubor        Poznamka
+--------------------------------------------------
+18.1.96   i-all.ba      Opraven preklep dvipsesxe na dvipsexe
+          i1.ba         Opraven odkaz na soubor @ctimne (misto !ctimne)
+22.1.96   mnu.zip       Pridana aktualnejsi dokumentace, soubor codelat.txt, 
+                        user.doc a cfg.doc. Mirna zmena v texset.bat.
+                        Uprava napovedy pri initex.bat (dotaz huge/big/std)
+                        Zarazena opravena verze kalk.exe (viz chyba 10^10).
+          cstugdoc.zip  zrusen soubor cstex.doc, nebod jeho novejsi
+	                verze je nyni v mnu.zip
+                        Pridan odkaz na diskusi o csTeXu a na soubor zmen.
+25.1.96   listzip.html  Opraven preklep wagner@ipf -> wagner@icpf
+ 5.2.96   parpozn.tex   Do CSTeXu zarazen clanek o CSTeXu
+ 8.2.96   mnu.zip       Opravena chyba v texbat.bat TEXDIR->EMTEXDIR 
+                        pro texspell a upravena dokumentace.
+ 8.2.96   @ctimne.txt   Upravena dokumentace.
+ 8.3.96   cslatex.zip   Opravena struktura ZIPu, uz je v souladu s MNU.
+ 8.3.96   mnu.zip       Opraveny preklepy v dokumentaci.
+14.3.96   cspsfont.zip  *.vf premisteny do fonts\vf\a2ac, oprava dokumenmtace.
+15.3.96   csplain.zip,tar  Oprava v souboru csfonts.tex, nyni lze pouzit
+                        i mimo iniTeX. Format csplain zcela beze zmeny.
+          newcs5.bat    Nyni generuje spell.zip, puvodne chybne texspell.zip.
+          pk            Obsah diskety pk2 se vejde na disketu pk1, snizen 
+                        pocet disket. Opraveno: makeinst.bat, make-d.bat
+                        i-all.bat, i-big.bat, listzip.html,txt, @ctimne.txt
+19.3.96   minitex       Zavedeny dalsi tri diskety s tzv. miniTeXem
+                        Upraveny soubory @ctimne.txt, *.ba, install.bat,
+			make-d.bat, makeinst.bat, listzip.html,txt.
+          pk3 a pk4     Zahrnuty rastry zakladnich PostScriptovych fontu.
+	  mnu.zip       Opraveno volani VF v em ovladacich; moznost
+	                generovani formatu za behu. Upraveno: prints.bat, 
+			scr???.cnf, cs.cnf, inibat.bat,mnu, metafont.bat,
+                        texbat.bat, texrun.bat.
+          cspsfont.zip  Oprava p*c8?.vf, tj. Small Caps varianty PS fontu.
+21.3.96   cspsfont.tar  Zaneseny opravy z cspsfont.zip.
+          cslatex.tar   Vlozen soubor latex209.cfg.
+26.3.96   @ctimne.txt makeinst.bat i-big.ba i-all.ba  Opravy v nesrovnalostech
+                        poctu disket v dokumentaci a i-davkach.
+17.4.96   mnu.zip       Oprava programu pickfile (chybne chovani po End)
+          listzip.html  Odkazy "/ftp/cstex" nahrazeny "ftp://math...".
+30.4.96   cl2*.zip      Zaneseny ZIPy obsahujici balicky graph, tools
+                        a psnfs pro LaTeX v podobe uz pripravene programem 
+                        docstrip. Zarazeno na disketu: cs3. Zmeny:
+                        i-all,i-big.ba, makeinst.bat, listzip.html,txt.
+17.5.96   minitex       Soubory pro minitex maji samostatny adresar.
+23.5.96   dvid16f       Zarazena nova verze ovladacu. Odstranena chyba
+                        v nespravne interpretaci virtualnich fontu.
+23.5.96   mnu.zip       Odstraneny preklepy a vymenen program fix.exe
+                        (autor: Pavel Lisy).
+23.5.96   qedit.zip     Makro pro editor pri chybe umisteno do /bin.
+23.5.96   minitex2,3    Viz zmeny v mnu.zip a qedit.zip.
+18.6.96   mfjob12b->c
+          em1--em8      Rozhozeni ZIPu podle noveho doporuceni E. Mattesse.
+                        Vznika jedna disketa navic. Zmeny se tykaji souboru:
+                        @ctimne.txt, makeinst.bat, emtexdoc.zip, 
+                        i-small,i-all,i-big.ba, listzip.html,txt.
+25.9.96  fontcs.zip,tar Oprava metrik CS-fontu + nova dokumentace cs-font.doc
+25.9.96  csplain.zip,tar Drobna uprava csplain.ini a il2code.tex.
+26.9.96  minitex1,3.zip Zaneseny zmeny z 25.9.96.
+27.9.96  cspsfont.zip,tar Opravy podle Z. Wagnera (Caps and small caps).
+8.11.96  texwin.zip     Aktualizovana verze podpory pro MS Win (J. Krob).
+19.11.96 csplain.zip,tar Oprava chybneho \csprimeson v czech.sty a slovak.sty
+25.11.96 zmeny.txt      Soubor zarazen do adresare msdos, aby byl automaticky
+                        pritomen v instalaci (uprava install.bat, make-d.bat).
+25.11.96 i-add.bat, i-remove.bat -- pridany davky podle J. Demela.
+25.11.96 mnu.zip        Nova koncepce nabidek podle J. Demela. Mazani
+                        vsech PK v rolete METAFONT.
+25.11.96 texwin.zip, bibtex.zip  upravy ZIPu: vyhozeni inibat.mnu, bibtex.exe
+27.11.96 minitex2,minitex3.zip  Zaneseny zmeny v mnu.zip z 25.11.96.
+13.12.96 cs-*pk.tar.gz  Vychozi knihovny pk CS-fontu balene pro UNIX
+13.12.96 unix/tetex     README.tetex a *-tt.tar.gz. Navod na pocesteni teTeXu.
+13.1.97  minitex3.zip   Prebalen dosud chybny soubor csacutl.mf
+21.1.97  tetex/cspsfont-tt.tar Odstranena stara verze psnfss.
+21.1.97  tetex/RPMS/i386 Pridano pocesteni tetexu ve formatu rpm
+19.2.97  os2/os2.zip    Pridan "modul" pro EPM editor OS/2 pana Mikulika
+3.3.97   tetex/cslatex-12-96.tar Pridano nove pocesteni noveho LaTeXu.
+3.3.97   mnu.zip, minitex3.zip  Soubor tiskarny.bat opraveno set DOT=fx100,
+                        cs.cnf pridano +height a +width podle A4.
+13.3.97  /unix          Zmena koncepce adresare unix/, pridano README.web2c
+                        a web2c verze 7. Zruseno web2c verze 6.1. Tary
+			spolecne pro web2c i teTeX (spolecna struktura TDS).
+13.3.97  /unix/RPMS     Nove baliky rpm pro tetex-0.4.
+18.3.97  texwin.zip     Nova verze s odkazem na (txw)dll.zip (knihovny).
+20.3.97	 cslatex-12-96.tar   Oprava souboru il2enc.def a lslovak.sty.
+20.3.97  cslatex-1.1-2.*.rpm Zaneseni zmen z cslatex-12-96 do RPM.
+24.3.97  msdos,os2      Nove ZIPy emTeXu a novy cslatex 2e od p. Snajdra.
+25.3.97  minitex*.zip   Prebaleno podle novych ZIPu.
+25.3.97  mnu.zip        program fix.exe podle pana Ginzela.
+26.3.97	 cslatex.tar/zip Pridany styly a4.sty, a4wide.sty a fancyhdr.sty
+3.4.97   cslatex.tar/rpm/zip Akualizovana verze cslatexu z 1.4.97
+4.4.97   mnu.zip        texset.bat: set PRNFILE az po volani fix.exe.
+4.4.97   minitex1,3.zip Aktualizace.
+4.4.97   makeinst.bat, i-disk.ba, install.bat   Drobne upravy.
+25.4.97  cslatex,csplain.zip,tar  Nove styly czech,slovak.sty, ver.2.0.
+28.4.97	 minitex1.zip, csplain,cslatex*.rpm  Nove styly czech,slovak, ver.2.0
+23.5.97  csfonts.tar,csplain.rpm,fontcs.zip  Pridany VF cs2cm a cm2cs
+23.5.97  dvipsexe.zip  Uprava config.ps, aby cetl cm2cs automaticky
+23.5.97  install.bat,i3.ba  Novy zaver instalacni davky  
+23.5.97  mnu.zip  Nova koncepce tiskarny.bat (lze editovat VCOM, PCOM),
+                  vyhozeno dvi-out, nahrazeno dvicopy s vf-cnv/cs2cm.
+23.5.97  minitex*.zip  Zaneseny upravy uvedene vyse.
+1.7.97   csfonts.tar,fontcs.zip,minitex3.zip,*cbas.zip,CS-*pk.tar.gz
+             Uprava CS-fontu (carka nad o, kerning \uv{nebud} \uv{labut}.
+24.9.97  lamstex.zip  Pribalena zaplata pro lams*.mf. 
+6.10.97  cstocs2.zip  Prevzata verze cstocs od pana Tkadlece
+6.10.97  mnu.zip      czech.dsi od pana Ginzela, prekompilovan rempks.exe
+6.10.97  minitex2.zip, minitex3.zip  Zaneseny zmeny z 6.10.97.
+19.11.97 txwdll.zip   Nove zabalene knihovny pro MS Win.
+20.10.97 @ctimne.txt  Pridana informace o nedestruktivnosti install.bat.
+22.1.98  cstocs2.zip  Opravena chyba r' R' u' U'.
+22.1.98  mnu.zip      inibat.mnu Uprava textu 1250_il2 -> 1250
+22.1.98  minitex2,3.zip  Zaneseny vyse uvedene opravy. 
+27.1.98  texwin.zip, txwdll.zip  Aktualizace podle pana Kroba.
+13.2.98  cslatex-12-97.tar Aktualni verze LaTeXu 97/12 a aktualni pocesteni
+13.2.98  cslatex.zip  Aktualni pocesteni LaTeXu od pana Snajdra
+13.2.98  csplain.tar,zip  Aktualni czech.sty, slovak.sty od p. Snajdra
+13.2.98  l2base.zip l2input.zip l2tools.zip  Aktualni LaTeX 97/12 z emTeXu
+13.2.98  emxrsx.zip first.zip german.zip emtexdoc.zip  Aktualni emTeX
+13.2.98  makeinst.bat i-all.ba i-big.ba i-small.ba  Podle aktualniho emtexu
+16.2.98  cslatex-12-97.tar Pridan chybejici soubor texsys.cfg (chyba z 13.2.)
+17.2.98  csfonts.tar  Opraven puvodne vadny cmr17.vf
+17.2.98  README.web2c, README  Aktualizovana dokumentace
+17.2.98  enctex.tar  Zarazen do distribuce CSTeXu
+24.2.98  enctex.tar  il2-t1, 1250-t1, opraven chybny kod pismene \'s
+9.3.98   cstetex-bin-1.3.tar.gz  Binarky pro tetex s ceskym I/O a glibc.
+16.3.98  csplain.tar  csplain.ini -- pridana detekce encTeXu
+19.3.98  csplain.tar,zip  czech/slovak.sty -- pridana navaznost na Babel.
+26.3.98  cspsfont(s).tar,zip  IL2*.fd -> il2*fd + oprava podle p. Wagnera
+26.3.98  csplain.tar,zip  czech/slovak.sty -- ProvidesPackage bez pripony
+27.3.98  enctex.tar  pridan soubor enctex.patch-to-7.2
+1.4.98   README.web2c-7.2  novy popis instalace z web2c 7.2
+1.4.98   texk-7.2,texmflib-7.3,etexlib-2.0,omegalib-1.5,
+         pdftexlib-0.12f,cspdftexlib.tar.gz  Nove balicky pro web2c 7.2
+3.4.98   bin-web2c7.2-linuxi-libc5.tar.gz, README.bin-web2c7.2 pridano
+7.5.98   README.web2c-7.2 , pridana sekce o omlazeni pdftexu
+7.5.98   cspdftexlib.tar.gz  aktualizovany soubory pdftex.cnf a rawfnts.map
+7.5.98   bin-web2c7.2-linuxi-libc5.tar.gz  pridan novy pdftex 0.12l
+25.6.98  cspdftexlib.tar  vyhodil jsem DC fonty a pridal jsem type1 CS fonty
+10.8.98  RPMS/i386/*.rpm  zamena RPM baliku *-2 za *-4.
+10.8.98  README.web2c-7.2  drobna (nepodstatna) uprava textu
+11.8.98  enctex.tar  soubor encmacro.tex: oprava makra \redefaccent
+9.11.98  README.web2c-7.2  aktualizace kapitoly "Omlazeni pdftexu"
+10.11.98 README.web2c-7.2  oprava textu kapitoly "Omlazeni pdftexu"
+19.11.98 enctex.tar  pridani tabulky 1250-latex
+26.11.98 csfonts.tar.gz, fontcs.zip  oprava vf/cm2cs/cm*17.vf
+27.11.98 RPMS/i386/*.rmp zamena RPM baliku *-5 za *-7.
+2.12.98  csplain.tar,zip  pridani moznosti vyuzit enctex
+4.12.98  cslatex-06-98.tar, cslatex,l2base,l2input.zip  Aktualizace csLaTeXu
+22.12.98 nova www stranka CSTeXu a licencni soubor license.eng/cz
+22.12.98 nova adresarova struktura FTP CSTeXu (web2c, emtex, tetex-rpm)
+22.12.98 csfonts.tar/fontcs.zip, csplain.tar/zip, cspsfonts.tar/zip
+         enctex.tar, csindex-*.tar.gz  dokumentace v souladu s licenci.
+5.1.99   license.eng/cz  oprava adresy na horakk@math.cas.cz
+10.2.99  csfonts.tar  vymazan zavleceny cscspu.mf z Computer Modern
+19.3.99  cspsfonts.tar, cspsfont.zip  do cavatga.tex a dalsich pridano
+         makro \setsimplemath
+24.3.99  cspsfonts.tar, cspsfont.zip  zmena nazvu fontu *8t -> *8u
+15.4.99  cslatex.tar  premisteni adresare cslatex z tex/latex/ do tex/
+15.4.99  cslatex.tar,zip csplain.tar,zip  opraveni chyby v czech/slovak.sty
+15.4.99  aktualizace README.web2c-7.2
+19.5.99  minitex3.zip  oprava volani dviscrs v tiskarny.bat
+24.5.99  cstrip.tar.gz  zverejnen test csplainu
+28.5.99  cspsfonts.tar,zip  logo \TeX pro ruzne rodiny podle I. Jancika
+14.6.99  cslatex.tar  zmena defaultniho hyphen.cfg, nyni i T1 kodovani
+14.6.99  README.tetex-1.0  novy popis pocesteni teTeXu 1.0
+14.6.99  csfonts-t1.tar  novy archiv obsahujici pouze Type1 CSfonty
+14.6.99  enctex, cspdftexlib, *lib, texk-7.?  presunuto do adresare old/
+25.2.00  csplain.tar: pridana podpora kodovani podle Corku
+19.7.02  opravy v czech/slovak.sty (ver. 2.4) podle pripominek pana Kubena
+28.8.02  cslatex.tar: opravena nekonzistence mezi docstipovymi vzory a obrazy
+25.9.02  zalozen adresar base/ (podle pripravovane dokumentace cstexman)
+30.10.02 zverejnen Manual k CSTeXu: doc/cstexman.tex,ps,pdf
+30.10.02 parpozn.tex,ps,pdf presunut z korene do adreare doc/
+30.10.02 vytvoren link cstexman.pdf v koreni ftp adresare CSTeXu
+1.9.03   pridana podpora pro Macioindni kodovani macce.tar.gz
+3.9.03   oprava v macce.def (@tabbacklude, ensuremath)
+10.9.05  csplain.tar.gz, cslatex.tex.gz: pridana podpora UTF8 pomoci encTeXu
+*.10.12  csplain.tar: rozsahle zmeny, viz http://petr.olsak.net/cstex.html
+*.10.12  cslatex.tar: CSLaTeX prohlasen za zastaraly a nepodporovany
+*.10.12  cspsfonts.tar: pregenerovany metriky, pridan Charter
+*.11.12  csplain.tar: podpora 16bit, UTF-8, multi-patterns
+*.11.12  beta testing OPmac

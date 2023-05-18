@@ -1,0 +1,151 @@
+Development Planner and Task History
+====================================
+
+Basic rules
+-----------
+
++ Every new version will be uploaded to CTAN network
++ For each single task there will be a correspomding commit
+
+Hypothetical development task list:
+-----------------------------------
+
+20__-__-__: [dev] TiKz driver
+20__-__-__: [dev] debug driver, ga stream pretty printing
+20__-__-__: [dev] make thing happen: font property for text
+20__-__-__: [dev] develop LaTeX user package
+20__-__-__: [dev] coherent error management
+20__-__-__: [dev] proportional options
+20__-__-__: [dev] a number parameter can be a string? unit measure...
+20__-__-__: [prj] a command line program to print barcodes
+20__-__-__: [dev] guard text in EAN simbology
+20__-__-__: [dev] UPC support
+20__-__-__: [dev] make optional file name in all the Driver methods
+20__-__-__: [prj] test l3build for testing and CTAN files packaging
+20__-__-__: [dev] load barcode parameters from an external file
+20__-__-__: [dev] new Parameter Class
+
+Scheduled task list for Data Matrix 2D simbology implementation:
+----------------------------------------------------------------
+
+2020-__-__: [dmx] data matrix first run
+2020-__-__: [dmx] ecc200 error correction code
+2020-__-__: [svg] opcode for grids
+2020-__-__: [pdf] opcode for grids
+2020-__-__: [gas] ga-asm grid opcode
+2020-__-__: [geo] grid vector object
+2020-__-__: [dev] init source file encoder for Data Matrix
+2020-__-__: [dev] parameter preset
+
+Dev Planner:
+============
+-------------------------------------------------------------------------------
+2020-__-__: [milestone] version <v0.0.11> completed task/commit list
+2020-__-__: [doc] barcode symbologies reference
+2020-__-__: [doc] put ga-asm-spec together with the manual
+2020-__-__: [dev][barcode] new `alias` feature
+2020-__-__: [dev][barcode] new `preset` feature
+2020-__-__: [dev][i2of5] human readeable text for i2of5
+2020-__-__: [dev][libgeo] new `Vbar_group` class
+2020-__-__: [test] update test files with recent changes
+2020-__-__: [dev][libgeo][breaking change] return `ok, err` instead of `err`
+            for canvas methods
+2020-__-__: [dev] new constructor `Barcode:new()`
+2020-__-__: [project][build] make a Lua script to easily create the CTAN upload
+          : compressed files
+2020-__-__: [dev][ean] fix the `ean:checksum()` to include ISBN and ISSN variant
+2020-__-__: [dev][i2of5] `encoder:_init_parse_state()` adoption for ITF14
+          : variant
+2020-__-__: [dev][ean] new function `encoder:_init_parse_state()`, and EAN
+          : family adoption
+2020-__-__: update version number in preparetion of the next version.
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+2020-02-04: [milestone] version <v0.0.10> completed task/commit list
+-------------------------------------------------------------------------------
+2020-02-04:*[dev][ean] ISSN support
+2020-02-03: [dev][ean] move out of `_config()` `finalize()` method as in i2of5
+2020-02-02: [dev][i2of5] new ITF14 variant, plan for the next version
+2020-02-01: [dev] new semantic for barcode parameter: alternative family
+          : parameters definition for a variant, via `_par_def_<variant>` field
+2020-02-01: [dev] rewrite code for the filter option in
+          : `Barcode:param_ord_iter()` and execute a test on it
+2020-01-31: [dev] add filter option on `Barcode:param_ord_iter()`
+2020-01-18: [dev][breaking change] rename config() private method to _config(),
+          : encoders can now decide if variant argument is mandatory or not,
+          : update to year 2020 copyright notes
+2020-01-08: [dev][ean family] complete the ISBN support
+2019-12-29: [dev] a new data structure for encoder parameter ordering
+2019-12-29: [dev][ean family] inital ISBN support
+2019-12-28: [api][barcode] new Barcode method `:get_code()`
+2019-12-27: [api][breaking change] rename the `get_barcode_class()` method
+          : to the more simple `barcode()`
+          : [api][breaking change] new encoder naming convention
+          : reuse or create a new encoder object in barracuda:hbox() and
+          : barracuda:save() methods
+
+(*) this commit
+
+Task history and previous version:
+==================================
+
+[????] <v0.0.9.1> 2019-12-04: prelude to version v0.1
+09.15: 2019-11-29: [prj] upload to CTAN version v0.0.9.1 (under CTAN rules)
+09.14: 2019-11-29: [prj] upload to CTAN version v0.0.9
+09.13: 2019-11-26: [man] say something about barracuda.sty
+09.12: 2019-11-26: [man] edit the section 'A more deep look' for clearness
+09.11: 2019-11-26: [prj] reformat todo file: no more date at line end
+09.10: 2019-11-26: [svg] take dimensions as scaled point and then mm
+09.09: 2019-11-26: [prj] every dev task ends with a repository commit
+09.08: 2019-11-25: [prj] .gitignore .out file
+09.07: 2019-11-25: [svg] support for text
+09.06: 2019-11-25: [man] time to get an usable manual even if minimal
+09.05: 2019-11-23: [chk] some new test files
+09.04: 2019-11-23: [dev] new barracuda methods save() and hbox()
+09.03: 2019-11-20: [svg] driver first run
+09.02: 2019-11-10: [dev] implement ga opcode for line-join style and line-cap style
+09.01: 2019-11-10: [prj] make lib-parseopt a separated project
+
+<Version 0.0.8> move costructors to the barcode abstract class     ???? 2019-11-09
+Task   8.5: adopted new Barcode costructors in the EAN encoder        2019-11-09
+Task   8.4: adopted new Barcode costructors in the ITF encoder        2019-11-09
+Task   8.3: adopted new Barcode costructors in the Code128 encoder    2019-11-09
+Task   8.2: adopted new Barcode costructors in the Code39 encoder     2019-11-04
+Task   8.1: new costructor method in the barcode superclass           2019-11-04
+
+<Version 0.0.7> code refactoring for ga-canvas                     ???? 2019-11-02
+Task   7.5: recompile all the test files                              2019-11-02
+Task   7.4: new functions canvas:encode_<obj>()                       2019-11-02
+Task   7.3: text position options for Code39 became two indipendent   2019-11-02
+Task   7.2: added a new code39 test file (and bugs fixed)             2019-11-02
+Task   7.1: added subdirectories in the test tree                     2019-11-02
+
+<Version 0.0.6> implement Interleaved 2 of 5 encoder               ???? 2019-07-02
+Task   6.4: test files                                                2019-07-02
+Task   6.3: add bearer bars for itf encoder                           2019-07-02
+Task   6.2: check digit capability for itf 2 of 5 encoder             2019-07-02
+Task   6.1: implement basic Interleaved 2 of 5 encoder                2019-06-29
+
+<Version 0.0.5> implement Code128 and EAN family encoders          ???? 2019-01-27
+Task   5.5: test file                                                 2019-01-27
+Task   5.4: implement EAN2 variant                                    2019-01-26
+Task   5.3: implement EAN5 variant                                    2019-01-26
+Task   5.2: new family encoder concept                                2019-01-25
+Task   5.1: implement EAN13 encoder                                   2019-01-12
+Task   4.4: refactoring param iterator                                2018-12-30
+Task   4.3: test the local system of option set up for Code128        2018-12-30
+Task   4.2: test the local system of option set up for Code39         2018-12-30
+Task   4.1: test for ga-canvas                                        2018-12-29
+Task   3.3: opt in Code 39 and Code 128 symbol constructors           2018-12-24
+Task   3.2: focus on a new constructor in Barcode Class for
+            better encoder implementation                             2018-12-21
+Task   3.1: import and refactoring previous Code128 encoder code      2018-12-16
+
+<Version 0.0.2>                                                    ???? 2018-12-11
+Task   2.5: option text_gap for code39                                2018-12-11
+Task   2.4: resolved the horizontal correction in spaced text         2018-12-11
+Task   2.3: further text option for the Code39 encoder                2018-12-06
+Task   2.2: include minimal text ability to the system
+Task   2.1: design and implement a basic framework
+
+<Version 0.0.1> open 0.0.1 alpha dev master branch                 ???? 2018-11-30

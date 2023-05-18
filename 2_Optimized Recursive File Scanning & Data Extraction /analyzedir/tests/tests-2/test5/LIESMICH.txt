@@ -1,0 +1,18 @@
+Die Verzeichnisses dieses Pakets enthalten einige Beispiele aus dem Buch:
+
+    Markus Kohm
+    KOMA-Script
+    Eine Sammlung von Klassen und Paketen f??r LaTeX2e
+    6., ??berarbeitete und erweiterte Auflage f??r KOMA-Script 3
+    Lehmanns Media, Berlin, Edition dante, 728 Seiten, 2018
+    ISBN-13: 978-3-86541-951-4 (Printausgabe)
+    <http://www.lob.de/isbn/3865419514>
+    ISBN-13: 978-3-86541-952-1 (eBook)
+    <http://www.lob.de/isbn/3865419521>
+
+Weitere Beschreibungen zu diesen Beispielen sind in diesem Paket nicht
+enthalten. Ohne das Buch sind die Beispiele daher weitgehend nutzlos.
+Abweichungen von den im genannten Buch abgedruckten Beispielen dienen
+der Verbesserung oder Erweiterung und sind vom Autor beabsichtigt.
+
+Die Lizenzbedingungen sind der Datei LEGAL_DE.txt zu entnehmen.

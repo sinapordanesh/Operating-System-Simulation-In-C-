@@ -1,0 +1,789 @@
+START OF ELEMENT fo:page-sequence
+start of fo:page-sequence [
+setfont
+new hbox: 	/F5 12 Tf
+
+move 42 -800
+new hbox: 	42 800 Td
+
+shipping current hbox list
+HBoxList
+--------
+	/F5 12 Tf
+	42 800 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	/F5 12 Tf
+	42 800 Td
+	-0 0 Td
+%]
+--------
+
+] start of fo:page-sequence
+CHARACTERS
+START OF ELEMENT fo:block
+start of fo:block [
+setfont
+new hbox: 	/F3 24 Tf
+
+MOVE because indent-start=0 total_indent=42 margin-left=42 space-before=0 linespacing=12:
+move 0 12
+new hbox: 	0 -12 Td
+
+] start of fo:block
+CHARACTERS
+END OF ELEMENT fo:block
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	( ) Tj
+	/F3 24 Tf
+	0 -12 Td
+	(INVITATION) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=59][
+	59 0 Td
+	/F3 24 Tf
+	0 -12 Td
+	(INVITATION) Tj
+	0 0 Td
+	-59 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+new hbox: 	/F5 12 Tf
+
+START OF ELEMENT fo:list
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=42 margin-left=42 space-before=0 linespacing=12:
+move 0 12
+new hbox: 	0 -12 Td
+
+] start of fo:block
+START OF ELEMENT fo:list-item
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=42 margin-left=42 space-before=0 linespacing=12:
+move 0 12
+new hbox: 	0 -12 Td
+
+] start of fo:block
+START OF ELEMENT fo:list-item-label
+setfont
+new hbox: 	/F6 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:list-item-label
+move 56 0
+new hbox: 	56 0 Td
+
+setfont
+new hbox: 	/F5 12 Tf
+
+START OF ELEMENT fo:list-item-body
+setfont
+CHARACTERS
+END OF ELEMENT fo:list-item-body
+setfont
+END OF ELEMENT fo:list-item
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	/F5 12 Tf
+	0 -12 Td
+	0 -12 Td
+	/F6 12 Tf
+	(To:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(Anna,) Tj
+	( ) Tj
+	(Bernard,) Tj
+	( ) Tj
+	(Didier,) Tj
+	( ) Tj
+	(Johanna) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	/F5 12 Tf
+	0 -12 Td
+	0 -12 Td
+	/F6 12 Tf
+	(To:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(Anna,) Tj
+	( ) Tj
+	(Bernard,) Tj
+	( ) Tj
+	(Didier,) Tj
+	( ) Tj
+	(Johanna) Tj
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+START OF ELEMENT fo:list-item
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=98 margin-left=42 space-before=0 linespacing=12:
+move -56 12
+new hbox: 	-56 -12 Td
+
+] start of fo:block
+START OF ELEMENT fo:list-item-label
+setfont
+new hbox: 	/F6 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:list-item-label
+move 56 0
+new hbox: 	56 0 Td
+
+setfont
+new hbox: 	/F5 12 Tf
+
+START OF ELEMENT fo:list-item-body
+setfont
+CHARACTERS
+END OF ELEMENT fo:list-item-body
+setfont
+END OF ELEMENT fo:list-item
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	-56 -12 Td
+	/F6 12 Tf
+	(When:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(Next) Tj
+	( ) Tj
+	(Friday) Tj
+	( ) Tj
+	(Evening) Tj
+	( ) Tj
+	(at) Tj
+	( ) Tj
+	(8) Tj
+	( ) Tj
+	(pm) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	-56 -12 Td
+	/F6 12 Tf
+	(When:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(Next) Tj
+	( ) Tj
+	(Friday) Tj
+	( ) Tj
+	(Evening) Tj
+	( ) Tj
+	(at) Tj
+	( ) Tj
+	(8) Tj
+	( ) Tj
+	(pm) Tj
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+START OF ELEMENT fo:list-item
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=98 margin-left=42 space-before=0 linespacing=12:
+move -56 12
+new hbox: 	-56 -12 Td
+
+] start of fo:block
+START OF ELEMENT fo:list-item-label
+setfont
+new hbox: 	/F6 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:list-item-label
+move 56 0
+new hbox: 	56 0 Td
+
+setfont
+new hbox: 	/F5 12 Tf
+
+START OF ELEMENT fo:list-item-body
+setfont
+CHARACTERS
+END OF ELEMENT fo:list-item-body
+setfont
+END OF ELEMENT fo:list-item
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	-56 -12 Td
+	/F6 12 Tf
+	(Venue:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(The) Tj
+	( ) Tj
+	(Web) Tj
+	( ) Tj
+	(Cafe) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	-56 -12 Td
+	/F6 12 Tf
+	(Venue:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(The) Tj
+	( ) Tj
+	(Web) Tj
+	( ) Tj
+	(Cafe) Tj
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+START OF ELEMENT fo:list-item
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=98 margin-left=42 space-before=0 linespacing=12:
+move -56 12
+new hbox: 	-56 -12 Td
+
+] start of fo:block
+START OF ELEMENT fo:list-item-label
+setfont
+new hbox: 	/F6 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:list-item-label
+move 56 0
+new hbox: 	56 0 Td
+
+setfont
+new hbox: 	/F5 12 Tf
+
+START OF ELEMENT fo:list-item-body
+setfont
+CHARACTERS
+END OF ELEMENT fo:list-item-body
+setfont
+END OF ELEMENT fo:list-item
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	-56 -12 Td
+	/F6 12 Tf
+	(Occasion:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(My) Tj
+	( ) Tj
+	(first) Tj
+	( ) Tj
+	(XML) Tj
+	( ) Tj
+	(baby) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	-56 -12 Td
+	/F6 12 Tf
+	(Occasion:) Tj
+	56 0 Td
+	/F5 12 Tf
+	(My) Tj
+	( ) Tj
+	(first) Tj
+	( ) Tj
+	(XML) Tj
+	( ) Tj
+	(baby) Tj
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+END OF ELEMENT fo:list
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+CHARACTERS
+START OF ELEMENT fo:block
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=98 margin-left=42 space-before=0 linespacing=12:
+move -56 12
+new hbox: 	-56 -12 Td
+
+] start of fo:block
+CHARACTERS
+START OF ELEMENT fo:sequence
+setfont
+new hbox: 	/F6 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:sequence
+setfont
+new hbox: 	/F5 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:block
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	( ) Tj
+	-56 -12 Td
+	( ) Tj
+	(I) Tj
+	( ) Tj
+	(would) Tj
+	( ) Tj
+	(like) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(invite) Tj
+	( ) Tj
+	(you) Tj
+	( ) Tj
+	(all) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(celebrate) Tj
+	( ) Tj
+	(the) Tj
+	( ) Tj
+	(birth) Tj
+	( ) Tj
+	(of) Tj
+	( ) Tj
+	/F6 12 Tf
+	(Invitation) Tj
+	/F5 12 Tf
+	(,) Tj
+	( ) Tj
+	(my) Tj
+	( ) Tj
+	(first) Tj
+	( ) Tj
+	(XML) Tj
+	( ) Tj
+	(document) Tj
+	( ) Tj
+	(child.) Tj
+	( ) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	-56 -12 Td
+	(I) Tj
+	( ) Tj
+	(would) Tj
+	( ) Tj
+	(like) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(invite) Tj
+	( ) Tj
+	(you) Tj
+	( ) Tj
+	(all) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(celebrate) Tj
+	( ) Tj
+	(the) Tj
+	( ) Tj
+	(birth) Tj
+	( ) Tj
+	(of) Tj
+	( ) Tj
+	/F6 12 Tf
+	-0 0 Td
+%]
+% vbox-movedown[linespacing=12][
+	0 -12 Td
+%]
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	(Invitation) Tj
+	/F5 12 Tf
+	(,) Tj
+	( ) Tj
+	(my) Tj
+	( ) Tj
+	(first) Tj
+	( ) Tj
+	(XML) Tj
+	( ) Tj
+	(document) Tj
+	( ) Tj
+	(child.) Tj
+	( ) Tj
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+CHARACTERS
+START OF ELEMENT fo:block
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=42 margin-left=42 space-before=0 linespacing=12:
+move 0 12
+new hbox: 	0 -12 Td
+
+] start of fo:block
+CHARACTERS
+END OF ELEMENT fo:block
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	( ) Tj
+	0 -12 Td
+	( ) Tj
+	(Please) Tj
+	( ) Tj
+	(do) Tj
+	( ) Tj
+	(your) Tj
+	( ) Tj
+	(best) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(come) Tj
+	( ) Tj
+	(and) Tj
+	( ) Tj
+	(join) Tj
+	( ) Tj
+	(me) Tj
+	( ) Tj
+	(next) Tj
+	( ) Tj
+	(Friday) Tj
+	( ) Tj
+	(evening.) Tj
+	( ) Tj
+	(And,) Tj
+	( ) Tj
+	(do) Tj
+	( ) Tj
+	(not) Tj
+	( ) Tj
+	(forget) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(bring) Tj
+	( ) Tj
+	(your) Tj
+	( ) Tj
+	(friends.) Tj
+	( ) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	0 -12 Td
+	(Please) Tj
+	( ) Tj
+	(do) Tj
+	( ) Tj
+	(your) Tj
+	( ) Tj
+	(best) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(come) Tj
+	( ) Tj
+	(and) Tj
+	( ) Tj
+	(join) Tj
+	( ) Tj
+	(me) Tj
+	( ) Tj
+	(next) Tj
+	( ) Tj
+	(Friday) Tj
+	( ) Tj
+	-0 0 Td
+%]
+% vbox-movedown[linespacing=12][
+	0 -12 Td
+%]
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	(evening.) Tj
+	( ) Tj
+	(And,) Tj
+	( ) Tj
+	(do) Tj
+	( ) Tj
+	(not) Tj
+	( ) Tj
+	(forget) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(bring) Tj
+	( ) Tj
+	(your) Tj
+	( ) Tj
+	(friends.) Tj
+	( ) Tj
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+CHARACTERS
+START OF ELEMENT fo:block
+start of fo:block [
+setfont
+MOVE because indent-start=0 total_indent=42 margin-left=42 space-before=0 linespacing=12:
+move 0 12
+new hbox: 	0 -12 Td
+
+] start of fo:block
+CHARACTERS
+START OF ELEMENT fo:sequence
+setfont
+new hbox: 	/F6 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:sequence
+setfont
+new hbox: 	/F5 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:block
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	( ) Tj
+	0 -12 Td
+	( ) Tj
+	(I) Tj
+	( ) Tj
+	/F6 12 Tf
+	(really) Tj
+	/F5 12 Tf
+	( ) Tj
+	(look) Tj
+	( ) Tj
+	(forward) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(see) Tj
+	( ) Tj
+	(you) Tj
+	( ) Tj
+	(soon!) Tj
+	( ) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=0][
+	0 0 Td
+	0 -12 Td
+	(I) Tj
+	( ) Tj
+	/F6 12 Tf
+	(really) Tj
+	/F5 12 Tf
+	( ) Tj
+	(look) Tj
+	( ) Tj
+	(forward) Tj
+	( ) Tj
+	(to) Tj
+	( ) Tj
+	(see) Tj
+	( ) Tj
+	(you) Tj
+	( ) Tj
+	(soon!) Tj
+	( ) Tj
+	0 0 Td
+	-0 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+CHARACTERS
+START OF ELEMENT fo:block
+start of fo:block [
+setfont
+new hbox: 	/F7 12 Tf
+
+MOVE because indent-start=0 total_indent=42 margin-left=42 space-before=0 linespacing=12:
+move 0 12
+new hbox: 	0 -12 Td
+
+] start of fo:block
+CHARACTERS
+END OF ELEMENT fo:block
+end of fo:block [
+MOVE because indent-start=0 space-after=0:
+move 0 0
+new hbox: 	0 0 Td
+
+shipping current hbox list
+HBoxList
+--------
+	( ) Tj
+	/F7 12 Tf
+	0 -12 Td
+	(From:) Tj
+	( ) Tj
+	(Michel) Tj
+	0 0 Td
+--------
+
+VBoxList
+--------
+% vbox-box[extra-start-indent=185][
+	185 0 Td
+	/F7 12 Tf
+	0 -12 Td
+	(From:) Tj
+	( ) Tj
+	(Michel) Tj
+	0 0 Td
+	-185 0 Td
+%]
+--------
+
+] end of fo:block
+setfont
+new hbox: 	/F5 12 Tf
+
+CHARACTERS
+END OF ELEMENT fo:page-sequence
+setfont
+new hbox: 	/F5 10 Tf
+
